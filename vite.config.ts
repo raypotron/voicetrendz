@@ -17,6 +17,9 @@ export default defineConfig({
         //     formVariants: true,
         // }),
     ],
+    build: {
+        outDir: 'public/build', // ✅ ensures Docker copy line works
+    },
     esbuild: {
         jsx: 'automatic',
     },
