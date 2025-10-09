@@ -15,7 +15,6 @@ COPY tailwind.config.* ./
 COPY tsconfig.* ./
 COPY resources/ ./resources/
 COPY public/ ./public/
-COPY .env .env
 RUN npm run build
 
 # Stage 3: Final image
