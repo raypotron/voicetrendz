@@ -7,7 +7,7 @@ use BackedEnum;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 
-class Dashboard extends Page
+class CustomDashboard extends Page
 {
     protected string $view = 'filament.pages.dashboard';
 
