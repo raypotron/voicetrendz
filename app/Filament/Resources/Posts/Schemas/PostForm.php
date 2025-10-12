@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Posts\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -19,7 +20,25 @@ class PostForm
                 TextInput::make('slug')
                     ->required(),
                 TextInput::make('excerpt'),
-                Textarea::make('content')
+                RichEditor::make('content')
+                ->label('Post Content')
+                    ->toolbarButtons([
+                        'bold',
+                        'bulletList',
+                        'h2',
+                        'h3',
+                        'italic',
+                        'underline',
+                        'strike',
+                        'link',
+                        'orderedList',
+                        'undo',
+                        'redo',
+                        'blockquote',
+                        'codeBlock',
+                        'attachFiles',
+                    ])
+                    // ->extraAttributes(['style' => 'min-height: 400px;'])
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('content_format')
