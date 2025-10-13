@@ -15,8 +15,8 @@ class PostInfolist
                 TextEntry::make('slug'),
                 TextEntry::make('excerpt'),
                 TextEntry::make('content_format'),
-                TextEntry::make('user_id')
-                    ->numeric(),
+                TextEntry::make('user.name')
+                    ->label('Author'),
                 TextEntry::make('category_id')
                     ->numeric(),
                 TextEntry::make('status'),
