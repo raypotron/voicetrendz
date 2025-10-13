@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Posts\Schemas;
 
 use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ViewEntry;
 use Filament\Schemas\Schema;
 
 class PostInfolist
@@ -14,11 +15,15 @@ class PostInfolist
                 TextEntry::make('title'),
                 TextEntry::make('slug'),
                 TextEntry::make('excerpt'),
+                ViewEntry::make('content')
+                    ->label('Content')
+                    ->view('infolists.entries.post-content')
+                    ->columnSpanFull(),
                 TextEntry::make('content_format'),
                 TextEntry::make('user.name')
                     ->label('Author'),
-                TextEntry::make('category_id')
-                    ->numeric(),
+                TextEntry::make('category.name')
+                    ->label('Category'),
                 TextEntry::make('status'),
                 TextEntry::make('published_at')
                     ->dateTime(),
