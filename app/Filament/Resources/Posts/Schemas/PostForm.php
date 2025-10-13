@@ -5,8 +5,8 @@ namespace App\Filament\Resources\Posts\Schemas;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class PostForm
@@ -21,7 +21,7 @@ class PostForm
                     ->required(),
                 TextInput::make('excerpt'),
                 RichEditor::make('content')
-                ->label('Post Content')
+                    ->label('Post Content')
                     ->toolbarButtons([
                         'bold',
                         'bulletList',
@@ -47,9 +47,6 @@ class PostForm
                 TextInput::make('content_format')
                     ->required()
                     ->default('html'),
-                TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
                 Select::make('category_id')
                     ->relationship('category', 'name')
                     ->label('Category')
@@ -66,9 +63,10 @@ class PostForm
                     ->default('draft'),
                 DateTimePicker::make('published_at'),
                 TextInput::make('meta_title'),
+                TextInput::make('thumbnail_path'),
                 Textarea::make('meta_description')
                     ->columnSpanFull(),
-                TextInput::make('thumbnail_path'),
+
             ]);
     }
 }
