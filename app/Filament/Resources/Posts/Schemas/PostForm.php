@@ -38,6 +38,9 @@ class PostForm
                         'codeBlock',
                         'attachFiles',
                     ])
+                    ->fileAttachmentsDisk(config('filesystems.default'))
+                    ->fileAttachmentsVisibility('public')
+                    ->fileAttachmentsDirectory('uploads/editor')
                     // ->extraAttributes(['style' => 'min-height: 400px;'])
                     ->required()
                     ->columnSpanFull(),
