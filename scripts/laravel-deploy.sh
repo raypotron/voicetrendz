@@ -27,7 +27,7 @@ php artisan migrate --force
 # php artisan permission:create-permission-routes
 
 echo "Running seeder files..."
-# php artisan db:seed --force
+php artisan db:seed --force
 # php artisan db:seed --class=CentralAdminSeeder --force
 
 # echo "Run php worker..."
