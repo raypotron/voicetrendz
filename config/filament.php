@@ -117,8 +117,17 @@ return [
 
     'system_route_prefix' => 'filament',
 
-    'path' => 'admin',
 
-    // 'enabled' => env('FILAMENT_ENABLED', true)
+    'id' => 'default',
+    'path' => 'admin',
+    'domain' => null,
+    'middleware' => [
+        'web',
+        \Filament\Http\Middleware\Authenticate::class,
+    ],
+    'auth' => [
+        'guard' => 'web',
+    ],
+    'enabled' => env('FILAMENT_ENABLED', true),
 
 ];
