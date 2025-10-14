@@ -117,6 +117,6 @@ return [
 
     'system_route_prefix' => 'filament',
 
-    'enabled' => env('FILAMENT_ENABLED', true)
+    // 'enabled' => env('FILAMENT_ENABLED', true)
 
 ];
