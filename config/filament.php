@@ -117,6 +117,8 @@ return [
 
     'system_route_prefix' => 'filament',
 
+    'path' => 'admin',
+
     // 'enabled' => env('FILAMENT_ENABLED', true)
 
 ];
