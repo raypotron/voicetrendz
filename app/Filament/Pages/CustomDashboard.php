@@ -10,7 +10,7 @@ use Filament\Support\Icons\Heroicon;
 
 class CustomDashboard extends Page
 {
-    protected string $view = 'filament.pages.dashboard';
+    protected string $view = 'filament.pages.dashboard'; 
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Home;
 
