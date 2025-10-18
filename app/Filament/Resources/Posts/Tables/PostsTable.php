@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -36,8 +37,8 @@ class PostsTable
                     ->sortable(),
                 TextColumn::make('meta_title')
                     ->searchable(),
-                TextColumn::make('thumbnail_path')
-                    ->searchable(),
+                ImageColumn::make('thumbnail_path')
+                    ->label('Thumbnail'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Posts\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -20,6 +21,15 @@ class PostForm
                 TextInput::make('slug')
                     ->required(),
                 TextInput::make('excerpt'),
+                FileUpload::make('thumbnail_path')
+                    ->label('Thumbnail')
+                    ->disk(config('filesystems.default'))
+                    ->directory('uploads/thumbnail')
+                    ->image()
+                    ->imagePreviewHeight('150')
+                    ->visibility('public')
+                    ->preserveFilenames()
+                    ->required(),
                 RichEditor::make('content')
                     ->label('Post Content')
                     ->toolbarButtons([
@@ -63,7 +73,6 @@ class PostForm
                     ->default('draft'),
                 DateTimePicker::make('published_at'),
                 TextInput::make('meta_title'),
-                TextInput::make('thumbnail_path'),
                 Textarea::make('meta_description')
                     ->columnSpanFull(),
 

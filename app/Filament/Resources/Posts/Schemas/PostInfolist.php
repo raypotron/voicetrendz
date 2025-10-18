@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Posts\Schemas;
 
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\ViewEntry;
 use Filament\Schemas\Schema;
@@ -28,7 +29,8 @@ class PostInfolist
                 TextEntry::make('published_at')
                     ->dateTime(),
                 TextEntry::make('meta_title'),
-                TextEntry::make('thumbnail_path'),
+                ImageEntry::make('thumbnail_path')
+                    ->label('Thumbnail'),
                 TextEntry::make('created_at')
                     ->dateTime(),
                 TextEntry::make('updated_at')
