@@ -19,7 +19,8 @@ class ArtistsTable
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('description'),
-                TextColumn::make('social_media_followers'),
+                TextColumn::make('social_media_followers')
+                    ->label('Followers'),
                 ImageColumn::make('image_url')
                     ->label('Profile Picture'),
                 TextColumn::make('created_at')
