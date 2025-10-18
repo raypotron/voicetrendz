@@ -13,4 +13,9 @@ class Artist extends Model
         'bio',
         'image_url'
     ];
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'artist_genre');
+    }
 }
