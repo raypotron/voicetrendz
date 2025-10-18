@@ -23,11 +23,11 @@ class PostsTable
                     ->searchable(),
                 TextColumn::make('content_format')
                     ->searchable(),
-                TextColumn::make('user_id')
-                    ->numeric()
+                TextColumn::make('user.name')
+                    ->label('Author')
                     ->sortable(),
-                TextColumn::make('category_id')
-                    ->numeric()
+                TextColumn::make('category.name')
+                    ->label('Category')
                     ->sortable(),
                 TextColumn::make('status')
                     ->searchable(),
