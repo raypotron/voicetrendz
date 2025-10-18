@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Artists\Schemas;
 
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -24,6 +25,11 @@ class ArtistForm
                     ->preserveFilenames()
                     ->required(),
                 TextInput::make('name')
+                    ->required(),
+                TextInput::make('description')
+                    ->required(),
+                TextInput::make('social_media_followers')
+                    ->label('Social Media Followers')
                     ->required(),
                 RichEditor::make('bio')
                     ->label('Artist Bio')

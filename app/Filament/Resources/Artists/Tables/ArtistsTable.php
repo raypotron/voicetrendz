@@ -18,8 +18,10 @@ class ArtistsTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-                ImageColumn::make('image_url'),
-                ImageColumn::make('image_id'),
+                TextColumn::make('description'),
+                TextColumn::make('social_media_followers'),
+                ImageColumn::make('image_url')
+                    ->label('Profile Picture'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->string('social_media_followers');
             $table->text('bio')->nullable();
             $table->string('image_url')->nullable();
             $table->string('image_id')->nullable();

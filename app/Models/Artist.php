@@ -8,6 +8,8 @@ class Artist extends Model
 {
     protected $fillable = [
         'name',
+        'description',
+        'social_media_followers',
         'bio',
         'image_url'
     ];
