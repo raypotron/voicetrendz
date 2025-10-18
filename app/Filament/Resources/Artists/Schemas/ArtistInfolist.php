@@ -13,8 +13,11 @@ class ArtistInfolist
         return $schema
             ->components([
                 TextEntry::make('name'),
-                ImageEntry::make('image_url'),
-                ImageEntry::make('image_id'),
+                ImageEntry::make('image_url')
+                    ->label('Profile Picture'),
+                TextEntry::make('bio')
+                    ->label('Bio')
+                    ->html(),
                 TextEntry::make('created_at')
                     ->dateTime(),
                 TextEntry::make('updated_at')
