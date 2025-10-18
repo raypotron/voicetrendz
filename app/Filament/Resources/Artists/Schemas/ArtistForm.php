@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Artists\Schemas;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 
 class ArtistForm
@@ -14,6 +13,16 @@ class ArtistForm
     {
         return $schema
             ->components([
+                FileUpload::make('image_url')
+                    ->label('Display Picture')
+                    ->disk(config('filesystems.default'))
+                    ->directory('uploads/artists')
+                    ->image()
+                    ->imagePreviewHeight('150')
+                    ->avatar()
+                    ->visibility('public')
+                    ->preserveFilenames()
+                    ->required(),
                 TextInput::make('name')
                     ->required(),
                 RichEditor::make('bio')
@@ -39,10 +48,6 @@ class ArtistForm
                     ->fileAttachmentsDirectory('uploads/artists')
                     ->required()
                     ->columnSpanFull(),
-                FileUpload::make('image_url')
-                    ->image(),
-                FileUpload::make('image_id')
-                    ->image(),
             ]);
     }
 }
