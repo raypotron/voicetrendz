@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Artists\Schemas;
 
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -31,6 +31,18 @@ class ArtistForm
                 TextInput::make('social_media_followers')
                     ->label('Social Media Followers')
                     ->required(),
+                Select::make('genres')
+                    ->label('Genres')
+                    ->multiple()
+                    ->relationship('genres', 'name')
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->label('Genre Name')
+                            ->required(),
+                    ])
+                    ->preload()
+                    ->searchable()
+                    ->columnSpanFull(),
                 RichEditor::make('bio')
                     ->label('Artist Bio')
                     ->toolbarButtons([

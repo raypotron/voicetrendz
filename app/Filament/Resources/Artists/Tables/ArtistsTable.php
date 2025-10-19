@@ -23,6 +23,10 @@ class ArtistsTable
                     ->label('Followers'),
                 ImageColumn::make('image_url')
                     ->label('Profile Picture'),
+                TextColumn::make('genres.name')
+                    ->label('Genres')
+                    ->badge()
+                    ->separator(', '),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -18,6 +18,8 @@ class ArtistInfolist
                     ->label('Followers'),
                 ImageEntry::make('image_url')
                     ->label('Profile Picture'),
+                TextEntry::make('genres.name')
+                    ->label('Genres'),
                 TextEntry::make('bio')
                     ->label('Bio')
                     ->html(),
