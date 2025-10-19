@@ -28,6 +28,8 @@ class PostInfolist
                 TextEntry::make('status'),
                 TextEntry::make('published_at')
                     ->dateTime(),
+                TextEntry::make('tags.name')
+                    ->label('Tags'),
                 TextEntry::make('meta_title'),
                 ImageEntry::make('thumbnail_path')
                     ->label('Thumbnail'),

@@ -35,6 +35,10 @@ class PostsTable
                 TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable(),
+                TextColumn::make('tags.name')
+                    ->label('Tags')
+                    ->badge()
+                    ->separator(', '),
                 TextColumn::make('meta_title')
                     ->searchable(),
                 ImageColumn::make('thumbnail_path')

@@ -73,6 +73,17 @@ class PostForm
                     ->default('draft'),
                 DateTimePicker::make('published_at'),
                 TextInput::make('meta_title'),
+                Select::make('tags')
+                    ->label('Tags')
+                    ->multiple()
+                    ->relationship('tags', 'name')
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->label('Tag Name')
+                            ->required(),
+                    ])
+                    ->preload()
+                    ->searchable(),
                 Textarea::make('meta_description')
                     ->columnSpanFull(),
 
