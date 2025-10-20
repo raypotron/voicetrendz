@@ -7,11 +7,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | Supported Engines: \Awssat\Visits\DataEngines\RedisEngine::class, \Awssat\Visits\DataEngines\EloquentEngine::class
-    | Connection Name: see config/database.php 
+    | Connection Name: see config/database.php
     |
     */
-    'engine' => \Awssat\Visits\DataEngines\RedisEngine::class,
-    'connection' => 'laravel-visits',
+    'engine' => \Awssat\Visits\DataEngines\EloquentEngine::class,
+    'connection' => env('DB_CONNECTION', 'mysql'),
 
 
     /*
@@ -66,13 +66,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Global Ignore Recording 
+    | Global Ignore Recording
     |--------------------------------------------------------------------------
     |
     | stop recording specific items (can be any of these: 'country', 'refer', 'periods', 'operatingSystem', 'language')
     |
     */
-    'global_ignore' => ['country'],
+    'global_ignore' => [],
 
 ];
 
