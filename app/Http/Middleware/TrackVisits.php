@@ -2,11 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Post;
 use App\Models\SiteVisit;
-use Awssat\Visits\Visits;
 use Closure;
 use Illuminate\Http\Request;
+use Jenssegers\Agent\Agent;
 use Symfony\Component\HttpFoundation\Response;
 
 class TrackVisits
@@ -18,8 +17,21 @@ class TrackVisits
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $site = SiteVisit::class;
+        $agent = new Agent();
+        $device = $agent->isMobile() ? 'Mobile' :
+        ($agent->isTablet() ? 'Tablet' : 'Desktop');
+        $browser = $agent->browser();
+        $platform = $agent->platform();
+
+        $site = SiteVisit::firstOrCreate(['ip' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'browser' => $browser,
+            'platform' => $platform,
+            'device' => $device]);
         visits($site)->increment();
+
+        // visits($site)->
+        // app(Visits::class)->set('site')
         return $next($request);
     }
 }

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class SiteVisit extends Model
 {
-    protected $fillable = ['id'];
+    protected $fillable = [ 'ip', 'user_agent', 'browser', 'device', 'platform'];
 }

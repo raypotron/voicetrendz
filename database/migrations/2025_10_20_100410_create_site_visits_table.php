@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('site_visits', function (Blueprint $table) {
             $table->id();
+            $table->string('ip', 45)->index();
+            $table->string('user_agent', )->nullable();
+            $table->string('device')->nullable();
+            $table->string('browser')->nullable();
+            $table->string('platform')->nullable();
             $table->timestamps();
         });
     }
