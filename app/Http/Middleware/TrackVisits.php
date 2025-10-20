@@ -17,9 +17,9 @@ class TrackVisits
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $agent = new Agent();
+        $agent = new Agent;
         $device = $agent->isMobile() ? 'Mobile' :
-        ($agent->isTablet() ? 'Tablet' : 'Desktop');
+                ($agent->isTablet() ? 'Tablet' : 'Desktop');
         $browser = $agent->browser();
         $platform = $agent->platform();
 
@@ -28,10 +28,9 @@ class TrackVisits
             'browser' => $browser,
             'platform' => $platform,
             'device' => $device]);
-        visits($site)->increment();
 
-        // visits($site)->
-        // app(Visits::class)->set('site')
+        visits($site, 'site')->increment();
+
         return $next($request);
     }
 }
