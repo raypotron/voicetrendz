@@ -4,6 +4,7 @@ import { usePage, router } from '@inertiajs/react';
 import { ChevronLeft, Share2, Heart, Clock, Eye, User, Calendar } from "lucide-react"
 import useBlog from "@/hooks/use-blog"
 import { useState } from "react"
+import { PageProps } from '@inertiajs/core'
 
 // Sample post data - in a real app, this would come from a database
 const allPosts = [
@@ -123,18 +124,33 @@ Industry experts predict that this growth trajectory will continue, with Nigeria
   },
 ]
 
-export default function PostPage() {
-  const { props } = usePage();
+interface Post {
+  id: number
+  title: string
+  content: string
+  thumbnail_url: string
+  created_at: string
+  user: { id: number; name: string }
+  category: { id: number; name: string }
+}
 
-  // ✅ Defensive check: props might be undefined if Inertia didn’t pass any page data
-  const item = props?.item ?? {};
+interface Props extends PageProps {
+  post: Post
+}
+
+export default function PostPage({ post }: Props) {
+    console.log(post);
+//   const { props } = usePage();
+
+//   const item = props?.post ?? {};
+//   console.log(post)
 
   const { isDarkMode } = useBlog();
   const [liked, setLiked] = useState(false);
 
-  // ✅ Safer conversion: avoid parsing undefined
-  const postId = Number(item?.id) || 1;
-  const post = allPosts.find((p) => p.id === postId);
+//   // ✅ Safer conversion: avoid parsing undefined
+  const postId = Number(post?.id) || 1;
+//   const post = allPosts.find((p) => p.id === postId);
 
   // ✅ Handle missing post
   if (!post) {
@@ -170,7 +186,7 @@ export default function PostPage() {
         {/* Hero Image */}
         <div className="relative w-full h-96 sm:h-[500px] overflow-hidden bg-muted">
           <img
-            src={post.image || "/placeholder.svg"}
+            src={post.thumbnail_url || "/placeholder.svg"}
             alt={post.title}
             className="w-full h-full object-cover"
           />
@@ -192,7 +208,7 @@ export default function PostPage() {
           <div className="mb-8">
             <div className="mb-4">
               <span className="inline-block px-4 py-2 bg-primary/10 text-primary font-semibold text-sm rounded-full">
-                {post.category}
+                {post.category.name}
               </span>
             </div>
 
@@ -201,27 +217,27 @@ export default function PostPage() {
             <div className="blog-meta border-b border-border pb-6 space-y-1">
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4 text-muted-foreground" />
-                <span className="font-medium">{post.author}</span>
+                <span className="font-medium">{post.user.name}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-muted-foreground" />
-                <span>{post.date}</span>
+                <span>{post.created_at}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Eye className="w-4 h-4 text-muted-foreground" />
-                <span>{post.views} views</span>
+                <span>100 views</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-muted-foreground" />
-                <span>{post.time}</span>
+                <span>{post.created_at}</span>
               </div>
             </div>
           </div>
 
           {/* Content */}
-          <div className="blog-content py-8 space-y-4">
+          <div className="prose prose-lg max-w-none dark:prose-invert">
             {post.content.split("\n\n").map((paragraph, idx) => (
-              <p key={idx}>{paragraph}</p>
+              <p key={idx} dangerouslySetInnerHTML={{ __html: paragraph }} />
             ))}
           </div>
 
@@ -250,7 +266,7 @@ export default function PostPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {allPosts
                 .filter(
-                  (p) => p.id !== postId && p.category === post.category
+                  (p) => p.id !== postId && p.category === post.category.name
                 )
                 .slice(0, 2)
                 .map((relatedPost) => (

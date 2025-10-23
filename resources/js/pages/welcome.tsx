@@ -95,7 +95,7 @@ export default function Home() {
               Industry experts reveal game-changing trends that will reshape the African music scene
             </p>
             <Link
-              href="posts/1"
+              href={route('posts.show', 2)}
               className="px-6 py-3 bg-purple-600 hover:bg-purple-700 w-fit text-white rounded-lg font-semibold flex items-center gap-2 transition"
             >
 
@@ -161,7 +161,7 @@ export default function Home() {
                 {latestNews.map((news) => (
                   <Link
                     key={news.id}
-                    href=""
+                    href={route('posts.show', news.id)}
                     className={`${cardBg} rounded-xl p-4 shadow hover:shadow-lg transition flex gap-4`}
                   >
                     <img

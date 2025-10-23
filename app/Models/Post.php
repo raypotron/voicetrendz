@@ -21,6 +21,16 @@ class Post extends Model
         'thumbnail_path',
     ];
 
+    protected $appends = ['thumbnail_url'];
+
+    public function getThumbnailUrlAttribute()
+    {
+        return 'https://res.cloudinary.com/'
+            . env('CLOUDINARY_CLOUD_NAME')
+            .'/image/upload/'
+            .$this->attributes['thumbnail_path'];;
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'post_tag');
