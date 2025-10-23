@@ -125,67 +125,80 @@ Industry experts predict that this growth trajectory will continue, with Nigeria
 
 export default function PostPage() {
   const { props } = usePage();
-  const { item } = props;
+
+  // ✅ Defensive check: props might be undefined if Inertia didn’t pass any page data
+  const item = props?.item ?? {};
+
   const { isDarkMode } = useBlog();
-  const [liked, setLiked] = useState(false)
+  const [liked, setLiked] = useState(false);
 
-  const postId = Number.parseInt(item.id as string)
-  const post = allPosts.find((p) => p.id === postId)
+  // ✅ Safer conversion: avoid parsing undefined
+  const postId = Number(item?.id) || 1;
+  const post = allPosts.find((p) => p.id === postId);
 
+  // ✅ Handle missing post
   if (!post) {
     return (
       <div className="min-h-screen bg-background text-foreground">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <button
-            onClick={() => router.back()}
+            onClick={() => router?.back?.()}
             className="flex items-center gap-2 text-primary hover:text-accent mb-8 transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
             <span className="font-medium">Back</span>
           </button>
+
           <div className="text-center py-12">
             <h1 className="text-4xl font-bold mb-4">Post not found</h1>
-            <p className="text-muted-foreground text-lg">The post you're looking for doesn't exist.</p>
+            <p className="text-muted-foreground text-lg">
+              The post you're looking for doesn't exist.
+            </p>
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div
+      className={`min-h-screen bg-background text-foreground ${
+        isDarkMode ? "dark" : ""
+      }`}
+    >
       <article className="w-full">
-        {/* Hero Image Section */}
+        {/* Hero Image */}
         <div className="relative w-full h-96 sm:h-[500px] overflow-hidden bg-muted">
-          <img src={post.image || "/placeholder.svg"} alt={post.title} className="w-full h-full object-cover" />
+          <img
+            src={post.image || "/placeholder.svg"}
+            alt={post.title}
+            className="w-full h-full object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         </div>
 
-        {/* Main Content Container */}
+        {/* Main Content */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Back Button */}
+          {/* Back button */}
           <button
-            onClick={() => router.back()}
+            onClick={() => router?.back?.()}
             className="flex items-center gap-2 text-primary hover:text-accent mt-8 mb-8 transition-colors font-medium"
           >
             <ChevronLeft className="w-5 h-5" />
             Back to articles
           </button>
 
-          {/* Post Header */}
+          {/* Header */}
           <div className="mb-8">
-            {/* Category Badge */}
             <div className="mb-4">
               <span className="inline-block px-4 py-2 bg-primary/10 text-primary font-semibold text-sm rounded-full">
                 {post.category}
               </span>
             </div>
 
-            {/* Title */}
             <h1 className="blog-title mb-6">{post.title}</h1>
 
-            {/* Meta Information */}
-            <div className="blog-meta border-b border-border pb-6">
+            <div className="blog-meta border-b border-border pb-6 space-y-1">
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4 text-muted-foreground" />
                 <span className="font-medium">{post.author}</span>
@@ -205,14 +218,14 @@ export default function PostPage() {
             </div>
           </div>
 
-          {/* Post Content */}
-          <div className="blog-content py-8">
+          {/* Content */}
+          <div className="blog-content py-8 space-y-4">
             {post.content.split("\n\n").map((paragraph, idx) => (
               <p key={idx}>{paragraph}</p>
             ))}
           </div>
 
-          {/* Post Actions */}
+          {/* Actions */}
           <div className="flex flex-wrap items-center gap-4 py-8 border-t border-b border-border">
             <button
               onClick={() => setLiked(!liked)}
@@ -231,17 +244,19 @@ export default function PostPage() {
             </button>
           </div>
 
-          {/* Related Posts Section */}
+          {/* Related Posts */}
           <div className="py-12">
             <h2 className="text-3xl font-bold mb-8">Related Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {allPosts
-                .filter((p) => p.id !== postId && p.category === post.category)
+                .filter(
+                  (p) => p.id !== postId && p.category === post.category
+                )
                 .slice(0, 2)
                 .map((relatedPost) => (
                   <div
                     key={relatedPost.id}
-                    onClick={() => router.push(`/posts/${relatedPost.id}`)}
+                    onClick={() => router.visit(`/posts/${relatedPost.id}`)}
                     className="group cursor-pointer"
                   >
                     <div className="relative h-48 overflow-hidden rounded-lg mb-4 bg-muted">
@@ -254,7 +269,9 @@ export default function PostPage() {
                     <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
                       {relatedPost.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm">{relatedPost.time}</p>
+                    <p className="text-muted-foreground text-sm">
+                      {relatedPost.time}
+                    </p>
                   </div>
                 ))}
             </div>
@@ -262,5 +279,5 @@ export default function PostPage() {
         </div>
       </article>
     </div>
-  )
+  );
 }
