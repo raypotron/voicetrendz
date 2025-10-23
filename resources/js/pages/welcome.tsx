@@ -96,7 +96,7 @@ export default function Home() {
             </p>
             <Link
               href=""
-              className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold flex items-center gap-2 transition"
+              className="px-6 py-3 bg-purple-600 hover:bg-purple-700 w-fit text-white rounded-lg font-semibold flex items-center gap-2 transition"
             >
               Read Full Story <ChevronRight className="w-4 h-4" />
             </Link>
