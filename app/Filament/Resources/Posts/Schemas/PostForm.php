@@ -9,6 +9,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class PostForm
 {
@@ -17,10 +18,19 @@ class PostForm
         return $schema
             ->components([
                 TextInput::make('title')
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (callable $set, $state) {
+                        $set('slug', Str::slug($state));
+                    })
                     ->required(),
                 TextInput::make('slug')
+                    ->label('Slug')
+                    ->disabled()
+                    ->dehydrated()
+                    ->hint('Generated automatically from title')
                     ->required(),
-                TextInput::make('excerpt'),
+                TextInput::make('excerpt')
+                    ->label('Excerpt'),
                 FileUpload::make('thumbnail_path')
                     ->label('Thumbnail')
                     ->disk(config('filesystems.default'))
@@ -55,6 +65,7 @@ class PostForm
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('content_format')
+                    ->label('Content Format')
                     ->required()
                     ->default('html'),
                 Select::make('category_id')
@@ -64,6 +75,7 @@ class PostForm
                     ->preload()
                     ->required(),
                 Select::make('status')
+                    ->label('Status')
                     ->options([
                         'draft' => 'draft',
                         'published' => 'published',
@@ -71,8 +83,10 @@ class PostForm
                     ])
                     ->required()
                     ->default('draft'),
-                DateTimePicker::make('published_at'),
-                TextInput::make('meta_title'),
+                DateTimePicker::make('published_at')
+                    ->label('Published At'),
+                TextInput::make('meta_title')
+                    ->label('Meta Title'),
                 Select::make('tags')
                     ->label('Tags')
                     ->multiple()
@@ -85,6 +99,7 @@ class PostForm
                     ->preload()
                     ->searchable(),
                 Textarea::make('meta_description')
+                    ->label('Meta Description')
                     ->columnSpanFull(),
 
             ]);
