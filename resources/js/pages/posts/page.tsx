@@ -5,6 +5,7 @@ import { ChevronLeft, Share2, Heart, Clock, Eye, User, Calendar } from "lucide-r
 import useBlog from "@/hooks/use-blog"
 import { useState } from "react"
 import { PageProps } from '@inertiajs/core'
+import DOMPurify from 'dompurify';
 
 // Sample post data - in a real app, this would come from a database
 const allPosts = [
