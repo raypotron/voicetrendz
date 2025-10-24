@@ -6,6 +6,7 @@ import { createRoot } from 'react-dom/client';
 import { BlogProvider } from './context/blog-context';
 import { initializeTheme } from './hooks/use-appearance';
 import Navbar from './pages/components/navbar/navbar';
+import Footer from './pages/components/footer/footer';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -23,6 +24,7 @@ createInertiaApp({
             <BlogProvider>
                 <Navbar />
                 <App {...props} />
+                <Footer />
             </BlogProvider>,
         );
     },
