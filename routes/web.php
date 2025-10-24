@@ -15,6 +15,12 @@ Route::get('/', function () {
 // ))->name('posts.show');
 
 Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::get('hot-stories', fn () => Inertia::render('hot-stories/page'))->name('hot.stories');
+Route::get('music-videos', fn () => Inertia::render('music-videos/page'))->name('music.videos');
+Route::get('news', fn () => Inertia::render('news/page'))->name('news');
+Route::get('artists', fn () => Inertia::render('artists/page'))->name('artists');
+Route::get('community', fn () => Inertia::render('community/page'))->name('community');
+Route::get('advertise', fn () => Inertia::render('advertise/page'))->name('advertise');
 
 Route::post('editor/upload', UploadController::class)->name('editor.upload');
 
