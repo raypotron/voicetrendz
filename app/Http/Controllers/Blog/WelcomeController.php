@@ -13,12 +13,18 @@ class WelcomeController extends Controller
     public function __invoke()
     {
         $heroPost = $this->post->where('status', 'published')
-            ->whereHas('tags', function ($query)  {
+            ->whereHas('tags', function ($query) {
                 $query->whereIn('name', ['breaking news']);
-            })->latest()->first();
+            })->with('tags:id,name')->latest()->first();
 
-        // dd($bannerPost);
+        $hotStories = $this->post->where('status', 'published')
+            ->whereHas('tags', function ($query) {
+                $query->whereIn('name', ['hottest']);
+            })->with('tags:id,name')->latest()->limit(4)->get();
 
-        return Inertia::render('welcome', ['heroPost' =>  $heroPost]);
+        // dd($hotStories);
+
+        return Inertia::render('welcome', compact('heroPost',
+            'hotStories'));
     }
 }

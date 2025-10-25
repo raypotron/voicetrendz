@@ -5,6 +5,10 @@ import { PageProps } from '@inertiajs/core';
 import { Link } from '@inertiajs/react';
 import { ChevronRight, TrendingUp } from 'lucide-react';
 import { route } from 'ziggy-js';
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+dayjs.extend(relativeTime);
 
 interface Post {
     id: number;
@@ -18,42 +22,12 @@ interface Post {
 
 interface Props extends PageProps {
     heroPost: Post;
+    hotStories: Post[];
 }
 
-export default function Home({ heroPost }: Props) {
+export default function Home({ heroPost, hotStories }: Props) {
     // const { props } = usePage();
     const { cardBg, isDarkMode, bgClass, textClass } = useBlog();
-
-    const hotStories = [
-        {
-            id: 1,
-            title: "Burna Boy's Secret Collaboration Leaked",
-            image: '/burna-boy-music-studio.jpg',
-            views: '45K',
-            time: '2h ago',
-        },
-        {
-            id: 2,
-            title: 'Wizkid Spotted in Lagos Studio',
-            image: '/wizkid-recording-studio.jpg',
-            views: '32K',
-            time: '5h ago',
-        },
-        {
-            id: 3,
-            title: 'Davido Announces New Album Drop',
-            image: '/davido-album-announcement.jpg',
-            views: '28K',
-            time: '8h ago',
-        },
-        {
-            id: 4,
-            title: 'Tems Wins International Award',
-            image: '/tems-award-ceremony.jpg',
-            views: '21K',
-            time: '12h ago',
-        },
-    ];
 
     const latestNews = [
         {
@@ -153,13 +127,13 @@ export default function Home({ heroPost }: Props) {
                                 {hotStories.map((story) => (
                                     <Link
                                         key={story.id}
-                                        href=""
+                                        href={route('posts.show', story.slug)}
                                         className={`${cardBg} group overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl`}
                                     >
                                         <div className="relative h-48 overflow-hidden">
                                             <img
                                                 src={
-                                                    story.image ||
+                                                    story.thumbnail_url ||
                                                     '/placeholder.svg'
                                                 }
                                                 alt={story.title}
@@ -169,10 +143,12 @@ export default function Home({ heroPost }: Props) {
                                                 <div className="w-full p-4">
                                                     <div className="flex items-center gap-3 text-sm text-white">
                                                         <span>
-                                                            👁 {story.views}
+                                                            👁 45K
                                                         </span>
                                                         <span>
-                                                            ⏱ {story.time}
+                                                            ⏱ {dayjs(
+                                                                story.created_at,
+                                                            ).fromNow()}
                                                         </span>
                                                     </div>
                                                 </div>
