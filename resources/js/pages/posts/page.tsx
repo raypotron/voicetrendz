@@ -1,11 +1,10 @@
 "use client"
 
-import { usePage, router } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { ChevronLeft, Share2, Heart, Clock, Eye, User, Calendar } from "lucide-react"
 import useBlog from "@/hooks/use-blog"
 import { useState } from "react"
 import { PageProps } from '@inertiajs/core'
-import DOMPurify from 'dompurify';
 
 // Sample post data - in a real app, this would come from a database
 const allPosts = [
@@ -140,7 +139,7 @@ interface Props extends PageProps {
 }
 
 export default function PostPage({ post }: Props) {
-    console.log(post);
+    // console.log(post);
 //   const { props } = usePage();
 
 //   const item = props?.post ?? {};
@@ -159,7 +158,7 @@ export default function PostPage({ post }: Props) {
       <div className="min-h-screen bg-background text-foreground">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <button
-            onClick={() => router?.back?.()}
+            onClick={() => router.visit(document.referrer || '/')}
             className="flex items-center gap-2 text-primary hover:text-accent mb-8 transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -198,7 +197,7 @@ export default function PostPage({ post }: Props) {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back button */}
           <button
-            onClick={() => router?.back?.()}
+            onClick={() => router.visit(document.referrer || '/')}
             className="flex items-center gap-2 text-primary hover:text-accent mt-8 mb-8 transition-colors font-medium"
           >
             <ChevronLeft className="w-5 h-5" />

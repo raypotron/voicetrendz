@@ -1,14 +1,13 @@
 <?php
 
 use App\Http\Controllers\Blog\PostController;
+use App\Http\Controllers\Blog\WelcomeController;
 use App\Http\Controllers\Editor\UploadController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('home');
+Route::get('/', WelcomeController::class)->name('home');
 
 // Route::get('posts/{post}', fn (Post $post) => Inertia::render('posts/page',
 //     ['post' => $post]
