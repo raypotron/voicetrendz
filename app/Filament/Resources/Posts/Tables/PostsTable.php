@@ -26,12 +26,10 @@ class PostsTable
                     ->searchable(),
                 TextColumn::make('user.name')
                     ->label('Author')
-                    ->sortable()
-                    ->formatStateUsing(fn ($record) => $record->user?->name ?? '—'),
+                    ->sortable(),
                 TextColumn::make('category.name')
                     ->label('Category')
-                    ->sortable()
-                    ->formatStateUsing(fn ($record) => $record->category?->name ?? '—'),
+                    ->sortable(),
                 TextColumn::make('status')
                     ->searchable(),
                 TextColumn::make('published_at')
@@ -40,12 +38,11 @@ class PostsTable
                 TextColumn::make('tags.name')
                     ->label('Tags')
                     ->badge()
-                    ->separator(', ')
-                    ->formatStateUsing(fn ($record) => $record->tags?->pluck('name')->join(', ') ?? '—'),
+                    ->separator(', '),
                 TextColumn::make('meta_title')
                     ->searchable(),
-                ImageColumn::make('thumbnail_path')
-                    ->label('Thumbnail'),
+                // ImageColumn::make('thumbnail_path')
+                //     ->label('Thumbnail'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -66,7 +63,6 @@ class PostsTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ])
-            ->paginated([5,10,15,25,]);
+            ]);
     }
 }
