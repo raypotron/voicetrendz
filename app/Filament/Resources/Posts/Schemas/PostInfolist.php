@@ -16,10 +16,10 @@ class PostInfolist
                 TextEntry::make('title'),
                 TextEntry::make('slug'),
                 TextEntry::make('excerpt'),
-                ViewEntry::make('content')
-                    ->label('Content')
-                    ->view('infolists.entries.post-content')
-                    ->columnSpanFull(),
+                // ViewEntry::make('content')
+                //     ->label('Content')
+                //     ->view('infolists.entries.post-content')
+                //     ->columnSpanFull(),
                 TextEntry::make('content_format'),
                 TextEntry::make('user.name')
                     ->label('Author'),

@@ -31,6 +31,11 @@ class Post extends Model
             .$this->attributes['thumbnail_path'];;
     }
 
+    public function getRouteKeyName():string
+    {
+        return 'slug';
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'post_tag');
