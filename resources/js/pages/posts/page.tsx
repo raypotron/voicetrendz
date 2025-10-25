@@ -5,6 +5,10 @@ import { ChevronLeft, Share2, Heart, Clock, Eye, User, Calendar } from "lucide-r
 import useBlog from "@/hooks/use-blog"
 import { useState } from "react"
 import { PageProps } from '@inertiajs/core'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+dayjs.extend(relativeTime);
 
 // Sample post data - in a real app, this would come from a database
 const allPosts = [
@@ -221,7 +225,7 @@ export default function PostPage({ post }: Props) {
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-muted-foreground" />
-                <span>{post.created_at}</span>
+                <span>{dayjs(post.created_at).format('MMMM D, YYYY')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Eye className="w-4 h-4 text-muted-foreground" />
@@ -229,7 +233,7 @@ export default function PostPage({ post }: Props) {
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-muted-foreground" />
-                <span>{post.created_at}</span>
+                <span>{dayjs(post.created_at).fromNow()}</span>
               </div>
             </div>
           </div>
