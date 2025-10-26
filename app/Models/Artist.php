@@ -14,6 +14,16 @@ class Artist extends Model
         'image_url'
     ];
 
+    protected $appends = ['image_path'];
+
+    public function getImagePathAttribute()
+    {
+        return 'https://res.cloudinary.com/'
+            . env('CLOUDINARY_CLOUD_NAME')
+            .'/image/upload/'
+            .$this->attributes['image_url'];
+    }
+
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'artist_genre');

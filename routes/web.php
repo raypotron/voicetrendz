@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Blog\ArtistController;
 use App\Http\Controllers\Blog\HotStoriesController;
 use App\Http\Controllers\Blog\NewsController;
 use App\Http\Controllers\Blog\PostController;
@@ -19,7 +20,7 @@ Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::get('hot-stories', HotStoriesController::class)->name('hot.stories');
 Route::get('music-videos', fn () => Inertia::render('music-videos/page'))->name('music.videos');
 Route::get('news', NewsController::class)->name('news');
-Route::get('artists', fn () => Inertia::render('artists/page'))->name('artists');
+Route::get('artists', [ArtistController::class, 'index'])->name('artists');
 Route::get('community', fn () => Inertia::render('community/page'))->name('community');
 Route::get('advertise', fn () => Inertia::render('advertise/page'))->name('advertise');
 

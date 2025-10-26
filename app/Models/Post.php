@@ -28,7 +28,7 @@ class Post extends Model
         return 'https://res.cloudinary.com/'
             . env('CLOUDINARY_CLOUD_NAME')
             .'/image/upload/'
-            .$this->attributes['thumbnail_path'];;
+            .$this->attributes['thumbnail_path'];
     }
 
     public function getRouteKeyName():string
