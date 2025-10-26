@@ -14,7 +14,7 @@ class PostService
         // return Cache::remember($key, now()->addMinutes(10), function () use ($tag, $limit) {
             $query = Post::where('status', 'published')
                 ->whereHas('tags', fn ($q) => $q->where('name', $tag))
-                ->with(['tags:id,name', 'category:id,name'])
+                ->with(['tags:id,name'])
                 ->latest();
 
             if ($limit) {
