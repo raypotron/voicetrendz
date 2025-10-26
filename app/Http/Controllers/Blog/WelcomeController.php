@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 class WelcomeController extends Controller
 {
-    public function __construct(private Post $post, private PostService $postService) {}
+    public function __construct(private PostService $postService) {}
 
     public function __invoke()
     {
