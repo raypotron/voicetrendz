@@ -27,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        // ini_set('max_execution_time', 1800);
+        ini_set('max_execution_time', 1800);
     }
 }
