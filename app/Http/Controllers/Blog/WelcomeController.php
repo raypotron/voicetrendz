@@ -14,9 +14,10 @@ class WelcomeController extends Controller
     public function __invoke()
     {
         $heroPost = $this->postService->getPostsByTag('breaking news')->first();
-        $hotStories =$this->postService->getPostsByTag('hottest', 4);
+        $hotStories = $this->postService->getPostsByTag('hottest', 4);
+        $latestNews = $this->postService->getPostsByTag('latest news', 4);
 
         return Inertia::render('welcome', compact('heroPost',
-            'hotStories'));
+            'hotStories', 'latestNews'));
     }
 }

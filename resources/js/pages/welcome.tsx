@@ -23,42 +23,12 @@ interface Post {
 interface Props extends PageProps {
     heroPost: Post;
     hotStories: Post[];
+    latestNews: Post[];
 }
 
-export default function Home({ heroPost, hotStories }: Props) {
+export default function Home({ heroPost, hotStories, latestNews }: Props) {
     // const { props } = usePage();
     const { cardBg, isDarkMode, bgClass, textClass } = useBlog();
-
-    const latestNews = [
-        {
-            id: 5,
-            title: 'New Afrobeats Festival Announced for December',
-            excerpt: 'Major artists confirmed for Lagos mega event',
-            time: '1h ago',
-            image: '/afrobeats-festival-stage.jpg',
-        },
-        {
-            id: 6,
-            title: 'Nigerian Music Streams Hit All-Time High',
-            excerpt: 'Industry reports 200% growth in digital consumption',
-            time: '3h ago',
-            image: '/music-streaming-analytics.jpg',
-        },
-        {
-            id: 7,
-            title: 'Rising Star Signs Major Record Deal',
-            excerpt: 'Fresh talent secures international distribution',
-            time: '6h ago',
-            image: '/record-deal-signing.jpg',
-        },
-        {
-            id: 8,
-            title: 'Music Video Breaks YouTube Records',
-            excerpt: '10 million views in first 24 hours',
-            time: '9h ago',
-            image: '/youtube-music-video.jpg',
-        },
-    ];
 
     const trendingTopics = [
         '#BurnaBoy',
@@ -173,12 +143,12 @@ export default function Home({ heroPost, hotStories }: Props) {
                                 {latestNews.map((news) => (
                                     <Link
                                         key={news.id}
-                                        href={route('posts.show', news.id)}
+                                        href={route('posts.show', news.slug)}
                                         className={`${cardBg} flex gap-4 rounded-xl p-4 shadow transition hover:shadow-lg`}
                                     >
                                         <img
                                             src={
-                                                news.image || '/placeholder.svg'
+                                                news.thumbnail_url || '/placeholder.svg'
                                             }
                                             alt={news.title}
                                             className="h-24 w-24 flex-shrink-0 rounded-lg object-cover"
@@ -197,7 +167,7 @@ export default function Home({ heroPost, hotStories }: Props) {
                                                 {news.excerpt}
                                             </p>
                                             <span className="text-xs text-gray-500">
-                                                {news.time}
+                                                {dayjs(news.created_at).fromNow()}
                                             </span>
                                         </div>
                                     </Link>
