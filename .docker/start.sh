@@ -3,6 +3,7 @@
 # Set script to exit on any error
 set -e
 
+
 # Run production optimizations
 php artisan config:cache
 php artisan route:cache
