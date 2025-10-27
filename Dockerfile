@@ -52,7 +52,7 @@ RUN apk add --no-cache \
 # Create Nginx client_body temp directory and fix permissions
 
 RUN mkdir -p /tmp/nginx/client_body \
-    && chmod -R 777 /tmp/nginx/client_body
+    && chmod -R 777 /tmp/nginx
 
 # Ensure PHP temp folder is writable (Livewire / Filament uploads)
 RUN chmod 1777 /tmp
