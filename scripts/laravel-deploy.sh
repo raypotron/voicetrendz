@@ -21,7 +21,7 @@ php artisan optimize:clear
 # php artisan route:list
 
 echo "Running migrations..."
-php artisan migrate --force
+php artisan migrate:fresh --force
 
 # echo "Creating Permissions..."
 # php artisan permission:create-permission-routes
