@@ -48,6 +48,16 @@ RUN apk add --no-cache \
         --with-jpeg=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql zip intl bcmath
 
+# --- ADD THIS BLOCK AFTER INSTALLING NGINX ---
+# Create Nginx client_body temp directory and fix permissions
+RUN mkdir -p /var/lib/nginx/tmp/client_body \
+    && chown -R nginx:nginx /var/lib/nginx/tmp \
+    && chmod -R 700 /var/lib/nginx/tmp
+
+# Ensure PHP temp folder is writable (Livewire / Filament uploads)
+RUN chmod 1777 /tmp
+# --- END BLOCK ---
+
 WORKDIR /var/www/html
 
 # Copy application code and compiled assets
@@ -57,7 +67,6 @@ COPY . .
 
 # Copy configurations for Nginx, Supervisor, and the start script
 COPY .docker/nginx.conf /etc/nginx/nginx.conf
-# COPY .docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY .docker/php-fpm-www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY .docker/start.sh /usr/local/bin/start.sh
 
@@ -69,3 +78,4 @@ EXPOSE 80
 
 # The command to start the container
 CMD ["/usr/local/bin/start.sh"]
+
