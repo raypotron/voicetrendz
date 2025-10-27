@@ -3,6 +3,13 @@
 # Set script to exit on any error
 set -e
 
+# --- Ensure Nginx temp folder exists and is writable ---
+mkdir -p /tmp/nginx/client_body
+chmod 777 /tmp/nginx/client_body
+
+# Ensure PHP temp folder is writable (for Livewire/Filament)
+chmod 1777 /tmp
+# --- End temp folders setup ---
 
 # Run production optimizations
 php artisan config:cache

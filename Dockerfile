@@ -30,7 +30,7 @@ RUN npm run build
 # Stage 3: Final production image
 FROM php:8.2-fpm-alpine
 
-# Install system dependencies for Laravel (gd, pdo_mysql, pdo_pgsql, etc.) and Supervisor
+# Install system dependencies for Laravel (gd, pdo_mysql, etc.) + Nginx + Supervisor
 RUN apk add --no-cache \
     curl \
     icu-dev \
@@ -44,19 +44,17 @@ RUN apk add --no-cache \
     supervisor \
     openssl \
     && docker-php-ext-configure gd \
-    --with-freetype=/usr/include/ \
-    --with-jpeg=/usr/include/ \
+        --with-freetype=/usr/include/ \
+        --with-jpeg=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql zip intl bcmath
 
-# --- ADD THIS BLOCK AFTER INSTALLING NGINX ---
-# Create Nginx client_body temp directory and fix permissions
-
+# --- Create Nginx temp folder and set permissions ---
 RUN mkdir -p /tmp/nginx/client_body \
-    && chmod -R 777 /tmp/nginx
+    && chmod -R 777 /tmp/nginx/client_body
 
 # Ensure PHP temp folder is writable (Livewire / Filament uploads)
 RUN chmod 1777 /tmp
-# --- END BLOCK ---
+# --- End of temp folders setup ---
 
 WORKDIR /var/www/html
 
@@ -65,17 +63,18 @@ COPY --from=vendor /app/vendor/ /var/www/html/vendor/
 COPY --from=frontend /app/public/build/ /var/www/html/public/build/
 COPY . .
 
-# Copy configurations for Nginx, Supervisor, and the start script
+# Copy configurations for Nginx, Supervisor, and start script
 COPY .docker/nginx.conf /etc/nginx/nginx.conf
 COPY .docker/php-fpm-www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY .docker/start.sh /usr/local/bin/start.sh
 
-# Set permissions
+# Make start.sh executable and set ownership of app folder
 RUN chmod +x /usr/local/bin/start.sh \
     && chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
 
-# The command to start the container
+# Start container via start.sh
 CMD ["/usr/local/bin/start.sh"]
+
 
