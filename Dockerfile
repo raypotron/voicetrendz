@@ -44,15 +44,15 @@ RUN apk add --no-cache \
     supervisor \
     openssl \
     && docker-php-ext-configure gd \
-        --with-freetype=/usr/include/ \
-        --with-jpeg=/usr/include/ \
+    --with-freetype=/usr/include/ \
+    --with-jpeg=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql zip intl bcmath
 
 # --- ADD THIS BLOCK AFTER INSTALLING NGINX ---
 # Create Nginx client_body temp directory and fix permissions
-RUN mkdir -p /var/lib/nginx/tmp/client_body \
-    && chown -R nginx:nginx /var/lib/nginx/tmp \
-    && chmod -R 700 /var/lib/nginx/tmp
+
+RUN mkdir -p /tmp/nginx/client_body \
+    && chmod -R 777 /tmp/nginx/client_body
 
 # Ensure PHP temp folder is writable (Livewire / Filament uploads)
 RUN chmod 1777 /tmp
