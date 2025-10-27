@@ -32,6 +32,7 @@ FROM php:8.2-fpm-alpine
 
 # Install system dependencies for Laravel (gd, pdo_mysql, pdo_pgsql, etc.) and Supervisor
 RUN apk add --no-cache \
+    curl \
     icu-dev \
     libzip-dev \
     freetype-dev \
@@ -41,6 +42,7 @@ RUN apk add --no-cache \
     bash \
     nginx \
     supervisor \
+    openssl \
     && docker-php-ext-configure gd \
         --with-freetype=/usr/include/ \
         --with-jpeg=/usr/include/ \
