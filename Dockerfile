@@ -38,8 +38,9 @@ RUN apk add --no-cache \
     libpng-dev \
     jpeg-dev \
     freetype-dev \
+    libicu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql zip
+    && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql zip intl
 
 WORKDIR /var/www/html
 
