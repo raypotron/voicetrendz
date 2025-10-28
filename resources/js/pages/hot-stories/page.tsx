@@ -2,6 +2,7 @@
 
 import useBlog from '@/hooks/use-blog';
 import { PageProps } from '@inertiajs/core';
+import { router } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Clock, Eye } from 'lucide-react';
@@ -40,6 +41,7 @@ export default function HotStoriesPage({ hotStories }: Props) {
                 {hotStories.map((story) => (
                     <div
                         key={story.id}
+                        onClick={() => router.visit(`/posts/${story.slug}`)}
                         className={`${cardBg} group cursor-pointer overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl`}
                     >
                         <div className="relative h-48 overflow-hidden">
@@ -59,7 +61,9 @@ export default function HotStoriesPage({ hotStories }: Props) {
                                         <span className="flex items-center gap-1">
                                             <Clock className="h-4 w-4" />{' '}
                                             {story.created_at
-                                                ? dayjs(story.created_at).fromNow()
+                                                ? dayjs(
+                                                      story.created_at,
+                                                  ).fromNow()
                                                 : ''}
                                         </span>
                                     </div>

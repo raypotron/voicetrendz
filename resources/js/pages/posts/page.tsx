@@ -281,10 +281,6 @@ export default function PostPage({ post, relatedArticles }: Props) {
 
                     {/* Content */}
                     <div className="blog-content py-8">{formatContent(post.content)}</div>
-                    {/* <div
-                        className="prose prose-lg max-w-none dark:prose-invert"
-                        dangerouslySetInnerHTML={{ __html: post.content }}
-                    /> */}
 
                     {/* Actions */}
                     <div className="flex flex-wrap items-center gap-4 border-t border-b border-border py-8">
