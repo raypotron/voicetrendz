@@ -36,6 +36,7 @@ export default function DesktopMenu() {
         { href: '/artists', label: 'Artists' },
         { href: '/community', label: 'Community', icon: Users },
         { href: '/advertise', label: 'Advertise' },
+        
     ];
 
     return (
