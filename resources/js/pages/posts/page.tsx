@@ -39,6 +39,8 @@ export default function PostPage({ post, relatedArticles }: Props) {
     const { isDarkMode } = useBlog();
     const [liked, setLiked] = useState(false);
 
+    // console.log(post.content);
+
     const formatContent = (content: string) => {
     // Parse HTML content and render with proper styling
     const parseHTML = (html: string) => {
@@ -63,6 +65,19 @@ export default function PostPage({ post, relatedArticles }: Props) {
         //   const innerHTML = element.innerHTML
 
           switch (element.tagName.toLowerCase()) {
+            case "img":
+              return (
+                <figure key={idx} className="blog-figure">
+                  <img
+                    src={element.getAttribute("src") || "/placeholder.svg"}
+                    alt={element.getAttribute("alt") || "Blog image"}
+                    className="blog-image"
+                  />
+                  {element.getAttribute("alt") && (
+                    <figcaption className="blog-figcaption">{element.getAttribute("alt")}</figcaption>
+                  )}
+                </figure>
+              )
             case "h4":
               return (
                 <h4 key={idx} className="blog-heading-4">

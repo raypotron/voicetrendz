@@ -200,6 +200,18 @@
         @apply text-foreground/80 italic;
     }
 
+    .blog-figure {
+        @apply my-8 flex flex-col items-center;
+    }
+
+    .blog-image {
+        @apply h-auto w-full max-w-2xl rounded-lg object-cover shadow-lg;
+    }
+
+    .blog-figcaption {
+        @apply mt-3 max-w-2xl text-center text-sm text-muted-foreground italic;
+    }
+
     .nav-link-active {
         @apply border-b-2 border-primary font-semibold text-primary;
     }
