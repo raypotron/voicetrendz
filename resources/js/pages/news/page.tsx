@@ -2,6 +2,7 @@
 
 import useBlog from "@/hooks/use-blog"
 import { PageProps } from '@inertiajs/core';
+import { router } from "@inertiajs/react";
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
@@ -37,6 +38,7 @@ export default function NewsPage({ news }: Props) {
         {news.map((item) => (
           <div
             key={item.id}
+            onClick={() => router.visit(`/posts/${item.slug}`)}
             className={`${cardBg} rounded-xl p-4 shadow hover:shadow-lg transition cursor-pointer flex gap-4`}
           >
             <img
