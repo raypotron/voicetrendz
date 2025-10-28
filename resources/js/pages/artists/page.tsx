@@ -79,7 +79,7 @@ export default function ArtistsPage({ artists }: Props) {
               <img
                 src={artist.image_path || "/placeholder.svg"}
                 alt={artist.name}
-                className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                className="h-100 w-100 object-cover group-hover:scale-110 transition duration-500"
               />
             </div>
             <div className="p-4">
