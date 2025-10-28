@@ -155,16 +155,170 @@ export default function PostPage({ post }: Props) {
     //   const { props } = usePage();
 
     //   const item = props?.post ?? {};
-    //   console.log(post.content)
+      console.log(post.content)
 
     const { isDarkMode } = useBlog();
     const [liked, setLiked] = useState(false);
+
+
 
     //   // ✅ Safer conversion: avoid parsing undefined
     const postId = Number(post?.id) || 1;
     //   const post = allPosts.find((p) => p.id === postId);
 
     // ✅ Handle missing post
+
+    const formatContent = (content: string) => {
+    // Parse HTML content and render with proper styling
+    const parseHTML = (html: string) => {
+      const parser = new DOMParser()
+      const doc = parser.parseFromString(html, "text/html")
+
+      return Array.from(doc.body.childNodes).map((node, idx) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent?.trim()
+          if (text) {
+            return (
+              <p key={idx} className="blog-paragraph">
+                {text}
+              </p>
+            )
+          }
+          return null
+        }
+
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          const element = node as Element
+        //   const innerHTML = element.innerHTML
+
+          switch (element.tagName.toLowerCase()) {
+            case "h4":
+              return (
+                <h4 key={idx} className="blog-heading-4">
+                  {element.textContent}
+                </h4>
+              )
+            case "h3":
+              return (
+                <h3 key={idx} className="blog-heading-3">
+                  {element.textContent}
+                </h3>
+              )
+            case "h2":
+              return (
+                <h2 key={idx} className="blog-heading-2">
+                  {element.textContent}
+                </h2>
+              )
+            case "p":
+              return (
+                <p key={idx} className="blog-paragraph">
+                  {Array.from(element.childNodes).map((child, childIdx) => {
+                    if (child.nodeType === Node.TEXT_NODE) {
+                      return child.textContent
+                    }
+                    if (child.nodeType === Node.ELEMENT_NODE) {
+                      const childEl = child as Element
+                      if (childEl.tagName.toLowerCase() === "strong") {
+                        return <strong key={childIdx}>{childEl.textContent}</strong>
+                      }
+                      if (childEl.tagName.toLowerCase() === "em") {
+                        return <em key={childIdx}>{childEl.textContent}</em>
+                      }
+                    }
+                    return null
+                  })}
+                </p>
+              )
+            case "ul":
+              return (
+                <ul key={idx} className="blog-list">
+                  {Array.from(element.children).map((li, liIdx) => (
+                    <li key={liIdx} className="blog-list-item">
+                      {Array.from(li.childNodes).map((child, childIdx) => {
+                        if (child.nodeType === Node.TEXT_NODE) {
+                          return child.textContent
+                        }
+                        if (child.nodeType === Node.ELEMENT_NODE) {
+                          const childEl = child as Element
+                          if (childEl.tagName.toLowerCase() === "p") {
+                            return (
+                              <span key={childIdx}>
+                                {Array.from(childEl.childNodes).map((pChild, pIdx) => {
+                                  if (pChild.nodeType === Node.TEXT_NODE) {
+                                    return pChild.textContent
+                                  }
+                                  if (pChild.nodeType === Node.ELEMENT_NODE) {
+                                    const pChildEl = pChild as Element
+                                    if (pChildEl.tagName.toLowerCase() === "strong") {
+                                      return <strong key={pIdx}>{pChildEl.textContent}</strong>
+                                    }
+                                  }
+                                  return null
+                                })}
+                              </span>
+                            )
+                          }
+                        }
+                        return null
+                      })}
+                    </li>
+                  ))}
+                </ul>
+              )
+            case "ol":
+              return (
+                <ol key={idx} className="blog-ordered-list">
+                  {Array.from(element.children).map((li, liIdx) => (
+                    <li key={liIdx} className="blog-list-item">
+                      {Array.from(li.childNodes).map((child, childIdx) => {
+                        if (child.nodeType === Node.TEXT_NODE) {
+                          return child.textContent
+                        }
+                        if (child.nodeType === Node.ELEMENT_NODE) {
+                          const childEl = child as Element
+                          if (childEl.tagName.toLowerCase() === "p") {
+                            return (
+                              <span key={childIdx}>
+                                {Array.from(childEl.childNodes).map((pChild, pIdx) => {
+                                  if (pChild.nodeType === Node.TEXT_NODE) {
+                                    return pChild.textContent
+                                  }
+                                  if (pChild.nodeType === Node.ELEMENT_NODE) {
+                                    const pChildEl = pChild as Element
+                                    if (pChildEl.tagName.toLowerCase() === "strong") {
+                                      return <strong key={pIdx}>{pChildEl.textContent}</strong>
+                                    }
+                                  }
+                                  return null
+                                })}
+                              </span>
+                            )
+                          }
+                        }
+                        return null
+                      })}
+                    </li>
+                  ))}
+                </ol>
+              )
+            case "blockquote":
+              return (
+                <blockquote key={idx} className="blog-blockquote">
+                  {element.textContent}
+                </blockquote>
+              )
+            default:
+              return null
+          }
+        }
+        return null
+      })
+    }
+
+    return parseHTML(content)
+  }
+
     if (!post) {
         return (
             <div className="min-h-screen bg-background text-foreground">
@@ -255,10 +409,11 @@ export default function PostPage({ post }: Props) {
                     </div>
 
                     {/* Content */}
-                    <div
+                    <div className="blog-content py-8">{formatContent(post.content)}</div>
+                    {/* <div
                         className="prose prose-lg max-w-none dark:prose-invert"
                         dangerouslySetInnerHTML={{ __html: post.content }}
-                    />
+                    /> */}
 
                     {/* Actions */}
                     <div className="flex flex-wrap items-center gap-4 border-t border-b border-border py-8">

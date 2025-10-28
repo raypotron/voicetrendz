@@ -141,3 +141,62 @@
         @apply bg-background text-foreground;
     }
 }
+
+/* Added blog-specific typography and spacing */
+@layer components {
+    .blog-title {
+        @apply text-5xl leading-tight font-bold text-balance md:text-6xl;
+    }
+
+    .blog-subtitle {
+        @apply text-xl leading-relaxed text-muted-foreground md:text-2xl;
+    }
+
+    .blog-meta {
+        @apply flex flex-wrap items-center gap-4 text-sm text-muted-foreground;
+    }
+
+    .blog-content {
+        @apply max-w-none;
+    }
+
+    .blog-paragraph {
+        @apply mb-6 indent-8 text-lg leading-relaxed text-foreground/90 first:indent-0;
+    }
+
+    .blog-heading-2 {
+        @apply mt-10 mb-6 text-4xl leading-tight font-bold text-foreground;
+    }
+
+    .blog-heading-3 {
+        @apply mt-8 mb-5 text-3xl leading-tight font-bold text-foreground;
+    }
+
+    .blog-heading-4 {
+        @apply mt-6 mb-4 text-2xl leading-tight font-bold text-foreground;
+    }
+
+    .blog-blockquote {
+        @apply my-8 rounded-r-lg border-l-4 border-primary bg-secondary/30 py-4 pl-6 text-lg leading-relaxed font-medium text-foreground/85 italic;
+    }
+
+    .blog-list {
+        @apply mb-6 list-inside list-disc space-y-3;
+    }
+
+    .blog-ordered-list {
+        @apply mb-6 list-inside list-decimal space-y-3;
+    }
+
+    .blog-list-item {
+        @apply ml-2 text-lg leading-relaxed text-foreground/90;
+    }
+
+    .blog-content strong {
+        @apply font-semibold text-foreground;
+    }
+
+    .blog-content em {
+        @apply text-foreground/80 italic;
+    }
+}
