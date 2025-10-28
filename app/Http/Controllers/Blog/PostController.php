@@ -15,8 +15,9 @@ class PostController extends Controller
     {
         $singlePost = $post->load('user:id,name', 'category:id,name', 'tags:id,name');
 
-        // ! Fetch Multiple Tags
-        $relatedArticles = $this->postService->getPostsByTag($singlePost->tags[0]->name, 2);
+        $tags = $post->tags->pluck('name')->toArray();
+
+        $relatedArticles = $this->postService->getRelatedPostsByTag($tags, $singlePost->id, 2);
 
         return Inertia::render('posts/page', ['post' => $singlePost,
             'relatedArticles' => $relatedArticles]);

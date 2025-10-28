@@ -12,17 +12,27 @@ class PostService
         // $key = "posts_{$tag}_".($limit ?? 'all');
 
         // return Cache::remember($key, now()->addMinutes(10), function () use ($tag, $limit) {
-            $query = Post::where('status', 'published')
-                ->whereHas('tags', fn ($q) => $q->where('name', $tag))
-                ->with(['tags:id,name'])
-                ->latest();
+        $query = Post::where('status', 'published')
+            ->whereHas('tags', fn ($q) => $q->where('name', $tag))
+            ->with(['tags:id,name'])
+            ->latest();
 
-            if ($limit) {
-                $query->limit($limit);
-            }
+        if ($limit) {
+            $query->limit($limit);
+        }
 
-            return $query->get();
+        return $query->get();
         // });
+    }
 
+    public function getRelatedPostsByTag(array|string $tags, int $postId, ?int $limit = null)
+    {
+        return Post::where('status', 'published')
+            ->whereNot('id', $postId)
+            ->whereHas('tags', fn ($q) => is_array($tags) ? $q->whereIn('name', $tags) : $q->where('name', $tags))
+            ->with(['tags:id,name'])
+            ->latest()
+            ->when($limit, fn ($q) => $q->limit($limit))
+            ->get();
     }
 }
