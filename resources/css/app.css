@@ -199,4 +199,12 @@
     .blog-content em {
         @apply text-foreground/80 italic;
     }
+
+    .nav-link-active {
+        @apply border-b-2 border-primary font-semibold text-primary;
+    }
+
+    .nav-link {
+        @apply transition-all duration-200;
+    }
 }
