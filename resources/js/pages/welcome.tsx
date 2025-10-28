@@ -173,9 +173,11 @@ export default function Home({ heroPost, hotStories, latestNews }: Props) {
                                     </Link>
                                 ))}
                             </div>
-                            <button className="mt-6 w-full rounded-lg border-2 border-purple-600 py-3 font-semibold text-purple-600 transition hover:bg-purple-600 hover:text-white">
-                                Load More Stories
-                            </button>
+                            <Link href="/news">
+                                <button className="mt-6 w-full rounded-lg border-2 border-purple-600 py-3 font-semibold text-purple-600 transition hover:bg-purple-600 hover:text-white">
+                                    Load More Stories
+                                </button>
+                            </Link>
                         </section>
                     </div>
 
