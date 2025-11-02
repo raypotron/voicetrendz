@@ -26,6 +26,8 @@ class UserPanelProvider extends PanelProvider
         return $panel
             ->id('user')
             ->path('user')
+            ->login()
+            ->registration()
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -39,6 +41,7 @@ class UserPanelProvider extends PanelProvider
                 AccountWidget::class,
                 FilamentInfoWidget::class,
             ])
+            ->authGuard('web')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
