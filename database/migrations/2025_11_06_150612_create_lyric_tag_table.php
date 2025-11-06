@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('lyric_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lyruc_id')->constrained()->onDelete('cascade');
+            $table->foreignId('lyric_id')->constrained()->onDelete('cascade');
             $table->foreignId('tag_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

@@ -17,4 +17,29 @@ class Lyric extends Model
         'published_at',
         'thumbnail_path',
     ];
+
+    protected $appends = ['thumbnail_url'];
+
+    public function getThumbnailUrlAttribute()
+    {
+        return 'https://res.cloudinary.com/'
+            . env('CLOUDINARY_CLOUD_NAME')
+            .'/image/upload/'
+            .$this->attributes['thumbnail_path'];
+    }
+
+    public function getRouteKeyName():string
+    {
+        return 'slug';
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'lyric_tag');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
