@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\Cache;
 
 class PostService
 {
+    public function __construct(private Post $post) {}
     public function getPostsByTag(string $tag, ?int $limit = null)
     {
         // $key = "posts_{$tag}_".($limit ?? 'all');
 
         // return Cache::remember($key, now()->addMinutes(10), function () use ($tag, $limit) {
-        $query = Post::where('status', 'published')
+        $query = $this->post->where('status', 'published')
             ->whereHas('tags', fn ($q) => $q->where('name', $tag))
             ->with(['tags:id,name'])
             ->latest();
@@ -27,7 +28,7 @@ class PostService
 
     public function getRelatedPostsByTag(array|string $tags, int $postId, ?int $limit = null)
     {
-        return Post::where('status', 'published')
+        return $this->post->where('status', 'published')
             ->whereNot('id', $postId)
             ->whereHas('tags', fn ($q) => is_array($tags) ? $q->whereIn('name', $tags) : $q->where('name', $tags))
             ->with(['tags:id,name'])
