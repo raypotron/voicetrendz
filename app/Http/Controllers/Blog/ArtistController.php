@@ -15,8 +15,6 @@ class ArtistController extends Controller
     {
         $artists = $this->artistService->index();
 
-        // dd($artists);
-
         return Inertia::render('artists/page', compact('artists'));
     }
 }
