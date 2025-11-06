@@ -20,14 +20,21 @@ interface Post {
     category: { id: number; name: string };
 }
 
+interface Lyric {
+    id: number;
+    slug: string;
+    title: string;
+    thumbnail_url: string;
+}
+
 interface Props extends PageProps {
     heroPost: Post;
     hotStories: Post[];
     latestNews: Post[];
+    songLyrics: Lyric[];
 }
 
-export default function Home({ heroPost, hotStories, latestNews }: Props) {
-    // const { props } = usePage();
+export default function Home({ heroPost, hotStories, latestNews, songLyrics }: Props) {
     const { cardBg, isDarkMode, bgClass, textClass } = useBlog();
 
     const trendingTopics = [
@@ -262,7 +269,11 @@ export default function Home({ heroPost, hotStories, latestNews }: Props) {
                                 Song Lyrics
                             </h3>
                             <div className="space-y-2">
-                                {trendingTopics.map((topic, idx) => (
+                                {songLyrics.map((lyric, idx) => (
+                                    <Link
+                                        key={lyric.id}
+                                        href={route('lyrics.show', lyric.slug)}
+                                    >
                                     <div
                                         key={idx}
                                         className={`rounded-lg p-3 ${
@@ -272,9 +283,10 @@ export default function Home({ heroPost, hotStories, latestNews }: Props) {
                                         } cursor-pointer transition`}
                                     >
                                         <span className="font-semibold text-purple-600">
-                                            {topic}
+                                            {lyric.title}
                                         </span>
                                     </div>
+                                    </Link>
                                 ))}
                             </div>
                         </div>
