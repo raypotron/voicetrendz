@@ -23,6 +23,9 @@ class UsersTable
                 TextColumn::make('email_verified_at')
                     ->dateTime()
                     ->sortable(),
+                TextColumn::make('roles.name')
+                    ->badge()
+                    ->label('Roles'),
                 TextColumn::make('two_factor_confirmed_at')
                     ->dateTime()
                     ->sortable(),
