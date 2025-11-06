@@ -3,7 +3,7 @@
 import useBlog from '@/hooks/use-blog';
 import { PageProps } from '@inertiajs/core';
 import { Link } from '@inertiajs/react';
-import { ChevronRight, TrendingUp } from 'lucide-react';
+import { ChevronRight, Music, TrendingUp } from 'lucide-react';
 import { route } from 'ziggy-js';
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -252,6 +252,30 @@ export default function Home({ heroPost, hotStories, latestNews }: Props) {
                                 <button className="rounded-lg bg-red-600 p-3 text-white transition hover:bg-red-700">
                                     YouTube
                                 </button>
+                            </div>
+                        </div>
+
+                        {/* Lyrics */}
+                        <div className={`${cardBg} rounded-xl p-6 shadow-lg`}>
+                            <h3 className="mb-4 flex items-center gap-2 text-xl font-bold">
+                                <Music className="h-5 w-5 text-purple-600" />{' '}
+                                Song Lyrics
+                            </h3>
+                            <div className="space-y-2">
+                                {trendingTopics.map((topic, idx) => (
+                                    <div
+                                        key={idx}
+                                        className={`rounded-lg p-3 ${
+                                            isDarkMode
+                                                ? 'bg-gray-700 hover:bg-gray-600'
+                                                : 'bg-gray-100 hover:bg-gray-200'
+                                        } cursor-pointer transition`}
+                                    >
+                                        <span className="font-semibold text-purple-600">
+                                            {topic}
+                                        </span>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
