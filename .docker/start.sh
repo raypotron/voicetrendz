@@ -24,6 +24,9 @@ php artisan migrate --force
 echo "Running seeder files..."
 php artisan db:seed --force
 
+# Run database seeder for roles and permissions
+php artisan db:seed --class=RolePermissionSeeder --force
+
 # Start the Nginx server in the background
 nginx
 
