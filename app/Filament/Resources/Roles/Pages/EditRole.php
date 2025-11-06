@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Filament\Resources\Roles\Pages;
+
+use App\Filament\Resources\Roles\RoleResource;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ViewAction;
+use Filament\Resources\Pages\EditRecord;
+
+class EditRole extends EditRecord
+{
+    protected static string $resource = RoleResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            ViewAction::make(),
+            DeleteAction::make(),
+        ];
+    }
+
+    protected function afterSave(): void
+    {
+        $permissions = $this->data['permissions'] ?? [];
+        $this->record->syncPermissions($permissions);
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        unset($data['permissions']);
+
+        return $data;
+    }
+}
