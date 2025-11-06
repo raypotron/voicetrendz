@@ -29,6 +29,8 @@ class LyricInfolist
                     ->dateTime(),
                 TextEntry::make('tags.name')
                     ->label('Tags'),
+                TextEntry::make('genres.name')
+                    ->label('Genres'),
                 ImageEntry::make('thumbnail_path')
                     ->label('Thumbnail'),
                 TextEntry::make('created_at')

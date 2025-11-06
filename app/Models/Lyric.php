@@ -42,4 +42,9 @@ class Lyric extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'genre_lyric');
+    }
 }

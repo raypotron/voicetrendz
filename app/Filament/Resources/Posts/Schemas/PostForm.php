@@ -6,7 +6,6 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
@@ -40,34 +39,6 @@ class PostForm
                     ->visibility('public')
                     ->preserveFilenames()
                     ->required(),
-                RichEditor::make('content')
-                    ->label('Post Content')
-                    ->toolbarButtons([
-                        'bold',
-                        'bulletList',
-                        'h2',
-                        'h3',
-                        'italic',
-                        'underline',
-                        'strike',
-                        'link',
-                        'orderedList',
-                        'undo',
-                        'redo',
-                        'blockquote',
-                        'codeBlock',
-                        'attachFiles',
-                    ])
-                    ->fileAttachmentsDisk(config('filesystems.default'))
-                    ->fileAttachmentsVisibility('public')
-                    ->fileAttachmentsDirectory('uploads/editor')
-                    // ->extraAttributes(['style' => 'min-height: 400px;'])
-                    ->required()
-                    ->columnSpanFull(),
-                TextInput::make('content_format')
-                    ->label('Content Format')
-                    ->required()
-                    ->default('html'),
                 Select::make('category_id')
                     ->relationship('category', 'name')
                     ->label('Category')
@@ -98,10 +69,32 @@ class PostForm
                     ])
                     ->preload()
                     ->searchable(),
-                Textarea::make('meta_description')
-                    ->label('Meta Description')
+                TextInput::make('meta_description')
+                    ->label('Meta Description'),
+                RichEditor::make('content')
+                    ->label('Post Content')
+                    ->toolbarButtons([
+                        'bold',
+                        'bulletList',
+                        'h2',
+                        'h3',
+                        'italic',
+                        'underline',
+                        'strike',
+                        'link',
+                        'orderedList',
+                        'undo',
+                        'redo',
+                        'blockquote',
+                        'codeBlock',
+                        'attachFiles',
+                    ])
+                    ->fileAttachmentsDisk(config('filesystems.default'))
+                    ->fileAttachmentsVisibility('public')
+                    ->fileAttachmentsDirectory('uploads/editor')
+                    // ->extraAttributes(['style' => 'min-height: 400px;'])
+                    ->required()
                     ->columnSpanFull(),
-
             ]);
     }
 }

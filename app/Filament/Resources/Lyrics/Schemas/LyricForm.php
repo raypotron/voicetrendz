@@ -39,6 +39,39 @@ class LyricForm
                     ->visibility('public')
                     ->preserveFilenames()
                     ->required(),
+                Select::make('status')
+                    ->label('Status')
+                    ->options([
+                        'draft' => 'draft',
+                        'published' => 'published',
+                        'archived' => 'archived',
+                    ])
+                    ->required()
+                    ->default('draft'),
+                DateTimePicker::make('published_at')
+                    ->label('Published At'),
+                Select::make('tags')
+                    ->label('Tags')
+                    ->multiple()
+                    ->relationship('tags', 'name')
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->label('Tag Name')
+                            ->required(),
+                    ])
+                    ->preload()
+                    ->searchable(),
+                Select::make('genres')
+                    ->label('Genres')
+                    ->multiple()
+                    ->relationship('genres', 'name')
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->label('Genre Name')
+                            ->required(),
+                    ])
+                    ->preload()
+                    ->searchable(),
                 RichEditor::make('content')
                     ->label('Lyric Content')
                     ->toolbarButtons([
@@ -62,33 +95,6 @@ class LyricForm
                     ->fileAttachmentsDirectory('uploads/editor')
                     ->required()
                     ->columnSpanFull(),
-                TextInput::make('content_format')
-                    ->label('Content Format')
-                    ->required()
-                    ->readOnly()
-                    ->default('html'),
-                Select::make('status')
-                    ->label('Status')
-                    ->options([
-                        'draft' => 'draft',
-                        'published' => 'published',
-                        'archived' => 'archived',
-                    ])
-                    ->required()
-                    ->default('draft'),
-                DateTimePicker::make('published_at')
-                    ->label('Published At'),
-                Select::make('tags')
-                    ->label('Tags')
-                    ->multiple()
-                    ->relationship('tags', 'name')
-                    ->createOptionForm([
-                        TextInput::make('name')
-                            ->label('Tag Name')
-                            ->required(),
-                    ])
-                    ->preload()
-                    ->searchable(),
             ]);
     }
 }
