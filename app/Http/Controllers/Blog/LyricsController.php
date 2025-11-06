@@ -12,6 +12,13 @@ class LyricsController extends Controller
 {
     public function __construct(private Lyric $lyric, private LyricService $lyricService) {}
 
+    public function index()
+    {
+        $lyrics = $this->lyricService->getLyrics();
+
+        return Inertia::render('lyrics/index', compact('lyrics'));
+    }
+
     public function show(Lyric $lyric)
     {
         $singleLyric = $lyric->load('user:id,name', 'genres:id,name', 'tags:id,name');

@@ -383,11 +383,11 @@ export default function LyricPage({ lyric, relatedLyrics }: Props) {
                 <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
                     {/* Back button */}
                     <button
-                        onClick={() => router.visit(document.referrer || '/')}
+                        onClick={() => router.visit('/lyrics')}
                         className="mt-8 mb-8 flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
                     >
                         <ChevronLeft className="h-5 w-5" />
-                        Back to articles
+                        Back to Lyrics
                     </button>
 
                     {/* Header */}

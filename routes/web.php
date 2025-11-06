@@ -18,7 +18,10 @@ Route::get('/', WelcomeController::class)->name('home');
 // ))->name('posts.show');
 
 Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');
-Route::get('lyrics/{lyric}', [LyricsController::class, 'show'])->name('lyrics.show');
+Route::prefix('lyrics')->group(function(){
+    Route::get('/', [LyricsController::class, 'index'])->name('lyrics.index');
+    Route::get('/{lyric}', [LyricsController::class, 'show'])->name('lyrics.show');
+});
 Route::get('hot-stories', HotStoriesController::class)->name('hot.stories');
 Route::get('music-videos', fn () => Inertia::render('music-videos/page'))->name('music.videos');
 Route::get('news', NewsController::class)->name('news');
