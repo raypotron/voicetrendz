@@ -14,7 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable, HasRoles;
+    use HasFactory, HasRoles, Notifiable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -58,5 +58,16 @@ class User extends Authenticatable implements FilamentUser
         //     'user' => $this->hasRole('user'),
         //     default => false,
         // };
+    }
+
+    protected static function booted()
+    {
+        static::created(function (User $user) {
+            $defaultRole = Role::where('name', 'user')->first();
+
+            if ($defaultRole) {
+                $user->syncRoles([$defaultRole]);
+            }
+        });
     }
 }
