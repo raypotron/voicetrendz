@@ -79,8 +79,7 @@ class Profile extends Page implements Forms\Contracts\HasForms
                                 ->label('Country')
                                 ->options(collect(config('locations'))->keys()->mapWithKeys(fn ($c) => [$c => $c])->toArray())
                                 ->live()
-                                ->searchable()
-                                ->required(),
+                                ->searchable(),
 
                             Select::make('state')
                                 ->label('State/Province')
@@ -109,8 +108,7 @@ class Profile extends Page implements Forms\Contracts\HasForms
                                         );
                                     }
                                 })
-                                ->searchable()
-                                ->required(),
+                                ->searchable(),
 
                             Select::make('marital_status')
                                 ->options([
