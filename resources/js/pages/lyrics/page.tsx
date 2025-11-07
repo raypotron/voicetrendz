@@ -10,9 +10,13 @@ import {
     ChevronLeft,
     Clock,
     Eye,
+    Facebook,
     Heart,
+    Mail,
+    MessageCircle,
     Share2,
     User,
+    X,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -36,6 +40,17 @@ interface Props extends PageProps {
 export default function LyricPage({ lyric, relatedLyrics }: Props) {
     const { isDarkMode } = useBlog();
     const [liked, setLiked] = useState(false);
+    const [showShare, setShowShare] = useState(false);
+
+    const encodedUrl = encodeURIComponent(lyric.slug);
+    const encodedTitle = encodeURIComponent(lyric.title);
+
+    const shareLinks = {
+        whatsapp: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+        twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
+        gmail: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`,
+    };
 
     // console.log(lyric.content);
 
@@ -432,7 +447,8 @@ export default function LyricPage({ lyric, relatedLyrics }: Props) {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex flex-wrap items-center gap-4 border-t border-b border-border py-8">
+                    <div className="relative flex flex-wrap items-center gap-4 border-t border-b border-border py-8">
+                        {/* Like Button */}
                         <button
                             onClick={() => setLiked(!liked)}
                             className={`flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-all ${
@@ -446,10 +462,64 @@ export default function LyricPage({ lyric, relatedLyrics }: Props) {
                             />
                             {liked ? 'Liked' : 'Like this article'}
                         </button>
-                        <button className="flex items-center gap-2 rounded-lg bg-secondary px-6 py-3 font-medium text-secondary-foreground transition-all hover:bg-secondary/80">
-                            <Share2 className="h-5 w-5" />
-                            Share
-                        </button>
+
+                        {/* Share Button */}
+                        <div className="relative">
+                            <button
+                                onClick={() => setShowShare(!showShare)}
+                                className="flex cursor-pointer items-center gap-2 rounded-lg bg-secondary px-6 py-3 font-medium text-secondary-foreground transition-all hover:bg-secondary/80"
+                            >
+                                <Share2 className="h-5 w-5" />
+                                Share
+                            </button>
+
+                            {/* Dropdown Menu */}
+                            {showShare && (
+                                <div
+                                    className="animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg bg-white shadow-lg ring-1 ring-black/5"
+                                    onMouseLeave={() => setShowShare(false)}
+                                >
+                                    <div className="flex flex-col py-2">
+                                        <a
+                                            href={shareLinks.whatsapp}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                        >
+                                            <MessageCircle className="h-4 w-4 text-green-500" />
+                                            Share on WhatsApp
+                                        </a>
+                                        <a
+                                            href={shareLinks.facebook}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                        >
+                                            <Facebook className="h-4 w-4 text-blue-600" />
+                                            Share on Facebook
+                                        </a>
+                                        <a
+                                            href={shareLinks.twitter}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                        >
+                                            <X className="h-4 w-4 text-sky-500" />
+                                            Share on Twitter
+                                        </a>
+                                        <a
+                                            href={shareLinks.gmail}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                        >
+                                            <Mail className="h-4 w-4 text-red-500" />
+                                            Share via Gmail
+                                        </a>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     {/* Related Lyrics */}
