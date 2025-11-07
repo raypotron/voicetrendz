@@ -83,7 +83,7 @@ class Profile extends Page implements Forms\Contracts\HasForms
                                 ->required(),
 
                             Select::make('state')
-                                ->label('State')
+                                ->label('State/Province')
                                 ->options(function (callable $get) {
                                     $country = $get('country');
                                     $locations = config('locations', []);
