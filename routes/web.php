@@ -6,7 +6,8 @@ use App\Http\Controllers\Blog\LyricsController;
 use App\Http\Controllers\Blog\NewsController;
 use App\Http\Controllers\Blog\PostController;
 use App\Http\Controllers\Blog\WelcomeController;
-use App\Http\Controllers\Editor\UploadController;
+use App\Http\Controllers\Editor\ImageUploadController;
+use App\Http\Controllers\Editor\SongUploadController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,7 +30,8 @@ Route::get('artists', [ArtistController::class, 'index'])->name('artists');
 Route::get('community', fn () => Inertia::render('community/page'))->name('community');
 Route::get('advertise', fn () => Inertia::render('advertise/page'))->name('advertise');
 
-Route::post('editor/upload', UploadController::class)->name('editor.upload');
+Route::post('editor/upload', ImageUploadController::class)->name('editor.upload');
+Route::post('upload/song', SongUploadController::class)->name('upload.song');
 
 // Route::middleware(['auth', 'verified'])->group(function () {
 //     Route::get('dashboard', function () {

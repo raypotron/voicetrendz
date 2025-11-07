@@ -28,5 +28,8 @@ class AppServiceProvider extends ServiceProvider
         }
 
         ini_set('max_execution_time', 1800);
+        ini_set('upload_max_filesize', '20M');
+        ini_set('post_max_size', '25M');
+        ini_set('memory_limit', '128M');
     }
 }

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
 
-class UploadController extends Controller
+class ImageUploadController extends Controller
 {
     public function __invoke(Request $request, ImageService $imageService)
     {

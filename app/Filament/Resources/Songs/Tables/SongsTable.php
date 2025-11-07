@@ -35,6 +35,9 @@ class SongsTable
                     ->searchable(),
                 TextColumn::make('file_path')
                     ->searchable(),
+                TextColumn::make('duration')->label('Length'),
+                TextColumn::make('format')->label('Format'),
+                TextColumn::make('bitrate')->label('Bitrate')->sortable(),
                 TextColumn::make('artist_id')
                     ->numeric()
                     ->sortable(),
