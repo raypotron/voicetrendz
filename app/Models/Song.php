@@ -6,5 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Song extends Model
 {
-    //
+    protected $fillable = [
+        'title',
+        'slug',
+        'excerpt',
+        'content',
+        'content_format',
+        'user_id',
+        'status',
+        'published_at',
+        'thumbnail_path',
+        'file_path',
+        'artist_id',
+        'album_id',
+    ];
 }

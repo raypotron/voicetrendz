@@ -13,9 +13,21 @@ return new class extends Migration
     {
         Schema::create('songs', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->string('excerpt')->nullable();
+            $table->mediumText('content')->fulltext();
+
+            $table->string('content_format')->default('html');
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+
+            $table->string('status')->default('draft');
+            $table->timestamp('published_at')->nullable();
+
+            $table->string('thumbnail_path')->nullable();
             $table->string('file_path');
-            $table->string('file_id');
-            $table->foreignId('artist_id')->constrained()->cascadeOnDelete();
+
+            $table->foreignId('artist_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('album_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
