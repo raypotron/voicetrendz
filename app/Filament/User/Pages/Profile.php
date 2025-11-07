@@ -50,7 +50,7 @@ class Profile extends Page implements Forms\Contracts\HasForms
     {
         return [
             Group::make()
-                ->statePath('data') // ✅ applies to both sections
+                ->statePath('data')
                 ->schema([
                     Section::make('Personal Information')
                         ->columns(2)
