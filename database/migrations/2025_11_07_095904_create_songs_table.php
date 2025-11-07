@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamp('published_at')->nullable();
 
             $table->string('thumbnail_path')->nullable();
-            $table->string('file_path');
+            $table->string('file_path')->nullable();
 
             $table->foreignId('artist_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('album_id')->nullable()->constrained()->nullOnDelete();
