@@ -1,5 +1,11 @@
 <x-filament-panels::page>
-    <div class="max-w-xl mx-auto">
+    <form wire:submit.prevent="submit">
         {{ $this->form }}
-    </div>
+
+        <div class="mt-6">
+            <x-filament::button type="submit" color="primary">
+                Save Changes
+            </x-filament::button>
+        </div>
+    </form>
 </x-filament-panels::page>

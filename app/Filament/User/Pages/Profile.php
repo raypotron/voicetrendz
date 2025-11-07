@@ -2,12 +2,20 @@
 
 namespace App\Filament\User\Pages;
 
-use Filament\Pages\Page;
+use App\Models\Profile as ProfileModel;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
+use Filament\Pages\Page;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use UnitEnum;
 
@@ -16,57 +24,110 @@ class Profile extends Page implements Forms\Contracts\HasForms
     use Forms\Concerns\InteractsWithForms;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserCircle;
-    protected string $view = 'filament.user.pages.profile';
+
     protected static ?string $title = 'My Profile';
+
     protected static string|UnitEnum|null $navigationGroup = 'Account Settings';
+
+    protected string $view = 'filament.user.pages.profile';
 
     public ?array $data = [];
 
     public function mount(): void
     {
-        $this->form->fill(auth()->user()->only(['name', 'email']));
+        $user = Auth::user();
+        $profile = $user->profile ?? new ProfileModel(['user_id' => $user->id]);
+
+        $this->form->fill([
+        'data' => array_merge(
+            $user->only(['name', 'email']),
+            $profile->only(['gender', 'phone_number', 'dob', 'state', 'country', 'marital_status', 'image_url'])
+        ),
+    ]);
     }
 
     protected function getFormSchema(): array
     {
         return [
-            Forms\Components\TextInput::make('name')
-                ->label('Full Name')
-                ->required()
-                ->maxLength(255),
+            Group::make()
+                ->statePath('data') // ✅ applies to both sections
+                ->schema([
+                    Section::make('Personal Information')
+                        ->columns(2)
+                        ->schema([
+                            FileUpload::make('image_url')
+                                ->label('Profile Picture')
+                                ->disk(config('filesystems.default'))
+                                ->directory('uploads/profile')
+                                ->image()
+                                ->avatar()
+                                ->imagePreviewHeight('150')
+                                ->visibility('public')
+                                ->preserveFilenames()
+                                ->columnSpanFull(),
+                            TextInput::make('name')->label('Full Name'),
+                            TextInput::make('email')
+                                ->disabled(),
+                            Select::make('gender')
+                                ->options([
+                                    'male' => 'Male',
+                                    'female' => 'Female',
+                                ]),
+                            TextInput::make('phone_number')->tel(),
+                            DatePicker::make('dob'),
+                            TextInput::make('state')
+                                ->label('State/Province'),
+                            TextInput::make('country'),
+                            Select::make('marital_status')
+                                ->options([
+                                    'single' => 'Single',
+                                    'married' => 'Married',
+                                    'divorced' => 'Divorced',
+                                ]),
+                        ]),
 
-            Forms\Components\TextInput::make('email')
-                ->email()
-                ->required()
-                ->maxLength(255),
-
-            Forms\Components\TextInput::make('password')
-                ->label('New Password')
-                ->password()
-                ->revealable()
-                ->dehydrated(fn ($state) => filled($state))
-                ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                ->maxLength(255)
-                ->helperText('Leave blank to keep your current password.'),
+                    Section::make('Change Password')
+                        ->columns(2)
+                        ->schema([
+                            TextInput::make('current_password')
+                                ->password()
+                                ->revealable()
+                                ->label('Current Password'),
+                            TextInput::make('new_password')
+                                ->password()
+                                ->revealable()
+                                ->label('New Password')
+                                ->helperText('Leave blank if you don’t want to change it.'),
+                        ]),
+                ]),
         ];
-    }
-
-    protected function getFormModel(): mixed
-    {
-        return auth()->user();
     }
 
     public function submit(): void
     {
-        $this->form->getState();
-        $user = auth()->user();
+        $data = $this->form->getState();
+        $user = Auth::user();
 
-        $user->update($this->form->getState());
+        if (! empty($data['data']['new_password'])) {
+            $user->update([
+                'name' => $data['data']['name'],
+                'password' => Hash::make($data['data']['new_password']),
+            ]);
+        } else {
+            $user->update(['name' => $data['data']['name']]);
+        }
+
+        $user->profile()->updateOrCreate(
+            ['user_id' => $user->id],
+            collect($data['data'])->only(['gender', 'phone_number', 'dob', 'state', 'country', 'marital_status', 'image_url'])->toArray()
+        );
 
         Notification::make()
             ->title('Profile updated successfully!')
             ->success()
             ->send();
+
+        $this->mount(); // refresh form data
     }
 
     protected function getFormActions(): array

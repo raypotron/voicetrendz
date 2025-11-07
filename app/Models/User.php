@@ -52,7 +52,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return match($panel->getId()) {
+        return match ($panel->getId()) {
             'admin' => $this->hasRole('admin'),
             'user' => $this->hasRole('user'),
             default => false,
@@ -68,5 +68,10 @@ class User extends Authenticatable implements FilamentUser
                 $user->syncRoles([$defaultRole]);
             }
         });
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 }
