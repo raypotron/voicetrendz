@@ -39,11 +39,11 @@ class Profile extends Page implements Forms\Contracts\HasForms
         $profile = $user->profile ?? new ProfileModel(['user_id' => $user->id]);
 
         $this->form->fill([
-        'data' => array_merge(
-            $user->only(['name', 'email']),
-            $profile->only(['gender', 'phone_number', 'dob', 'state', 'country', 'marital_status', 'image_url'])
-        ),
-    ]);
+            'data' => array_merge(
+                $user->only(['name', 'email']),
+                $profile->only(['gender', 'phone_number', 'dob', 'state', 'country', 'marital_status', 'image_url'])
+            ),
+        ]);
     }
 
     protected function getFormSchema(): array
@@ -75,9 +75,43 @@ class Profile extends Page implements Forms\Contracts\HasForms
                                 ]),
                             TextInput::make('phone_number')->tel(),
                             DatePicker::make('dob'),
-                            TextInput::make('state')
-                                ->label('State/Province'),
-                            TextInput::make('country'),
+                            Select::make('country')
+                                ->label('Country')
+                                ->options(collect(config('locations'))->keys()->mapWithKeys(fn ($c) => [$c => $c])->toArray())
+                                ->live()
+                                ->searchable()
+                                ->required(),
+
+                            Select::make('state')
+                                ->label('State')
+                                ->options(function (callable $get) {
+                                    $country = $get('country');
+                                    $locations = config('locations', []);
+
+                                    if (! $country || ! isset($locations[$country])) {
+                                        return [];
+                                    }
+
+                                    return collect($locations[$country])
+                                        ->mapWithKeys(fn ($state) => [$state => $state])
+                                        ->toArray();
+                                })
+                                ->afterStateHydrated(function (Forms\Components\Select $component, $state, $set, $get) {
+                                    // ensure state options load on mount
+                                    $country = $get('country');
+                                    $locations = config('locations', []);
+
+                                    if ($country && isset($locations[$country])) {
+                                        $component->options(
+                                            collect($locations[$country])
+                                                ->mapWithKeys(fn ($s) => [$s => $s])
+                                                ->toArray()
+                                        );
+                                    }
+                                })
+                                ->searchable()
+                                ->required(),
+
                             Select::make('marital_status')
                                 ->options([
                                     'single' => 'Single',
