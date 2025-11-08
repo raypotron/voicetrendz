@@ -19,7 +19,7 @@ php artisan optimize:clear
 php artisan storage:link
 
 # Run database migrations
-php artisan migrate:fresh --force
+php artisan migrate --force
 
 echo "Running seeder files..."
 php artisan db:seed --force
