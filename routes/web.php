@@ -26,7 +26,10 @@ Route::prefix('lyrics')->group(function(){
 Route::get('hot-stories', HotStoriesController::class)->name('hot.stories');
 Route::get('music-videos', fn () => Inertia::render('music-videos/page'))->name('music.videos');
 Route::get('news', NewsController::class)->name('news');
-Route::get('artists', [ArtistController::class, 'index'])->name('artists');
+Route::prefix('artists')->group(function(){
+    Route::get('/', [ArtistController::class, 'index'])->name('artists.index');
+    Route::get('/{artist}', [ArtistController::class, 'show'])->name('artist.show');
+});
 Route::get('community', fn () => Inertia::render('community/page'))->name('community');
 Route::get('advertise', fn () => Inertia::render('advertise/page'))->name('advertise');
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Models\Artist;
 use App\Services\ArtistService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,6 +16,18 @@ class ArtistController extends Controller
     {
         $artists = $this->artistService->index();
 
-        return Inertia::render('artists/page', compact('artists'));
+        return Inertia::render('artists/index', compact('artists'));
+    }
+
+    public function show(Artist $artist)
+    {
+        $singleArtist = $artist->load('genres:id,name');
+
+        $genres = $artist->genres->pluck('name')->toArray();
+
+        $relatedArtists = $this->artistService->getRelatedArtistsByGenres($genres, $singleArtist->id, 5) ?? [];
+
+        return Inertia::render('artists/page', ['artist' => $singleArtist,
+            'relatedArtists' => $relatedArtists]);
     }
 }

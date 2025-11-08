@@ -18,6 +18,10 @@ class ArtistsTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
+                TextColumn::make('stage_name')
+                    ->searchable(),
+                TextColumn::make('slug')
+                    ->searchable(),
                 TextColumn::make('description'),
                 TextColumn::make('social_media_followers')
                     ->label('Followers'),

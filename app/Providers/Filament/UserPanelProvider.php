@@ -56,7 +56,7 @@ class UserPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-                EnsureUserIsRegularUser::class,
+                // EnsureUserIsRegularUser::class,
             ]);
     }
 }

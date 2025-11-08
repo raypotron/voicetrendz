@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('artists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
-            $table->string('social_media_followers');
-            $table->text('bio')->nullable();
+            $table->string('stage_name');
+            $table->string('slug');
+            $table->string('description')->nullable();
+            $table->string('social_media_followers')->nullable();
+            $table->mediumText('bio')->nullable();
             $table->string('image_url')->nullable();
-            $table->string('image_id')->nullable();
             $table->timestamps();
         });
     }

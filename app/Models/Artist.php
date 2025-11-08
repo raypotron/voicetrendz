@@ -8,6 +8,8 @@ class Artist extends Model
 {
     protected $fillable = [
         'name',
+        'stage_name',
+        'slug',
         'description',
         'social_media_followers',
         'bio',
@@ -22,6 +24,11 @@ class Artist extends Model
             . env('CLOUDINARY_CLOUD_NAME')
             .'/image/upload/'
             .$this->attributes['image_url'];
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 
     public function genres()

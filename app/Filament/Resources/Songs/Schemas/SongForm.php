@@ -102,7 +102,7 @@ class SongForm
                 //     ->label('Bitrate (bps)'),
                 Select::make('artist_id')
                     ->label('Artist')
-                    ->relationship('artist', 'name')
+                    ->relationship('artist', 'stage_name')
                     ->searchable()
                     ->reactive()
                     ->preload(),

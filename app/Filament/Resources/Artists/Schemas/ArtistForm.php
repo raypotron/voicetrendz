@@ -7,6 +7,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class ArtistForm
 {
@@ -23,8 +24,21 @@ class ArtistForm
                     ->avatar()
                     ->visibility('public')
                     ->preserveFilenames()
-                    ->required(),
+                    ->required()
+                    ->columnSpanFull(),
                 TextInput::make('name')
+                    ->required(),
+                TextInput::make('stage_name')
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (callable $set, $state) {
+                        $set('slug', Str::slug($state));
+                    })
+                    ->required(),
+                TextInput::make('slug')
+                    ->label('Slug')
+                    ->disabled()
+                    ->dehydrated()
+                    ->hint('Generated automatically from stage name')
                     ->required(),
                 TextInput::make('description')
                     ->required(),
@@ -41,8 +55,7 @@ class ArtistForm
                             ->required(),
                     ])
                     ->preload()
-                    ->searchable()
-                    ->columnSpanFull(),
+                    ->searchable(),
                 RichEditor::make('bio')
                     ->label('Artist Bio')
                     ->toolbarButtons([
