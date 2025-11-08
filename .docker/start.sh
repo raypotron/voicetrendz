@@ -19,13 +19,13 @@ php artisan optimize:clear
 php artisan storage:link
 
 # Run database migrations
-php artisan migrate --force
+php artisan migrate:fresh --force
 
 echo "Running seeder files..."
 php artisan db:seed --force
 
 # Run database seeder for roles and permissions
-php artisan db:seed --class=RolePermissionSeeder --force
+# php artisan db:seed --class=RolePermissionSeeder --force
 
 # Start the Nginx server in the background
 nginx
