@@ -5,6 +5,7 @@ use App\Http\Controllers\Blog\HotStoriesController;
 use App\Http\Controllers\Blog\LyricsController;
 use App\Http\Controllers\Blog\NewsController;
 use App\Http\Controllers\Blog\PostController;
+use App\Http\Controllers\Blog\SongsController;
 use App\Http\Controllers\Blog\WelcomeController;
 use App\Http\Controllers\Editor\ImageUploadController;
 use App\Http\Controllers\Editor\SongUploadController;
@@ -29,6 +30,10 @@ Route::get('news', NewsController::class)->name('news');
 Route::prefix('artists')->group(function(){
     Route::get('/', [ArtistController::class, 'index'])->name('artists.index');
     Route::get('/{artist}', [ArtistController::class, 'show'])->name('artist.show');
+});
+Route::prefix('songs')->group(function(){
+    Route::get('/', [SongsController::class, 'index'])->name('songs.index');
+    Route::get('/{song}', [SongsController::class, 'show'])->name('songs.show');
 });
 Route::get('community', fn () => Inertia::render('community/page'))->name('community');
 Route::get('advertise', fn () => Inertia::render('advertise/page'))->name('advertise');
