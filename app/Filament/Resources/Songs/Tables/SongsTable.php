@@ -23,27 +23,27 @@ class SongsTable
                     ->searchable(),
                 TextColumn::make('content_format')
                     ->searchable(),
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('user.name')
+                    ->label('Author')
+                    ->searchable(),
                 TextColumn::make('status')
                     ->searchable(),
                 TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable(),
-                TextColumn::make('thumbnail_path')
+                TextColumn::make('duration')->label('Length')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('format')->label('Format')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('bitrate')->label('Bitrate')->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('artist.stage_name')
+                    ->label('Stage Name')
                     ->searchable(),
-                TextColumn::make('file_path')
-                    ->searchable(),
-                TextColumn::make('duration')->label('Length'),
-                TextColumn::make('format')->label('Format'),
-                TextColumn::make('bitrate')->label('Bitrate')->sortable(),
-                TextColumn::make('artist_id')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('album_id')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Album')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

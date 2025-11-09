@@ -60,7 +60,7 @@ class SongForm
                     ->required(),
                 FileUpload::make('file_path')
                     ->label('Upload Song')
-                    ->disk(config('filesystems.default'))
+                    ->disk('public')
                     ->directory('uploads/songs')
                     ->acceptedFileTypes(['audio/mpeg', 'audio/wav', 'audio/ogg'])
                     ->visibility('public')

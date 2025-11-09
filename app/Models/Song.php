@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+// use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
+use Cloudinary\Cloudinary;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Song extends Model
 {
@@ -30,8 +34,52 @@ class Song extends Model
         return $this->belongsTo(Artist::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function album()
     {
         return $this->belongsTo(Album::class);
+    }
+
+    protected $appends = ['thumbnail_url'];
+
+    public function getThumbnailUrlAttribute()
+    {
+        return 'https://res.cloudinary.com/'
+            .env('CLOUDINARY_CLOUD_NAME')
+            .'/image/upload/'
+            .$this->attributes['thumbnail_path'];
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    protected static function booted()
+    {
+        static::saved(function ($song) {
+            if ($song->file_path && ! str_starts_with($song->file_path, 'http')) {
+                $localPath = Storage::disk('public')->path($song->file_path);
+
+                $cloudinary = new Cloudinary;
+
+                $localPath = Storage::disk('public')->path($song->file_path);
+
+                $uploaded = $cloudinary->uploadApi()->upload($localPath, [
+                    'folder' => 'uploads/songs',
+                    'resource_type' => 'auto',
+                ]);
+
+                $song->updateQuietly([
+                    'file_path' => $uploaded['secure_url'],
+                ]);
+
+                Storage::disk('public')->delete($song->file_path);
+            }
+        });
     }
 }
