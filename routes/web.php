@@ -18,20 +18,23 @@ Route::get('/', WelcomeController::class)->name('home');
 // Route::get('posts/{post}', fn (Post $post) => Inertia::render('posts/page',
 //     ['post' => $post]
 // ))->name('posts.show');
+Route::prefix('posts')->group(function () {
+    Route::get('/{post}', [PostController::class, 'show'])->name('posts.show');
+    Route::post('/{post}/track-view', [PostController::class, 'trackView'])->name('posts.track-view');
+});
 
-Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');
-Route::prefix('lyrics')->group(function(){
+Route::prefix('lyrics')->group(function () {
     Route::get('/', [LyricsController::class, 'index'])->name('lyrics.index');
     Route::get('/{lyric}', [LyricsController::class, 'show'])->name('lyrics.show');
 });
 Route::get('hot-stories', HotStoriesController::class)->name('hot.stories');
 Route::get('music-videos', fn () => Inertia::render('music-videos/page'))->name('music.videos');
 Route::get('news', NewsController::class)->name('news');
-Route::prefix('artists')->group(function(){
+Route::prefix('artists')->group(function () {
     Route::get('/', [ArtistController::class, 'index'])->name('artists.index');
     Route::get('/{artist}', [ArtistController::class, 'show'])->name('artist.show');
 });
-Route::prefix('songs')->group(function(){
+Route::prefix('songs')->group(function () {
     Route::get('/', [SongsController::class, 'index'])->name('songs.index');
     Route::get('/{song}', [SongsController::class, 'show'])->name('songs.show');
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Blog;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Services\PostService;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -21,5 +22,17 @@ class PostController extends Controller
 
         return Inertia::render('posts/page', ['post' => $singlePost,
             'relatedArticles' => $relatedArticles]);
+    }
+
+    public function trackView(Post $post, Request $request)
+    {
+        $sessionKey = "post_{$post->id}_viewed";
+        if (! $request->session()->has($sessionKey)) {
+            $post->increment('views');
+            $request->session()->put($sessionKey, true);
+        }
+
+        // Return the updated views count
+        return response()->json(['views' => $post->views]);
     }
 }

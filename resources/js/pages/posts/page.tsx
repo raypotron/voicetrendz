@@ -1,5 +1,6 @@
 'use client';
 
+import axios from '@/axios';
 import useBlog from '@/hooks/use-blog';
 import { PageProps } from '@inertiajs/core';
 import { router } from '@inertiajs/react';
@@ -10,15 +11,15 @@ import {
     ChevronLeft,
     Clock,
     Eye,
+    Facebook,
     Heart,
     Mail,
     MessageCircle,
     Share2,
     User,
     X,
-    Facebook
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 dayjs.extend(relativeTime);
 
@@ -29,6 +30,7 @@ interface Post {
     thumbnail_url: string;
     created_at: string;
     slug: string;
+    views: number;
     user: { id: number; name: string };
     category: { id: number; name: string };
 }
@@ -42,6 +44,7 @@ export default function PostPage({ post, relatedArticles }: Props) {
     const { isDarkMode } = useBlog();
     const [liked, setLiked] = useState(false);
     const [showShare, setShowShare] = useState(false);
+    const [views, setViews] = useState(post.views);
 
     const encodedUrl = encodeURIComponent(post.slug);
     const encodedTitle = encodeURIComponent(post.title);
@@ -53,7 +56,20 @@ export default function PostPage({ post, relatedArticles }: Props) {
         gmail: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`,
     };
 
-    // console.log(post.content);
+    useEffect(() => {
+        const trackView = async () => {
+            try {
+                const response = await axios.post(
+                    `/posts/${post.slug}/track-view`,
+                );
+                setViews(response.data.views); // Update view count in real-time
+            } catch (err) {
+                console.error('Error tracking post view:', err);
+            }
+        };
+
+        trackView();
+    }, [post.slug]);
 
     const formatContent = (content: string) => {
         // Parse HTML content and render with proper styling
@@ -433,7 +449,7 @@ export default function PostPage({ post, relatedArticles }: Props) {
                             </div>
                             <div className="flex items-center gap-2">
                                 <Eye className="h-4 w-4 text-muted-foreground" />
-                                <span>100 views</span>
+                                <span>{views} {views === 1 ? 'view' : 'views'}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Clock className="h-4 w-4 text-muted-foreground" />
