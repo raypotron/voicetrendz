@@ -28,7 +28,13 @@ php artisan db:seed --force
 # php artisan db:seed --class=RolePermissionSeeder --force
 
 # Start the Nginx server in the background
-nginx
+# nginx
 
 # Start the PHP-FPM process in the foreground. This becomes the main container process.
-exec /usr/local/sbin/php-fpm
+# exec /usr/local/sbin/php-fpm
+
+# ✅ Start PHP-FPM in the background first
+php-fpm -D
+
+# ✅ Then start Nginx in the foreground
+nginx -g 'daemon off;'
