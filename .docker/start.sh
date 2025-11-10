@@ -33,8 +33,8 @@ php artisan db:seed --force
 # Start the PHP-FPM process in the foreground. This becomes the main container process.
 # exec /usr/local/sbin/php-fpm
 
-# ✅ Start PHP-FPM in the background first
-php-fpm -D
-
 # ✅ Then start Nginx in the foreground
 nginx -g 'daemon off;'
+
+# ✅ Start PHP-FPM in the background first
+php-fpm -D
