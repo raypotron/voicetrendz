@@ -40,7 +40,7 @@ export default function DesktopMenu() {
       label: 'News',
       children: [
         { href: '/hot-stories', label: 'Hot Stories' },
-        { href: '/latest-news', label: 'Latest News' },
+        { href: '/news', label: 'Latest News' },
         { href: '/trending-topics', label: 'Trending Topics', icon: TrendingUp },
       ],
     },
