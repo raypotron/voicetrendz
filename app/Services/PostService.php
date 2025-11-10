@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 class PostService
 {
     public function __construct(private Post $post) {}
-    
+
     public function getPostsByTag(string $tag, ?int $limit = null)
     {
         // $key = "posts_{$tag}_".($limit ?? 'all');
@@ -36,5 +36,6 @@ class PostService
             ->latest()
             ->when($limit, fn ($q) => $q->limit($limit))
             ->get();
+            // ->select('id', )
     }
 }
