@@ -70,7 +70,9 @@ COPY .docker/start.sh /usr/local/bin/start.sh
 
 # Make start.sh executable and set ownership of app folder
 RUN chmod +x /usr/local/bin/start.sh \
-    && chown -R www-data:www-data /var/www/html
+    && chown -R www-data:www-data /var/www/html \
+    && chown -R www-data:www-data /var/www/html/storage /var/www/html/public \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 EXPOSE 80
 
