@@ -21,13 +21,13 @@ class SongsController extends Controller
 
     public function show(Song $song)
     {
-        $song = $song->load('user:id,name');
+        $getSong = $song->load('user:id,name', 'genres:id,name');
 
-        // $genres = $song->genres->pluck('name')->toArray();
+        $genres = $getSong->genres->pluck('name')->toArray();
 
-        $relatedSongs = [];
+        $relatedSongs = $this->songService->getRelatedSongsByGenres($genres, $getSong->id, 5) ?? [];
 
-        return Inertia::render('songs/page', ['song' => $song,
-            'relatedArticles' => $relatedSongs]);
+        return Inertia::render('songs/page', ['song' => $getSong,
+            'relatedSongs' => $relatedSongs]);
     }
 }

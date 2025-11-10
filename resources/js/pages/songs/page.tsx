@@ -443,11 +443,6 @@ export default function SongPage({ song, relatedSongs }: Props) {
                     {/* Content */}
                     <div className="blog-content py-8">
                         {formatContent(song.content)}
-                    </div>
-
-                    {/* Content */}
-                    <div className="blog-content py-8">
-                        {formatContent(song.content)}
 
                         {/* Audio Preview */}
                         {song.file_path && (

@@ -253,7 +253,7 @@ export default function Home({
                                         <Link
                                             key={song.id}
                                             href={route(
-                                                'posts.show',
+                                                'songs.show',
                                                 song.slug,
                                             )}
                                             className={`${cardBg} group overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl`}

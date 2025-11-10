@@ -42,4 +42,15 @@ class SongService
             ->when($limit, fn ($q) => $q->limit($limit))
             ->get();
     }
+
+    public function getRelatedSongsByGenres(array|string $genres, int $songId, ?int $limit = null)
+    {
+        return $this->song->where('status', 'published')
+            ->whereNot('id', $songId)
+            ->whereHas('genres', fn ($q) => is_array($genres) ? $q->whereIn('name', $genres) : $q->where('name', $genres))
+            ->with(['genres:id,name'])
+            ->latest()
+            ->when($limit, fn ($q) => $q->limit($limit))
+            ->get();
+    }
 }

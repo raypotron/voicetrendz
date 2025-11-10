@@ -6,6 +6,7 @@ use App\Models\Album;
 use App\Services\SongService;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -13,6 +14,7 @@ use Filament\Schemas\Schema;
 use getID3;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
 class SongForm
@@ -34,11 +36,17 @@ class SongForm
                     ->hint('Generated automatically from title')
                     ->required(),
                 TextInput::make('excerpt'),
-                TextInput::make('user_id')
-                    ->label('Uploaded By')
-                    ->default(fn () => Auth::user()?->name)
-                    ->disabled()
-                    ->dehydrated(false),
+                Select::make('genres')
+                    ->label('Genres')
+                    ->multiple()
+                    ->relationship('genres', 'name')
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->label('Genre Name')
+                            ->required(),
+                    ])
+                    ->preload()
+                    ->searchable(),
                 Select::make('status')
                     ->label('Status')
                     ->options([
@@ -66,7 +74,19 @@ class SongForm
                     ->visibility('public')
                     ->preserveFilenames()
                     ->maxSize(10240)
-                    ->previewable(),
+                    ->previewable()
+    ->formatStateUsing(fn ($state, $record) => $record?->file_path)
+    ->dehydrateStateUsing(fn ($state, $record) => $state ?: $record?->file_path),
+                    Placeholder::make('audio_preview')
+    ->label('Current song')
+    ->content(fn ($record) => $record?->file_path
+        ? new HtmlString(sprintf(
+            '<audio controls style="width:100%%"><source src="%s" type="audio/mpeg">Your browser does not support the audio element.</audio>',
+            e($record->file_path) // still escape the URL itself
+        ))
+        : 'No uploaded song.')
+    ->visible(fn ($record) => filled($record?->file_path)),
+                    // ->formatStateUsing(fn ($state, $record) => $record?->file_url),
                     // ->reactive()
                     // ->afterStateUpdated(function ($state, callable $set) {
                     //      if (!$state) return;

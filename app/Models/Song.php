@@ -44,6 +44,16 @@ class Song extends Model
         return $this->belongsTo(Album::class);
     }
 
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'genre_song');
+    }
+
+    // public function getFileUrlAttribute()
+    // {
+    //     return $this->file_path;
+    // }
+
     protected $appends = ['thumbnail_url'];
 
     public function getThumbnailUrlAttribute()

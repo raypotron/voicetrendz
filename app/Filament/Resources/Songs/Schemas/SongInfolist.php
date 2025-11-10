@@ -18,6 +18,8 @@ class SongInfolist
                     ->label('Slug'),
                 TextEntry::make('excerpt')
                     ->label('Excerpt'),
+                TextEntry::make('genres.name')
+                    ->label('Genres'),
                 TextEntry::make('content_format')
                     ->label('Content Format'),
                 TextEntry::make('user.name')
