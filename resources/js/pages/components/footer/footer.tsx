@@ -18,7 +18,7 @@ export default function Footer() {
                   About Us
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="#" className="hover:text-purple-600">
                   Our Team
                 </Link>
@@ -27,7 +27,7 @@ export default function Footer() {
                 <Link href="#" className="hover:text-purple-600">
                   Careers
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div>
