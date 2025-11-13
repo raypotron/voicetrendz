@@ -5,7 +5,7 @@ import { Link, router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
 export default function MobileMenu() {
-    const { isMobileMenuOpen } = useBlog();
+    const { isMobileMenuOpen, setIsMobileMenuOpen } = useBlog();
 
     const [pathname, setPathname] = useState(window.location.pathname);
 
@@ -50,6 +50,7 @@ export default function MobileMenu() {
                     <Link
                         key={item.href}
                         href={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
                         className={`block py-2 hover:text-purple-600 ${
                             active
                                 ? 'font-semibold text-primary'
