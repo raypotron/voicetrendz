@@ -27,7 +27,7 @@ interface Lyric {
     thumbnail_url: string;
 }
 
-interface Song{
+interface Song {
     id: number;
     slug: string;
     title: string;
@@ -319,6 +319,29 @@ export default function Home({
                                     </div>
                                 ))}
                             </div>
+                        </div>
+
+                        {/* Fan Poll */}
+                        <div className={`${cardBg} rounded-xl p-6 shadow-lg`}>
+                            <h3 className="mb-4 text-xl font-bold">Fan Poll</h3>
+                            <p className="mb-4 font-semibold">
+                                Who had the best album this year?
+                            </p>
+                            <div className="space-y-3">
+                                {['Burna Boy', 'Wizkid', 'Davido', 'Tems'].map(
+                                    (artist, idx) => (
+                                        <button
+                                            key={idx}
+                                            className={`w-full rounded-lg p-3 text-left ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'} transition`}
+                                        >
+                                            {artist}
+                                        </button>
+                                    ),
+                                )}
+                            </div>
+                            <button className="mt-4 w-full rounded-lg bg-purple-600 py-2 font-semibold text-white transition hover:bg-purple-700">
+                                Vote Now
+                            </button>
                         </div>
 
                         {/* Song Lyrics */}
