@@ -17,6 +17,7 @@ interface BlogContextType {
   textClass: string
   cardBg: string
   borderClass: string
+  setIsMobileMenuOpen: (open: boolean) => void
 }
 
 export const BlogContext = createContext<BlogContextType | undefined>(undefined)
@@ -81,6 +82,7 @@ export const BlogProvider = ({ children }: BlogProviderProps) => {
     textClass,
     cardBg,
     borderClass,
+    setIsMobileMenuOpen,
   }
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>
