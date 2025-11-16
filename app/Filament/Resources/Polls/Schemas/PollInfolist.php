@@ -13,6 +13,9 @@ class PollInfolist
             ->components([
                 TextEntry::make('question')
                     ->label('Question'),
+                TextEntry::make('options.option_text')
+                    ->bulleted()
+                    ->label('Options'),
                 TextEntry::make('expires_at')
                     ->dateTime(),
                 TextEntry::make('created_at')
