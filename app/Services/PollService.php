@@ -6,10 +6,7 @@ use App\Models\Poll;
 
 class PollService
 {
-    public function __construct(private Poll $poll)
-    {
-
-    }
+    public function __construct(private Poll $poll) {}
 
     public function getLatestPoll()
     {
