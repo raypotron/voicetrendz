@@ -18,6 +18,11 @@ class Poll extends Model
         return 'slug';
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('expires_at', '>', now());
+    }
+
     public function options()
     {
         return $this->hasMany(PollOption::class);

@@ -4,15 +4,19 @@ namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Services\LyricService;
+use App\Services\PollService;
 use App\Services\PostService;
 use App\Services\SongService;
 use Inertia\Inertia;
 
 class WelcomeController extends Controller
 {
-    public function __construct(private PostService $postService,
+    public function __construct(
+        private PostService $postService,
         private LyricService $lyricService,
-        private SongService $songService) {}
+        private SongService $songService,
+        private PollService $pollService)
+        {}
 
     public function __invoke()
     {
@@ -21,8 +25,9 @@ class WelcomeController extends Controller
         $latestNews = $this->postService->getPostsByTag('latest news', 4);
         $songLyrics = $this->lyricService->getLyrics(5);
         $latestSongs = $this->songService->getSongs(5);
+        $poll = $this->pollService->getLatestPoll();
 
         return Inertia::render('welcome', compact('heroPost',
-            'hotStories', 'latestNews', 'songLyrics', 'latestSongs'));
+            'hotStories', 'latestNews', 'songLyrics', 'latestSongs', 'poll'));
     }
 }

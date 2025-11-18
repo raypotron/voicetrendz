@@ -36,12 +36,22 @@ interface Song {
     created_at: string;
 }
 
+interface Poll {
+    id: number;
+    slug: string;
+    question: string;
+    options: [{ id: number; option_text: string }];
+    expires_at: string;
+    created_at: string;
+}
+
 interface Props extends PageProps {
     heroPost?: Post | null;
     hotStories?: Post[];
     latestNews?: Post[];
     songLyrics?: Lyric[];
     latestSongs?: Song[];
+    poll?: Poll | null;
 }
 
 const EmptyState = ({ message }: { message: string }) => (
@@ -56,6 +66,7 @@ export default function Home({
     latestNews = [],
     songLyrics = [],
     latestSongs = [],
+    poll = null,
 }: Props) {
     const { cardBg, isDarkMode, bgClass, textClass } = useBlog();
 
@@ -325,23 +336,29 @@ export default function Home({
                         <div className={`${cardBg} rounded-xl p-6 shadow-lg`}>
                             <h3 className="mb-4 text-xl font-bold">Fan Poll</h3>
                             <p className="mb-4 font-semibold">
-                                Who had the best album this year?
+                                {poll ? poll.question : 'No polls available.'}
                             </p>
-                            <div className="space-y-3">
-                                {['Burna Boy', 'Wizkid', 'Davido', 'Tems'].map(
-                                    (artist, idx) => (
-                                        <button
-                                            key={idx}
-                                            className={`w-full rounded-lg p-3 text-left ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'} transition`}
-                                        >
-                                            {artist}
-                                        </button>
-                                    ),
-                                )}
-                            </div>
-                            <button className="mt-4 w-full rounded-lg bg-purple-600 py-2 font-semibold text-white transition hover:bg-purple-700">
-                                Vote Now
-                            </button>
+                            {poll ? (
+                                <>
+                                    <div className="space-y-3">
+                                        {poll?.options.map(
+                                            ({ id, option_text }) => (
+                                                <button
+                                                    key={id}
+                                                    className={`w-full rounded-lg p-3 text-left ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'} transition`}
+                                                >
+                                                    {option_text}
+                                                </button>
+                                            ),
+                                        )}
+                                    </div>
+                                    <button className="mt-4 w-full rounded-lg bg-purple-600 py-2 font-semibold text-white transition hover:bg-purple-700">
+                                        Vote Now
+                                    </button>
+                                </>
+                            ) : (
+                                <EmptyState message="No available." />
+                            )}
                         </div>
 
                         {/* Song Lyrics */}
