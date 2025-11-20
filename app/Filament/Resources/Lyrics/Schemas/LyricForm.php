@@ -30,6 +30,12 @@ class LyricForm
                     ->required(),
                 TextInput::make('excerpt')
                     ->label('Excerpt'),
+                Select::make('artist_id')
+                    ->label('Artist')
+                    ->relationship('artist', 'stage_name')
+                    ->searchable()
+                    ->reactive()
+                    ->preload(),
                 FileUpload::make('thumbnail_path')
                     ->label('Thumbnail')
                     ->disk(config('filesystems.default'))
@@ -38,7 +44,8 @@ class LyricForm
                     ->imagePreviewHeight('150')
                     ->visibility('public')
                     ->preserveFilenames()
-                    ->required(),
+                    ->required()
+                    ->columnSpanFull(),
                 Select::make('status')
                     ->label('Status')
                     ->options([
