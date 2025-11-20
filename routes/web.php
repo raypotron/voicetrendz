@@ -28,24 +28,29 @@ Route::prefix('lyrics')->group(function () {
     Route::get('/', [LyricsController::class, 'index'])->name('lyrics.index');
     Route::get('/{lyric}', [LyricsController::class, 'show'])->name('lyrics.show');
 });
-Route::get('hot-stories', HotStoriesController::class)->name('hot.stories');
-Route::get('music-videos', fn () => Inertia::render('music-videos/page'))->name('music.videos');
-Route::get('news', NewsController::class)->name('news');
+
 Route::prefix('artists')->group(function () {
     Route::get('/', [ArtistController::class, 'index'])->name('artists.index');
     Route::get('/{artist}', [ArtistController::class, 'show'])->name('artist.show');
 });
+
 Route::prefix('songs')->group(function () {
     Route::get('/', [SongsController::class, 'index'])->name('songs.index');
     Route::get('/{song}', [SongsController::class, 'show'])->name('songs.show');
 });
+
+Route::get('news', NewsController::class)->name('news');
+Route::get('hot-stories', HotStoriesController::class)->name('hot.stories');
+Route::post('upload/song', SongUploadController::class)->name('upload.song');
+Route::post('polls/vote', [VotesController::class, 'store'])->name('polls.vote');
+Route::post('editor/upload', ImageUploadController::class)->name('editor.upload');
+
+Route::get('music-videos', fn () => Inertia::render('music-videos/page'))->name('music.videos');
 Route::get('community', fn () => Inertia::render('community/page'))->name('community');
 Route::get('advertise', fn () => Inertia::render('advertise/page'))->name('advertise');
+Route::get('search', fn() => Inertia::render('search/page'))->name('search');
 
-Route::post('editor/upload', ImageUploadController::class)->name('editor.upload');
-Route::post('upload/song', SongUploadController::class)->name('upload.song');
 
-Route::post('polls/vote', [VotesController::class, 'store'])->name('polls.vote');
 
 // Route::middleware(['auth', 'verified'])->group(function () {
 //     Route::get('dashboard', function () {
