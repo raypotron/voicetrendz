@@ -6,6 +6,7 @@ use App\Http\Controllers\Blog\LyricsController;
 use App\Http\Controllers\Blog\NewsController;
 use App\Http\Controllers\Blog\PostController;
 use App\Http\Controllers\Blog\SongsController;
+use App\Http\Controllers\Blog\VotesController;
 use App\Http\Controllers\Blog\WelcomeController;
 use App\Http\Controllers\Editor\ImageUploadController;
 use App\Http\Controllers\Editor\SongUploadController;
@@ -43,6 +44,8 @@ Route::get('advertise', fn () => Inertia::render('advertise/page'))->name('adver
 
 Route::post('editor/upload', ImageUploadController::class)->name('editor.upload');
 Route::post('upload/song', SongUploadController::class)->name('upload.song');
+
+Route::post('polls/vote', [VotesController::class, 'store'])->name('polls.vote');
 
 // Route::middleware(['auth', 'verified'])->group(function () {
 //     Route::get('dashboard', function () {
