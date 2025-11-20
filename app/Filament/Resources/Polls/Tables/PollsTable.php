@@ -17,8 +17,9 @@ class PollsTable
             ->columns([
                  TextColumn::make('question')
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
+                TextColumn::make('votes_count')
+                    ->label('Votes')
+                    ->numeric(),
                 TextColumn::make('expires_at')
                     ->dateTime()
                     ->sortable(),
