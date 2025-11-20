@@ -3,64 +3,30 @@ import { router, Link, usePage } from "@inertiajs/react";
 
 import { Search, Music, FileText, Newspaper, Flame, ChevronRight } from "lucide-react";
 import useBlog from "@/hooks/use-blog";
+import { route } from "ziggy-js";
 
 type ResultItem = {
   id: number;
+  slug: string;
   title: string;
   type: string;
-  image: string;
+  route: string;
+  thumbnail_url: string;
   artist?: string;
   date?: string;
   readTime?: string;
 };
 
-const MOCK_RESULTS: Record<string, ResultItem[]> = {
-  songs: [
-    { id: 1, title: "African Giant", artist: "Burna Boy", type: "Song", image: "/burna-boy-music-studio.jpg" },
-    { id: 2, title: "Essence", artist: "Wizkid ft. Tems", type: "Song", image: "/wizkid-recording-studio.jpg" },
-    { id: 3, title: "Unavailable", artist: "Davido", type: "Song", image: "/davido-album-announcement.jpg" },
-  ],
-  lyrics: [
-    { id: 1, title: "Last Last Lyrics", artist: "Burna Boy", type: "Lyrics", image: "/burna-boy-music-studio.jpg" },
-    { id: 2, title: "Calm Down Lyrics", artist: "Rema", type: "Lyrics", image: "/afrobeats-festival-stage.jpg" },
-  ],
-  news: [
-    {
-      id: 1,
-      title: "Wizkid Announces New Album Tour Dates",
-      date: "2 days ago",
-      type: "News",
-      image: "/wizkid-recording-studio.jpg",
-    },
-    {
-      id: 2,
-      title: "Tems Wins First Grammy Award",
-      date: "1 week ago",
-      type: "News",
-      image: "/tems-award-ceremony.jpg",
-    },
-  ],
-  stories: [
-    {
-      id: 1,
-      title: "The Rise of Afrobeats Global Domination",
-      readTime: "5 min read",
-      type: "Story",
-      image: "/afrobeats-festival-stage.jpg",
-    },
-    {
-      id: 2,
-      title: "Inside the Studio with Don Jazzy",
-      readTime: "8 min read",
-      type: "Story",
-      image: "/music-streaming-analytics.jpg",
-    },
-  ],
-};
-
 export default function SearchPage() {
-  // Typed query from Inertia controller
-  const { query } = usePage<{ query: string }>().props;
+  const { query, results } = usePage<{
+    query: string;
+    results: {
+      songs: ResultItem[];
+      lyrics: ResultItem[];
+      news: ResultItem[];
+      stories: ResultItem[];
+    };
+  }>().props;
 
   const { bgClass, textClass, cardBg, borderClass } = useBlog();
 
@@ -74,7 +40,7 @@ export default function SearchPage() {
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim().length) {
-      router.visit(`/search?q=${encodeURIComponent(searchQuery)}`);
+      router.get("/search", { q: searchQuery });
     }
   };
 
@@ -89,17 +55,17 @@ export default function SearchPage() {
   const getFilteredResults = (): ResultItem[] => {
     if (activeTab === "all") {
       return [
-        ...MOCK_RESULTS.songs,
-        ...MOCK_RESULTS.lyrics,
-        ...MOCK_RESULTS.news,
-        ...MOCK_RESULTS.stories,
+        ...results.songs,
+        ...results.lyrics,
+        ...results.news,
+        ...results.stories,
       ];
     }
 
-    return MOCK_RESULTS[activeTab] ?? [];
+    return results[activeTab as keyof typeof results] ?? [];
   };
 
-  const results: ResultItem[] = getFilteredResults();
+  const filteredResults = getFilteredResults();
 
   return (
     <div className={`min-h-screen ${bgClass} ${textClass} pt-24 pb-12`}>
@@ -151,12 +117,14 @@ export default function SearchPage() {
 
         {/* Results */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {results.map((result, index) => (
-            <Link href={`/posts/${result.id}`} key={`${result.type}-${result.id}-${index}`}>
-              <div className={`${cardBg} rounded-2xl overflow-hidden border ${borderClass} hover:shadow-xl transition-all duration-300 group h-full flex flex-col`}>
+          {filteredResults.map((result, index) => (
+            <Link href={route(`${result.route}`, result.slug)} key={`${result.type}-${result.id}-${index}`}>
+              <div
+                className={`${cardBg} rounded-2xl overflow-hidden border ${borderClass} hover:shadow-xl transition-all duration-300 group h-full flex flex-col`}
+              >
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src={result.image || "/placeholder.svg"}
+                    src={result.thumbnail_url || "/placeholder.svg"}
                     alt={result.title}
                     className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                   />
@@ -175,7 +143,7 @@ export default function SearchPage() {
                   </p>
 
                   <div className="flex items-center text-purple-500 text-sm font-medium mt-auto">
-                    Read More
+                    Read More{" "}
                     <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
@@ -184,7 +152,7 @@ export default function SearchPage() {
           ))}
         </div>
 
-        {results.length === 0 && (
+        {filteredResults.length === 0 && (
           <div className="text-center py-20">
             <div className="bg-gray-100 dark:bg-gray-800 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Search className="w-10 h-10 text-gray-400" />
