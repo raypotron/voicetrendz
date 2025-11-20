@@ -7,6 +7,7 @@ use App\Services\LyricService;
 use App\Services\PollService;
 use App\Services\PostService;
 use App\Services\SongService;
+use App\Services\TrendingTopicService;
 use Inertia\Inertia;
 
 class WelcomeController extends Controller
@@ -15,8 +16,8 @@ class WelcomeController extends Controller
         private PostService $postService,
         private LyricService $lyricService,
         private SongService $songService,
-        private PollService $pollService)
-        {}
+        private PollService $pollService,
+        private TrendingTopicService $trendingTopicService) {}
 
     public function __invoke()
     {
@@ -26,8 +27,9 @@ class WelcomeController extends Controller
         $songLyrics = $this->lyricService->getLyrics(5);
         $latestSongs = $this->songService->getSongs(5);
         $poll = $this->pollService->getLatestPoll();
+        $trendingTopics = $this->trendingTopicService->getLatestTrendingTopics(5);
 
         return Inertia::render('welcome', compact('heroPost',
-            'hotStories', 'latestNews', 'songLyrics', 'latestSongs', 'poll'));
+            'hotStories', 'latestNews', 'songLyrics', 'latestSongs', 'poll', 'trendingTopics'));
     }
 }
