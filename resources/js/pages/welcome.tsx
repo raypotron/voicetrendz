@@ -51,6 +51,12 @@ interface User {
     name: string;
 }
 
+interface TrendingTopic {
+    id: number;
+    topic: string;
+    key: string;
+}
+
 interface InertiaPageProps extends PageProps {
     user: User | null;
 }
@@ -62,6 +68,7 @@ interface Props extends PageProps {
     songLyrics?: Lyric[];
     latestSongs?: Song[];
     poll?: Poll | null;
+    trendingTopics?: TrendingTopic[];
 }
 
 interface PollForm {
@@ -83,6 +90,7 @@ export default function Home({
     songLyrics = [],
     latestSongs = [],
     poll = null,
+    trendingTopics = [],
 }: Props) {
     const { cardBg, isDarkMode, bgClass, textClass } = useBlog();
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -90,14 +98,6 @@ export default function Home({
     const { props } = usePage<InertiaPageProps>();
 
     const user = props.user;
-
-    const trendingTopics = [
-        '#BurnaBoy',
-        '#Afrobeats2025',
-        '#WizkidFC',
-        '#NewMusicFriday',
-        '#TemsVibes',
-    ];
 
     const { post, setData, processing, errors, reset } = useForm<PollForm>({
         poll_id: poll?.id || null,
@@ -365,7 +365,7 @@ export default function Home({
                                 Trending Topics
                             </h3>
                             <div className="space-y-2">
-                                {trendingTopics.map((topic, idx) => (
+                                {trendingTopics.map((trending, idx) => (
                                     <div
                                         key={idx}
                                         className={`rounded-lg p-3 ${
@@ -374,9 +374,14 @@ export default function Home({
                                                 : 'bg-gray-100 hover:bg-gray-200'
                                         } cursor-pointer transition`}
                                     >
-                                        <span className="font-semibold text-purple-600">
-                                            {topic}
-                                        </span>
+                                        <Link
+                                            key={idx}
+                                            href={`/search?q=${encodeURIComponent(trending.key)}`}
+                                        >
+                                            <span className="font-semibold text-purple-600">
+                                                #{trending.topic}
+                                            </span>
+                                        </Link>
                                     </div>
                                 ))}
                             </div>
