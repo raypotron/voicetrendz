@@ -16,6 +16,7 @@ class Lyric extends Model
         'status',
         'published_at',
         'thumbnail_path',
+        'artist_id',
     ];
 
     protected $appends = ['thumbnail_url'];
@@ -46,5 +47,10 @@ class Lyric extends Model
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'genre_lyric');
+    }
+
+    public function artist()
+    {
+        return $this->belongsTo(Artist::class);
     }
 }
