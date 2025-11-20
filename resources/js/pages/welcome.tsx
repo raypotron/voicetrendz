@@ -2,10 +2,11 @@
 
 import useBlog from '@/hooks/use-blog';
 import { PageProps } from '@inertiajs/core';
-import { Link } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { ChevronRight, Music, TrendingUp } from 'lucide-react';
+import { useState } from 'react';
 import { route } from 'ziggy-js';
 
 dayjs.extend(relativeTime);
@@ -45,6 +46,15 @@ interface Poll {
     created_at: string;
 }
 
+interface User {
+    id: number;
+    name: string;
+}
+
+interface InertiaPageProps extends PageProps {
+    user: User | null;
+}
+
 interface Props extends PageProps {
     heroPost?: Post | null;
     hotStories?: Post[];
@@ -52,6 +62,12 @@ interface Props extends PageProps {
     songLyrics?: Lyric[];
     latestSongs?: Song[];
     poll?: Poll | null;
+}
+
+interface PollForm {
+    poll_id: number | null;
+    poll_option_id: number | null;
+    user_id: number | null;
 }
 
 const EmptyState = ({ message }: { message: string }) => (
@@ -69,6 +85,11 @@ export default function Home({
     poll = null,
 }: Props) {
     const { cardBg, isDarkMode, bgClass, textClass } = useBlog();
+    const [selectedOption, setSelectedOption] = useState<number | null>(null);
+    const [success, setSuccess] = useState<boolean | null>(null);
+    const { props } = usePage<InertiaPageProps>();
+
+    const user = props.user;
 
     const trendingTopics = [
         '#BurnaBoy',
@@ -77,6 +98,35 @@ export default function Home({
         '#NewMusicFriday',
         '#TemsVibes',
     ];
+
+    const { post, setData, processing, errors, reset } = useForm<PollForm>({
+        poll_id: poll?.id || null,
+        poll_option_id: null,
+        user_id: user?.id ?? null,
+    });
+
+    const handleVote = () => {
+        if (!user) {
+            window.location.replace('/user/login');
+            return;
+        }
+
+        if (!selectedOption) {
+            alert('Please select an option.');
+            return;
+        }
+
+        post(route('polls.vote'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                setSuccess(true);
+                reset();
+            },
+            onError: () => {
+                setSuccess(false);
+            },
+        });
+    };
 
     return (
         <div
@@ -334,6 +384,11 @@ export default function Home({
 
                         {/* Fan Poll */}
                         <div className={`${cardBg} rounded-xl p-6 shadow-lg`}>
+                            {success && (
+                                <div className="mb-4 rounded border border-green-400 bg-green-100 px-4 py-3 font-semibold text-green-700">
+                                    Vote submitted successfully
+                                </div>
+                            )}
                             <h3 className="mb-4 text-xl font-bold">Fan Poll</h3>
                             <p className="mb-4 font-semibold">
                                 {poll ? poll.question : 'No polls available.'}
@@ -341,20 +396,38 @@ export default function Home({
                             {poll ? (
                                 <>
                                     <div className="space-y-3">
-                                        {poll?.options.map(
+                                        {poll.options.map(
                                             ({ id, option_text }) => (
                                                 <button
                                                     key={id}
-                                                    className={`w-full rounded-lg p-3 text-left ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'} transition`}
+                                                    onClick={() => {
+                                                        setSelectedOption(id);
+                                                        setData((prev) => ({
+                                                            ...prev,
+                                                            poll_option_id: id,
+                                                        }));
+                                                    }}
+                                                    className={`w-full rounded-lg p-3 text-left transition ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'} ${selectedOption === id ? 'border-2 border-purple-600 font-bold' : ''} `}
                                                 >
                                                     {option_text}
                                                 </button>
                                             ),
                                         )}
                                     </div>
-                                    <button className="mt-4 w-full rounded-lg bg-purple-600 py-2 font-semibold text-white transition hover:bg-purple-700">
-                                        Vote Now
+
+                                    <button
+                                        onClick={handleVote}
+                                        disabled={processing}
+                                        className="mt-4 w-full rounded-lg bg-purple-600 py-2 font-semibold text-white transition hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+                                    >
+                                        {processing ? 'Voting...' : 'Vote Now'}
                                     </button>
+
+                                    {errors.poll_option_id && (
+                                        <p className="mt-2 text-sm text-red-500">
+                                            {errors.poll_option_id}
+                                        </p>
+                                    )}
                                 </>
                             ) : (
                                 <EmptyState message="No available." />
