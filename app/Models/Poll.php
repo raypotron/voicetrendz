@@ -13,6 +13,10 @@ class Poll extends Model
         'expires_at',
     ];
 
+    protected $casts = [
+        'expires_at' => 'datetime',
+    ];
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -21,6 +25,11 @@ class Poll extends Model
     public function scopeActive($query)
     {
         return $query->where('expires_at', '>', now());
+    }
+
+    public function isActive(): bool
+    {
+        return $this->expires_at > now();
     }
 
     public function options()
