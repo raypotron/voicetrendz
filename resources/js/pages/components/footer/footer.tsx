@@ -84,7 +84,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-purple-600">
+                <Link href="/polls" className="hover:text-purple-600">
                   Fan Polls
                 </Link>
               </li>
