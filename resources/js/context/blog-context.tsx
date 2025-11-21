@@ -60,10 +60,10 @@ export const BlogProvider = ({ children }: BlogProviderProps) => {
     if (isMobileMenuOpen) setIsMobileMenuOpen(false)
   }
 
-  const bgClass = isDarkMode ? "bg-gray-900" : "bg-gray-50"
+  const bgClass = isDarkMode ? "bg-gray-950" : "bg-gray-100"
   const textClass = isDarkMode ? "text-gray-100" : "text-gray-900"
-  const cardBg = isDarkMode ? "bg-gray-800" : "bg-white"
-  const borderClass = isDarkMode ? "border-gray-700" : "border-gray-200"
+  const cardBg = isDarkMode ? "bg-gray-900" : "bg-white"
+  const borderClass = isDarkMode ? "border-gray-700" : "border-gray-100"
 
   const value: BlogContextType = {
     isDarkMode,

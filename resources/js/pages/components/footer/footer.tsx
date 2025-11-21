@@ -5,11 +5,11 @@ import useBlog from "@/hooks/use-blog"
 import { socialLinks } from '@/types/socialData';
 
 export default function Footer() {
-    const { isDarkMode } = useBlog()
+    const { isDarkMode, cardBg } = useBlog()
 
     return (
         <footer
-            className={`nav-gradient sm:ml-10 border-t border-gray-900/70 transition-all duration-300`}
+            className={`nav-gradient sm:px-10 ${cardBg} border-t border-gray-900/70 transition-all duration-300`}
         >
             <div className="mx-auto px-4 py-8 sm:px-8 md:py-10">
                 <div className="mb-10">
