@@ -1,11 +1,11 @@
 'use client';
 
-import { Link } from '@inertiajs/react';
-import useBlog from "@/hooks/use-blog"
+import useBlog from '@/hooks/use-blog';
 import { socialLinks } from '@/types/socialData';
+import { Link } from '@inertiajs/react';
 
 export default function Footer() {
-    const { isDarkMode, cardBg } = useBlog()
+    const { isDarkMode, cardBg } = useBlog();
 
     return (
         <footer
@@ -13,10 +13,7 @@ export default function Footer() {
         >
             <div className="mx-auto px-4 py-8 sm:px-8 md:py-10">
                 <div className="mb-10">
-                    <Link
-                        href="/"
-                        className="flex items-center gap-2"
-                    >
+                    <Link href="/" className="flex items-center gap-2">
                         <img
                             src={`${isDarkMode ? '/logo_b.png' : '/logo_w.png'}`}
                             alt="VoiceTrendz Logo"
@@ -33,9 +30,11 @@ export default function Footer() {
                     {socialLinks.map((link) => (
                         <Link
                             key={link.name}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href="#"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                window.open(link.url, "_blank", "noopener,noreferrer");
+                            }}
                             aria-label={link.name}
                             className="icon-bg rounded-full p-2 text-gray-400 transition-colors hover:bg-[#1A3D64] hover:text-amber-600"
                         >
