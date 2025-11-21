@@ -1,100 +1,149 @@
-"use client"
+'use client';
 
-import { Link } from "@inertiajs/react"
+import { Link } from '@inertiajs/react';
 import useBlog from "@/hooks/use-blog"
+import { socialLinks } from '@/types/socialData';
 
 export default function Footer() {
-  const { cardBg, borderClass } = useBlog()
+    const { isDarkMode } = useBlog()
 
-  return (
-    <footer className={`${cardBg} border-t ${borderClass} mt-12`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-          <div>
-            <h4 className="font-bold mb-4">About</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="#" className="hover:text-purple-600">
-                  About Us
-                </Link>
-              </li>
-              {/* <li>
-                <Link href="#" className="hover:text-purple-600">
-                  Our Team
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-purple-600">
-                  Careers
-                </Link>
-              </li> */}
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4">Contact</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="#" className="hover:text-purple-600">
-                  Email Us
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-purple-600">
-                  Support
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4">Advertise</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="#" className="hover:text-purple-600">
-                  Ad Options
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-purple-600">
-                  Media Kit
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4">Submit</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="#" className="hover:text-purple-600">
-                  Submit Music
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-purple-600">
-                  Artist Profiles
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4">Community</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="#" className="hover:text-purple-600">
-                  Forums
-                </Link>
-              </li>
-              <li>
-                <Link href="/polls" className="hover:text-purple-600">
-                  Fan Polls
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm">
-          <p>&copy; 2025 Voicenute. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
-  )
+    return (
+        <footer
+            className={`nav-gradient sm:ml-10 border-t border-gray-900/70 transition-all duration-300`}
+        >
+            <div className="mx-auto px-4 py-8 sm:px-8 md:py-10">
+                <div className="mb-10">
+                    <Link
+                        href="/"
+                        className="flex items-center gap-2"
+                    >
+                        <img
+                            src={`${isDarkMode ? '/logo_b.png' : '/logo_w.png'}`}
+                            alt="VoiceTrendz Logo"
+                            width={40}
+                            height={40}
+                            className="rounded-full object-contain"
+                        />
+                        <span className={`text-2xl font-bold`}>
+                            VoiceTrendz
+                        </span>
+                    </Link>
+                </div>
+                <div className="mb-6 flex space-x-6 sm:mb-10">
+                    {socialLinks.map((link) => (
+                        <Link
+                            key={link.name}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={link.name}
+                            className="icon-bg rounded-full p-2 text-gray-400 transition-colors hover:bg-[#1A3D64] hover:text-amber-600"
+                        >
+                            <link.Icon size={24} />
+                        </Link>
+                    ))}
+                </div>
+                {/* <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] "> */}
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {/* Brand Info */}
+
+                    {/* About / Advertise */}
+                    <div>
+                        <h4 className={`mb-4 text-lg font-bold`}>
+                            Advertise With Us
+                        </h4>
+                        <ul className="space-y-2 text-sm">
+                            <li>
+                                <Link
+                                    href="/about-us"
+                                    className="transition-colors hover:text-amber-600"
+                                >
+                                    About Us
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/contact-us"
+                                    className="transition-colors hover:text-amber-600"
+                                >
+                                    Contact Us
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/contact-us"
+                                    className="transition-colors hover:text-amber-600"
+                                >
+                                    Support
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/contact-us"
+                                    className="transition-colors hover:text-amber-600"
+                                >
+                                    Email us
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Legal */}
+                    <div>
+                        <h4 className={`mb-4 text-lg font-bold`}>Legal</h4>
+                        <ul className="space-y-2 text-sm">
+                            <li>
+                                <Link
+                                    href="/privacy"
+                                    className="transition-colors hover:text-amber-600"
+                                >
+                                    Privacy Policy
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/terms"
+                                    className="transition-colors hover:text-amber-600"
+                                >
+                                    Terms of Service
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Community */}
+                    <div>
+                        <h4 className={`mb-4 text-lg font-bold`}>Community</h4>
+                        <ul className="space-y-2 text-sm">
+                            <li>
+                                <Link
+                                    href="/forums"
+                                    className="transition-colors hover:text-amber-600"
+                                >
+                                    Forums
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/polls"
+                                    className="transition-colors hover:text-amber-600"
+                                >
+                                    Fan Polls
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {/* Footer Bottom */}
+            <div
+                className={`mt-4 border-t border-slate-900 pt-4 text-center text-sm`}
+            >
+                <p className="opacity-60">
+                    &copy; {new Date().getFullYear()} VoiceTrendz. All rights
+                    reserved.
+                </p>
+            </div>
+        </footer>
+    );
 }
