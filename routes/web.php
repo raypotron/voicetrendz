@@ -4,6 +4,7 @@ use App\Http\Controllers\Blog\ArtistController;
 use App\Http\Controllers\Blog\HotStoriesController;
 use App\Http\Controllers\Blog\LyricsController;
 use App\Http\Controllers\Blog\NewsController;
+use App\Http\Controllers\Blog\PollsController;
 use App\Http\Controllers\Blog\PostController;
 use App\Http\Controllers\Blog\SearchController;
 use App\Http\Controllers\Blog\SongsController;
@@ -42,6 +43,7 @@ Route::prefix('songs')->group(function () {
 
 Route::get('news', NewsController::class)->name('news');
 Route::get('search', SearchController::class)->name('search');
+Route::get('polls', PollsController::class)->name('fan.polls');
 Route::get('hot-stories', HotStoriesController::class)->name('hot.stories');
 Route::post('upload/song', SongUploadController::class)->name('upload.song');
 Route::post('polls/vote', [VotesController::class, 'store'])->name('polls.vote');
