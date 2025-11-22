@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Services\PostService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -20,8 +21,12 @@ class PostController extends Controller
 
         $relatedArticles = $this->postService->getRelatedPostsByTag($tags, $singlePost->id, 2);
 
+        $userId = Auth::id();
+
         return Inertia::render('posts/page', ['post' => $singlePost,
-            'relatedArticles' => $relatedArticles]);
+            'relatedArticles' => $relatedArticles,
+            'isLiked' => $post->likes()->where('user_id', $userId)->exists(),
+            'likesCount' => $post->likes()->count(), ]);
     }
 
     public function trackView(Post $post, Request $request)
