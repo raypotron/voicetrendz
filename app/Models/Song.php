@@ -49,6 +49,11 @@ class Song extends Model
         return $this->belongsToMany(Genre::class, 'genre_song');
     }
 
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likable');
+    }
+
     // public function getFileUrlAttribute()
     // {
     //     return $this->file_path;
