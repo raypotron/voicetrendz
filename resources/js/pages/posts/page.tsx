@@ -2,8 +2,9 @@
 
 import axios from '@/axios';
 import useBlog from '@/hooks/use-blog';
+import useLikeable from '@/hooks/use-likeable';
 import { PageProps } from '@inertiajs/core';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {
@@ -35,19 +36,51 @@ interface Post {
     category: { id: number; name: string };
 }
 
+interface User {
+    id: number;
+    name: string;
+}
+
+
+interface InertiaPageProps extends PageProps {
+    user: User | null;
+}
+
 interface Props extends PageProps {
     post: Post;
     relatedArticles: Post[];
+    isLiked: boolean;
+    likesCount: number;
 }
 
-export default function PostPage({ post, relatedArticles }: Props) {
+export default function PostPage({ post, relatedArticles, isLiked, likesCount }: Props) {
     const { isDarkMode } = useBlog();
-    const [liked, setLiked] = useState(false);
+    // const [liked, setLiked] = useState(false);
     const [showShare, setShowShare] = useState(false);
     const [views, setViews] = useState(post.views);
 
     const encodedUrl = encodeURIComponent(post.slug);
     const encodedTitle = encodeURIComponent(post.title);
+
+    const { props } = usePage<InertiaPageProps>();
+
+    const user = props.user;
+
+    const { liked, count, toggleLike } = useLikeable({
+        likeableId: post.id,
+        likeableType: 'post',
+        initialLiked: isLiked,
+        initialCount: likesCount,
+        routeName: 'like.toggle',
+    });
+
+    const handleLikeClick = () => {
+        if (!user) {
+            window.location.replace('/user/login');
+            return;
+        }
+        toggleLike();
+    };
 
     const shareLinks = {
         whatsapp: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
@@ -449,7 +482,9 @@ export default function PostPage({ post, relatedArticles }: Props) {
                             </div>
                             <div className="flex items-center gap-2">
                                 <Eye className="h-4 w-4 text-muted-foreground" />
-                                <span>{views} {views === 1 ? 'view' : 'views'}</span>
+                                <span>
+                                    {views} {views === 1 ? 'view' : 'views'}
+                                </span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Clock className="h-4 w-4 text-muted-foreground" />
@@ -467,7 +502,7 @@ export default function PostPage({ post, relatedArticles }: Props) {
                     <div className="relative flex flex-wrap items-center gap-4 border-t border-b border-border py-8">
                         {/* Like Button */}
                         <button
-                            onClick={() => setLiked(!liked)}
+                            onClick={handleLikeClick}
                             className={`flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-all ${
                                 liked
                                     ? 'bg-primary text-primary-foreground'
@@ -477,7 +512,7 @@ export default function PostPage({ post, relatedArticles }: Props) {
                             <Heart
                                 className={`h-5 w-5 ${liked ? 'fill-current' : ''}`}
                             />
-                            {liked ? 'Liked' : 'Like this article'}
+                            {liked ? 'Liked' : 'Like this'} ({count})
                         </button>
 
                         {/* Share Button */}
