@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Blog\ArtistController;
 use App\Http\Controllers\Blog\HotStoriesController;
+use App\Http\Controllers\Blog\LikesController;
 use App\Http\Controllers\Blog\LyricsController;
 use App\Http\Controllers\Blog\NewsController;
 use App\Http\Controllers\Blog\PollsController;
@@ -48,11 +49,11 @@ Route::get('hot-stories', HotStoriesController::class)->name('hot.stories');
 Route::post('upload/song', SongUploadController::class)->name('upload.song');
 Route::post('polls/vote', [VotesController::class, 'store'])->name('polls.vote');
 Route::post('editor/upload', ImageUploadController::class)->name('editor.upload');
+Route::post('like/{type}/{id}', [LikesController::class, 'toggle'])->name('like.toggle');
 
 Route::get('music-videos', fn () => Inertia::render('music-videos/page'))->name('music.videos');
 Route::get('community', fn () => Inertia::render('community/page'))->name('community');
 Route::get('advertise', fn () => Inertia::render('advertise/page'))->name('advertise');
-
 
 
 // Route::middleware(['auth', 'verified'])->group(function () {
