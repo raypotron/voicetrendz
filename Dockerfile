@@ -58,10 +58,14 @@ RUN chmod 1777 /tmp
 
 WORKDIR /var/www/html
 
-# Copy application code and compiled assets
+# Copy application code first
+COPY . /var/www/html
+
+# Then overwrite vendor with build vendor
 COPY --from=vendor /app/vendor/ /var/www/html/vendor/
+
+# Then overwrite only the build assets
 COPY --from=frontend /app/public/build/ /var/www/html/public/build/
-COPY . .
 
 # Copy configurations for Nginx, Supervisor, and start script
 COPY .docker/nginx.conf /usr/local/etc/nginx/nginx.conf
