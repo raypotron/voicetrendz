@@ -34,8 +34,12 @@ php artisan db:seed --force
 # exec /usr/local/sbin/php-fpm
 
 # ✅ Then start Nginx in the foreground
-nginx
+# nginx
 
 # ✅ Start PHP-FPM in the background first
 # php-fpm -D
-exec /usr/local/sbin/php-fpm
+# exec /usr/local/sbin/php-fpm
+
+
+php-fpm -D
+nginx -g "daemon off;"
