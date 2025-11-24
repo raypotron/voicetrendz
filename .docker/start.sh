@@ -42,4 +42,5 @@ php artisan db:seed --force
 
 
 php-fpm -D
-exec nginx -g "daemon off;" -c /usr/local/etc/nginx/nginx.conf
+exec /usr/local/sbin/php-fpm
+# exec nginx -g "daemon off;"
