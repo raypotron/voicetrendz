@@ -68,7 +68,8 @@ COPY --from=vendor /app/vendor/ /var/www/html/vendor/
 COPY --from=frontend /app/public/build/ /var/www/html/public/build/
 
 # Copy configurations for Nginx, Supervisor, and start script
-COPY .docker/nginx.conf /usr/local/etc/nginx/nginx.conf
+# COPY .docker/nginx.conf /usr/local/etc/nginx/nginx.conf
+COPY .docker/nginx.conf /etc/nginx/nginx.conf
 COPY .docker/php-fpm-www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY .docker/start.sh /usr/local/bin/start.sh
 
