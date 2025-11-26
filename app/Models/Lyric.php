@@ -54,8 +54,8 @@ class Lyric extends Model
         return $this->belongsTo(Artist::class);
     }
 
-    public function likable()
+    public function likes()
     {
-        return $this->morphTo(Like::class, 'likable');
+        return $this->morphMany(Like::class, 'likeable');
     }
 }

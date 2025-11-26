@@ -30,6 +30,7 @@ Route::prefix('posts')->group(function () {
 Route::prefix('lyrics')->group(function () {
     Route::get('/', [LyricsController::class, 'index'])->name('lyrics.index');
     Route::get('/{lyric}', [LyricsController::class, 'show'])->name('lyrics.show');
+    Route::post('/{lyric}/track-view', [LyricsController::class, 'trackView'])->name('lyrics.track-view');
 });
 
 Route::prefix('artists')->group(function () {

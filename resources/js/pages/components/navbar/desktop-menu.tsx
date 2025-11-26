@@ -34,6 +34,7 @@ export default function DesktopMenu() {
       children: [
         { href: '/music-videos', label: 'Music Videos' },
         { href: '/lyrics', label: 'Lyrics' },
+        { href: '/songs', label: 'Songs' },
       ],
     },
     {
@@ -41,7 +42,7 @@ export default function DesktopMenu() {
       children: [
         { href: '/hot-stories', label: 'Hot Stories' },
         { href: '/news', label: 'Latest News' },
-        { href: '/trending-topics', label: 'Trending Topics', icon: TrendingUp },
+        { href: '/', label: 'Trending Topics', icon: TrendingUp },
       ],
     },
     { href: '/artists', label: 'Artists' },

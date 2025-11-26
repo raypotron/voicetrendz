@@ -2,8 +2,9 @@
 
 import axios from '@/axios';
 import useBlog from '@/hooks/use-blog';
+import useLikeable from '@/hooks/use-likeable';
 import { PageProps } from '@inertiajs/core';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {
@@ -35,20 +36,55 @@ interface Song {
     user: { id: number; name: string };
 }
 
+interface User {
+    id: number;
+    name: string;
+}
+
+interface InertiaPageProps extends PageProps {
+    user: User | null;
+}
+
 interface Props extends PageProps {
     song: Song;
     relatedSongs: Song[];
+    isLiked: boolean;
+    likesCount: number;
 }
 
-export default function SongPage({ song, relatedSongs }: Props) {
+export default function SongPage({
+    song,
+    relatedSongs,
+    isLiked,
+    likesCount,
+}: Props) {
     const { isDarkMode } = useBlog();
-    const [liked, setLiked] = useState(false);
+    // const [liked, setLiked] = useState(false);
     const [showShare, setShowShare] = useState(false);
     const [views, setViews] = useState(song.views);
 
+    const { props } = usePage<InertiaPageProps>();
+
+    const user = props.user;
 
     const encodedUrl = encodeURIComponent(song.slug);
     const encodedTitle = encodeURIComponent(song.title);
+
+    const { liked, count, toggleLike } = useLikeable({
+        likeableId: song.id,
+        likeableType: 'song',
+        initialLiked: isLiked,
+        initialCount: likesCount,
+        routeName: 'like.toggle',
+    });
+
+    const handleLikeClick = () => {
+        if (!user) {
+            window.location.replace('/user/login');
+            return;
+        }
+        toggleLike();
+    };
 
     const shareLinks = {
         whatsapp: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
@@ -58,19 +94,19 @@ export default function SongPage({ song, relatedSongs }: Props) {
     };
 
     useEffect(() => {
-                const trackView = async () => {
-                    try {
-                        const response = await axios.post(
-                            `/songs/${song.slug}/track-view`,
-                        );
-                        setViews(response.data.views); // Update view count in real-time
-                    } catch (err) {
-                        console.error('Error tracking post view:', err);
-                    }
-                };
+        const trackView = async () => {
+            try {
+                const response = await axios.post(
+                    `/songs/${song.slug}/track-view`,
+                );
+                setViews(response.data.views); // Update view count in real-time
+            } catch (err) {
+                console.error('Error tracking post view:', err);
+            }
+        };
 
-                trackView();
-            }, [song.slug]);
+        trackView();
+    }, [song.slug]);
 
     const formatContent = (content: string) => {
         // Parse HTML content and render with proper styling
@@ -490,7 +526,7 @@ export default function SongPage({ song, relatedSongs }: Props) {
                     <div className="relative flex flex-wrap items-center gap-4 border-t border-b border-border py-8">
                         {/* Like Button */}
                         <button
-                            onClick={() => setLiked(!liked)}
+                            onClick={handleLikeClick}
                             className={`flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-all ${
                                 liked
                                     ? 'bg-primary text-primary-foreground'
@@ -500,7 +536,7 @@ export default function SongPage({ song, relatedSongs }: Props) {
                             <Heart
                                 className={`h-5 w-5 ${liked ? 'fill-current' : ''}`}
                             />
-                            {liked ? 'Liked' : 'Like this article'}
+                            {liked ? 'Liked' : 'Like this'} ({count})
                         </button>
 
                         {/* Share Button */}

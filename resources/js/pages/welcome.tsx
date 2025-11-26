@@ -17,6 +17,7 @@ interface Post {
     title: string;
     excerpt: string;
     thumbnail_url: string;
+    views: number;
     created_at: string;
     category?: { id: number; name: string };
 }
@@ -211,7 +212,12 @@ export default function Home({
                                                 <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 to-transparent">
                                                     <div className="w-full p-4">
                                                         <div className="flex items-center gap-3 text-sm text-white">
-                                                            <span>👁 45K</span>
+                                                            <span>
+                                                                👁
+                                                                { story.views }{' '}
+                                                                { story.views >
+                                                                999 ? 'k' : ''}
+                                                            </span>
                                                             <span>
                                                                 ⏱{' '}
                                                                 {dayjs(
