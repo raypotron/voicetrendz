@@ -30,4 +30,15 @@ class SongsController extends Controller
         return Inertia::render('songs/page', ['song' => $getSong,
             'relatedSongs' => $relatedSongs]);
     }
+
+    public function trackView(Song $song, Request $request)
+    {
+        $sessionKey = "song_{$song->id}_viewed";
+        if (! $request->session()->has($sessionKey)) {
+            $song->increment('views');
+            $request->session()->put($sessionKey, true);
+        }
+
+        return response()->json(['views' => $song->views]);
+    }
 }
