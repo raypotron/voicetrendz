@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Song;
 use App\Services\SongService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class SongsController extends Controller
 {
-    public function __construct(private SongService $songService){}
+    public function __construct(private SongService $songService) {}
 
     public function index()
     {
@@ -27,8 +28,12 @@ class SongsController extends Controller
 
         $relatedSongs = $this->songService->getRelatedSongsByGenres($genres, $getSong->id, 5) ?? [];
 
+        $userId = Auth::id();
+
         return Inertia::render('songs/page', ['song' => $getSong,
-            'relatedSongs' => $relatedSongs]);
+            'relatedSongs' => $relatedSongs,
+            'isLiked' => $song->likes()->where('user_id', $userId)->exists(),
+            'likesCount' => $song->likes()->count(), ]);
     }
 
     public function trackView(Song $song, Request $request)
