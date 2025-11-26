@@ -40,6 +40,7 @@ Route::prefix('artists')->group(function () {
 Route::prefix('songs')->group(function () {
     Route::get('/', [SongsController::class, 'index'])->name('songs.index');
     Route::get('/{song}', [SongsController::class, 'show'])->name('songs.show');
+    Route::post('/{song}/track-view', [SongsController::class, 'trackView'])->name('songs.track-view');
 });
 
 Route::get('news', NewsController::class)->name('news');
