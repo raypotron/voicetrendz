@@ -9,11 +9,12 @@ import { Clock, Eye } from 'lucide-react';
 
 dayjs.extend(relativeTime);
 
-interface Song{
+interface Song {
     id: number;
     slug: string;
     title: string;
     excerpt: string;
+    views: number;
     thumbnail_url: string;
     created_at: string;
 }
@@ -55,7 +56,10 @@ export default function SongsPage({ songs }: Props) {
                                         <span className="flex items-center gap-1">
                                             <Eye className="h-4 w-4" />{' '}
                                             {/* {story.views} */}
-                                            45K
+                                            <span>
+                                                {song.views}{' '}
+                                                {song.views > 999 ? 'k' : ''}
+                                            </span>
                                         </span>
                                         <span className="flex items-center gap-1">
                                             <Clock className="h-4 w-4" />{' '}

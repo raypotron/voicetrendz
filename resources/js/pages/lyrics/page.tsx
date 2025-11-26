@@ -1,5 +1,6 @@
 'use client';
 
+import axios from '@/axios';
 import useBlog from '@/hooks/use-blog';
 import { PageProps } from '@inertiajs/core';
 import { router } from '@inertiajs/react';
@@ -18,7 +19,7 @@ import {
     User,
     X,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 dayjs.extend(relativeTime);
 
@@ -28,6 +29,7 @@ interface Lyric {
     content: string;
     thumbnail_url: string;
     created_at: string;
+    views: number;
     slug: string;
     user: { id: number; name: string };
 }
@@ -41,6 +43,8 @@ export default function LyricPage({ lyric, relatedLyrics }: Props) {
     const { isDarkMode } = useBlog();
     const [liked, setLiked] = useState(false);
     const [showShare, setShowShare] = useState(false);
+    const [views, setViews] = useState(lyric.views);
+
 
     const encodedUrl = encodeURIComponent(lyric.slug);
     const encodedTitle = encodeURIComponent(lyric.title);
@@ -51,6 +55,21 @@ export default function LyricPage({ lyric, relatedLyrics }: Props) {
         twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
         gmail: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`,
     };
+
+    useEffect(() => {
+            const trackView = async () => {
+                try {
+                    const response = await axios.post(
+                        `/posts/${lyric.slug}/track-view`,
+                    );
+                    setViews(response.data.views); // Update view count in real-time
+                } catch (err) {
+                    console.error('Error tracking post view:', err);
+                }
+            };
+
+            trackView();
+        }, [lyric.slug]);
 
     // console.log(lyric.content);
 
@@ -432,7 +451,9 @@ export default function LyricPage({ lyric, relatedLyrics }: Props) {
                             </div>
                             <div className="flex items-center gap-2">
                                 <Eye className="h-4 w-4 text-muted-foreground" />
-                                <span>100 views</span>
+                                <span>
+                                    {views} {views === 1 ? 'view' : 'views'}
+                                </span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Clock className="h-4 w-4 text-muted-foreground" />

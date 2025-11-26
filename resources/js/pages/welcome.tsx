@@ -33,6 +33,7 @@ interface Song {
     slug: string;
     title: string;
     excerpt: string;
+    views: number;
     thumbnail_url: string;
     created_at: string;
 }
@@ -331,7 +332,16 @@ export default function Home({
                                                 <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 to-transparent">
                                                     <div className="w-full p-4">
                                                         <div className="flex items-center gap-3 text-sm text-white">
-                                                            <span>👁 45K</span>
+                                                            <span>
+                                                                👁
+                                                                {
+                                                                    song.views
+                                                                }{' '}
+                                                                {song.views >
+                                                                999
+                                                                    ? 'k'
+                                                                    : ''}
+                                                            </span>
                                                             <span>
                                                                 ⏱{' '}
                                                                 {dayjs(

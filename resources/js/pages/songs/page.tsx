@@ -1,5 +1,6 @@
 'use client';
 
+import axios from '@/axios';
 import useBlog from '@/hooks/use-blog';
 import { PageProps } from '@inertiajs/core';
 import { router } from '@inertiajs/react';
@@ -18,7 +19,7 @@ import {
     User,
     X,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 dayjs.extend(relativeTime);
 
@@ -29,6 +30,7 @@ interface Song {
     thumbnail_url: string;
     file_path: string;
     created_at: string;
+    views: number;
     slug: string;
     user: { id: number; name: string };
 }
@@ -42,6 +44,8 @@ export default function SongPage({ song, relatedSongs }: Props) {
     const { isDarkMode } = useBlog();
     const [liked, setLiked] = useState(false);
     const [showShare, setShowShare] = useState(false);
+    const [views, setViews] = useState(song.views);
+
 
     const encodedUrl = encodeURIComponent(song.slug);
     const encodedTitle = encodeURIComponent(song.title);
@@ -52,6 +56,21 @@ export default function SongPage({ song, relatedSongs }: Props) {
         twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
         gmail: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`,
     };
+
+    useEffect(() => {
+                const trackView = async () => {
+                    try {
+                        const response = await axios.post(
+                            `/songs/${song.slug}/track-view`,
+                        );
+                        setViews(response.data.views); // Update view count in real-time
+                    } catch (err) {
+                        console.error('Error tracking post view:', err);
+                    }
+                };
+
+                trackView();
+            }, [song.slug]);
 
     const formatContent = (content: string) => {
         // Parse HTML content and render with proper styling
@@ -431,7 +450,9 @@ export default function SongPage({ song, relatedSongs }: Props) {
                             </div>
                             <div className="flex items-center gap-2">
                                 <Eye className="h-4 w-4 text-muted-foreground" />
-                                <span>100 views</span>
+                                <span>
+                                    {views} {views === 1 ? 'view' : 'views'}
+                                </span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Clock className="h-4 w-4 text-muted-foreground" />
