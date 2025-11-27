@@ -56,6 +56,12 @@ Route::post('like/{type}/{id}', [LikesController::class, 'toggle'])->name('like.
 Route::get('music-videos', fn () => Inertia::render('music-videos/page'))->name('music.videos');
 Route::get('community', fn () => Inertia::render('community/page'))->name('community');
 Route::get('advertise', fn () => Inertia::render('advertise/page'))->name('advertise');
+Route::get('about-us', fn () => Inertia::render('about/page'))->name('about');
+Route::get('contact-us', fn () => Inertia::render('contact/page'))->name('contact');
+Route::get('email-us', fn () => Inertia::render('email/page'))->name('email');
+Route::get('support', fn () => Inertia::render('support/page'))->name('support');
+Route::get('terms', fn () => Inertia::render('terms/page'))->name('terms');
+Route::get('privacy-policy', fn () => Inertia::render('privacy-policy/page'))->name('privacy');
 
 
 // Route::middleware(['auth', 'verified'])->group(function () {
