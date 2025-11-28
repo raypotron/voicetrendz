@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 interface User {
     id: number;
     name: string;
+    roles: string[];
 }
 
 interface Props extends PageProps {
@@ -132,14 +133,19 @@ export default function DesktopMenu({ user }: Props) {
                     return (
                         <button
                             onClick={() =>
-                                window.location.replace(item.href)
+                                window.location.replace(
+                                    user?.roles.includes('admin') &&
+                                        item.label == 'Dashboard'
+                                        ? '/admin'
+                                        : item.href,
+                                )
                             }
                             key={item.href}
-                            className={`flex items-center gap-1 rounded-md px-3 cursor-pointer py-2 transition-all duration-200 ${
-                            active
-                                ? 'font-semibold text-primary'
-                                : 'text-gray-700 hover:text-purple-500'
-                        }`}
+                            className={`flex cursor-pointer items-center gap-1 rounded-md px-3 py-2 transition-all duration-200 ${
+                                active
+                                    ? 'font-semibold text-primary'
+                                    : 'text-gray-700 hover:text-purple-500'
+                            }`}
                         >
                             {item.label}
                         </button>
