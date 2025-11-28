@@ -30,7 +30,12 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Inertia::share([
-            'user' => fn () => Auth::user()?->only(['id', 'name']),
+            // 'user' => fn () => Auth::user()?->only(['id', 'name']),
+            'user' => fn () => Auth::user() ? [
+                'id' => Auth::user()->id,
+                'name' => Auth::user()->name,
+                'roles' => Auth::user()->getRoleNames(),
+            ] : null,
         ]);
 
         ini_set('max_execution_time', 1800);
