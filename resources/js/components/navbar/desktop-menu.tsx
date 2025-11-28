@@ -134,6 +134,7 @@ export default function DesktopMenu({ user }: Props) {
                             onClick={() =>
                                 window.location.replace(item.href)
                             }
+                            key={item.href}
                             className={`flex items-center gap-1 rounded-md px-3 cursor-pointer py-2 transition-all duration-200 ${
                             active
                                 ? 'font-semibold text-primary'
