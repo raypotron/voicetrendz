@@ -39,6 +39,8 @@ interface Song {
     apple_music: string;
     spotify: string;
     voicenute: string;
+    spotify_embed: string;
+    audiomack_url: string;
     user: { id: number; name: string };
 }
 
@@ -525,6 +527,32 @@ export default function SongPage({
                                     element.
                                 </audio>
                             </div>
+                        )}
+
+                        {song.spotify_embed ? (
+                            <iframe
+                                style={{ borderRadius: '12px' }}
+                                src={song.spotify_embed}
+                                width="100%"
+                                height="152"
+                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                loading="lazy"
+                            />
+                        ) : (
+                            <p></p>
+                        )}
+
+                        {song.audiomack_url ? (
+                            <iframe
+                                src={song.audiomack_url}
+                                style={{ borderRadius: 12, border: 0 }}
+                                scrolling="no"
+                                width="100%"
+                                height="252"
+                                title="Lalala"
+                            ></iframe>
+                        ) : (
+                            <p></p>
                         )}
                     </div>
 
