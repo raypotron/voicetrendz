@@ -26,6 +26,14 @@ class SongInfolist
                     ->label('Author'),
                 TextEntry::make('status')
                     ->label('Status'),
+                TextEntry::make('apple_music')
+                    ->label('Apple Music'),
+                TextEntry::make('voicenute')
+                    ->label('Voicenute'),
+                TextEntry::make('spotify')
+                    ->label('Spotify'),
+                TextEntry::make('audio_mack')
+                    ->label('Audio Mack'),
                 TextEntry::make('published_at')
                     ->label('Published At')
                     ->dateTime(),
