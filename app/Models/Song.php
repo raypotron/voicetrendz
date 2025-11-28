@@ -27,6 +27,10 @@ class Song extends Model
         'duration',
         'duration_seconds',
         'bitrate',
+        'audio_mack',
+        'apple_music',
+        'spotify',
+        'voicenute',
     ];
 
     public function artist()
