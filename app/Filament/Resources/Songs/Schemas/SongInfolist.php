@@ -34,6 +34,10 @@ class SongInfolist
                     ->label('Spotify'),
                 TextEntry::make('audio_mack')
                     ->label('Audio Mack'),
+                TextEntry::make('spotify_url')
+                    ->label('Spotify Track URL'),
+                TextEntry::make('audiomack_url')
+                    ->label('Audiomack Track URL'),
                 TextEntry::make('published_at')
                     ->label('Published At')
                     ->dateTime(),
