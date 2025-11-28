@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Blog\ArtistController;
+use App\Http\Controllers\Blog\ContactMessageController;
 use App\Http\Controllers\Blog\HotStoriesController;
 use App\Http\Controllers\Blog\LikesController;
 use App\Http\Controllers\Blog\LyricsController;
@@ -54,6 +55,7 @@ Route::post('upload/song', SongUploadController::class)->name('upload.song');
 Route::get('music-videos', MusicVideoController::class)->name('music.videos');
 Route::post('polls/vote', [VotesController::class, 'store'])->name('polls.vote');
 Route::post('editor/upload', ImageUploadController::class)->name('editor.upload');
+Route::post('contact', ContactMessageController::class)->name('contact.store');
 Route::post('like/{type}/{id}', [LikesController::class, 'toggle'])->name('like.toggle');
 
 Route::get('community', fn () => Inertia::render('community/page'))->name('community');
