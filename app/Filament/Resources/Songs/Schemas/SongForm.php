@@ -11,8 +11,6 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
-use getID3;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
@@ -75,34 +73,34 @@ class SongForm
                     ->preserveFilenames()
                     ->maxSize(10240)
                     ->previewable()
-    ->formatStateUsing(fn ($state, $record) => $record?->file_path)
-    ->dehydrateStateUsing(fn ($state, $record) => $state ?: $record?->file_path),
-                    Placeholder::make('audio_preview')
-    ->label('Current song')
-    ->content(fn ($record) => $record?->file_path
-        ? new HtmlString(sprintf(
-            '<audio controls style="width:100%%"><source src="%s" type="audio/mpeg">Your browser does not support the audio element.</audio>',
-            e($record->file_path) // still escape the URL itself
-        ))
-        : 'No uploaded song.')
-    ->visible(fn ($record) => filled($record?->file_path)),
-                    // ->formatStateUsing(fn ($state, $record) => $record?->file_url),
-                    // ->reactive()
-                    // ->afterStateUpdated(function ($state, callable $set) {
-                    //      if (!$state) return;
+                    ->formatStateUsing(fn ($state, $record) => $record?->file_path)
+                    ->dehydrateStateUsing(fn ($state, $record) => $state ?: $record?->file_path),
+                Placeholder::make('audio_preview')
+                    ->label('Current song')
+                    ->content(fn ($record) => $record?->file_path
+                        ? new HtmlString(sprintf(
+                            '<audio controls style="width:100%%"><source src="%s" type="audio/mpeg">Your browser does not support the audio element.</audio>',
+                            e($record->file_path) // still escape the URL itself
+                        ))
+                        : 'No uploaded song.')
+                    ->visible(fn ($record) => filled($record?->file_path)),
+                // ->formatStateUsing(fn ($state, $record) => $record?->file_url),
+                // ->reactive()
+                // ->afterStateUpdated(function ($state, callable $set) {
+                //      if (!$state) return;
 
-                    // // Resolve the actual UploadedFile Livewire object
-                    // $path = Storage::disk(config('filesystems.default'))->path($state);
+                // // Resolve the actual UploadedFile Livewire object
+                // $path = Storage::disk(config('filesystems.default'))->path($state);
 
-                    // // Analyze file metadata
-                    // $service = app(SongService::class);
-                    // $info = $service->analyze($path);
+                // // Analyze file metadata
+                // $service = app(SongService::class);
+                // $info = $service->analyze($path);
 
-                    // $set('duration', $info['duration_formatted']);
-                    // $set('duration_seconds', $info['duration_seconds']);
-                    // $set('format', $info['format']);
-                    // $set('bitrate', $info['bitrate']);
-                    // }),
+                // $set('duration', $info['duration_formatted']);
+                // $set('duration_seconds', $info['duration_seconds']);
+                // $set('format', $info['format']);
+                // $set('bitrate', $info['bitrate']);
+                // }),
 
                 // TextInput::make('duration')
                 //     ->label('Duration')
@@ -140,6 +138,14 @@ class SongForm
                     })
                     ->disabled(fn (callable $get) => empty($get('artist_id')) ||
                         Album::where('artist_id', $get('artist_id'))->count() === 0),
+                TextInput::make('apple_music')
+                    ->label('Apple Music'),
+                TextInput::make('voicenute')
+                    ->label('Voicenute'),
+                TextInput::make('spotify')
+                    ->label('Spotify'),
+                TextInput::make('audio_mack')
+                    ->label('Audio Mack'),
                 RichEditor::make('content')
                     ->label('Post Content')
                     ->toolbarButtons([
