@@ -21,7 +21,7 @@ export default function Footer() {
                             height={40}
                             className="rounded-full object-contain"
                         />
-                        <span className={`text-2xl font-bold`}>
+                        <span className={`bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-2xl font-bold text-transparent`}>
                             VoiceTrendz
                         </span>
                     </Link>
@@ -78,7 +78,7 @@ export default function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    href="/contact-us"
+                                    href="/email-us"
                                     className="transition-colors hover:text-amber-600"
                                 >
                                     Email us
