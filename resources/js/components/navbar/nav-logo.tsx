@@ -7,7 +7,7 @@ export default function NavLogo() {
     const { isDarkMode } = useBlog()
 
     return (
-        <Link href="/">
+        <Link href="/home">
             <div className="flex cursor-pointer items-center space-x-2 transition hover:opacity-80">
                 <img
                     src={`${isDarkMode ? '/logo_b.png' : '/logo_w.png'}`}

@@ -13,7 +13,7 @@ export default function Footer() {
         >
             <div className="mx-auto px-4 py-8 sm:px-8 md:py-10">
                 <div className="mb-10">
-                    <Link href="/" className="flex items-center gap-2">
+                    <Link href="/home" className="flex items-center gap-2">
                         <img
                             src={`${isDarkMode ? '/logo_b.png' : '/logo_w.png'}`}
                             alt="VoiceTrendz Logo"
