@@ -31,6 +31,8 @@ class Song extends Model
         'apple_music',
         'spotify',
         'voicenute',
+        'spotify_url',
+        'audiomack_url',
     ];
 
     public function artist()
@@ -63,7 +65,7 @@ class Song extends Model
     //     return $this->file_path;
     // }
 
-    protected $appends = ['thumbnail_url'];
+    protected $appends = ['thumbnail_url', 'spotify_embed'];
 
     public function getThumbnailUrlAttribute()
     {
@@ -71,6 +73,19 @@ class Song extends Model
             .env('CLOUDINARY_CLOUD_NAME')
             .'/image/upload/'
             .$this->attributes['thumbnail_path'];
+    }
+
+    public function getSpotifyEmbedAttribute()
+    {
+        if (! $this->attributes['spotify_url']) {
+            return null;
+        }
+
+        return str_replace(
+            'open.spotify.com/track',
+            'open.spotify.com/embed/track',
+            $this->attributes['spotify_url']
+        );
     }
 
     public function getRouteKeyName(): string
