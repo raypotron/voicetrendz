@@ -14,6 +14,7 @@ import {
     Eye,
     Facebook,
     Heart,
+    ListMusic,
     Mail,
     MessageCircle,
     Share2,
@@ -21,7 +22,8 @@ import {
     X,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-
+import { FaApple, FaSpotify } from 'react-icons/fa';
+import { SiAudiomack } from 'react-icons/si';
 dayjs.extend(relativeTime);
 
 interface Song {
@@ -33,6 +35,10 @@ interface Song {
     created_at: string;
     views: number;
     slug: string;
+    audio_mack: string;
+    apple_music: string;
+    spotify: string;
+    voicenute: string;
     user: { id: number; name: string };
 }
 
@@ -59,8 +65,8 @@ export default function SongPage({
     likesCount,
 }: Props) {
     const { isDarkMode } = useBlog();
-    // const [liked, setLiked] = useState(false);
     const [showShare, setShowShare] = useState(false);
+    const [showListen, setShowListen] = useState(false);
     const [views, setViews] = useState(song.views);
 
     const { props } = usePage<InertiaPageProps>();
@@ -592,6 +598,75 @@ export default function SongPage({
                                             <Mail className="h-4 w-4 text-red-500" />
                                             Share via Gmail
                                         </a>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Listen Button */}
+                        <div className="relative">
+                            <button
+                                onClick={() => setShowListen(!showListen)}
+                                className="flex cursor-pointer items-center gap-2 rounded-lg bg-secondary px-6 py-3 font-medium text-secondary-foreground transition-all hover:bg-secondary/80"
+                            >
+                                <ListMusic className="h-5 w-5" />
+                                Continue to Listen
+                            </button>
+
+                            {/* Dropdown Menu */}
+                            {showListen && (
+                                <div
+                                    className="animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg bg-white shadow-lg ring-1 ring-black/5"
+                                    onMouseLeave={() => setShowListen(false)}
+                                >
+                                    <div className="flex flex-col py-2">
+                                        {song.apple_music && (
+                                            <a
+                                                href={song.apple_music}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            >
+                                                <FaApple className="h-4 w-4 text-green-500" />
+                                                Apple Music
+                                            </a>
+                                        )}
+
+                                        {song.voicenute && (
+                                            <a
+                                                href={song.voicenute}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            >
+                                                <Facebook className="h-4 w-4 text-blue-600" />
+                                                Voicenute
+                                            </a>
+                                        )}
+
+                                        {song.spotify && (
+                                            <a
+                                                href={song.spotify}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            >
+                                                <FaSpotify className="h-4 w-4 text-sky-500" />
+                                                Spotify
+                                            </a>
+                                        )}
+
+                                        {song.audio_mack && (
+                                            <a
+                                                href={song.audio_mack}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            >
+                                                <SiAudiomack className="h-4 w-4 text-red-500" />
+                                                Audio Mack
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
                             )}
