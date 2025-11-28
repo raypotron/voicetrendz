@@ -78,7 +78,7 @@ export default function MusicVideosPage({ videos }: Props) {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
                 {videos.length > 0 ? (
                     videos.map((item, idx) => {
                         const isActive = activeVideo === item.video_id;
