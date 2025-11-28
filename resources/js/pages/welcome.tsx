@@ -367,7 +367,7 @@ export default function Home({
                                     ))}
                                 </div>
                             ) : (
-                                <EmptyState message="No hot stories available." />
+                                <EmptyState message="No songs available." />
                             )}
                         </section>
                     </div>
