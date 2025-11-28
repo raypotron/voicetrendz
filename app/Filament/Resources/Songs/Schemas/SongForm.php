@@ -146,6 +146,16 @@ class SongForm
                     ->label('Spotify'),
                 TextInput::make('audio_mack')
                     ->label('Audio Mack'),
+                TextInput::make('spotify_url')
+                    ->label('Spotify Track URL')
+                    ->placeholder('https://open.spotify.com/track/...')
+                    ->url()
+                    ->maxLength(255),
+                TextInput::make('audiomack_url')
+                    ->label('Audiomack Track URL')
+                    ->placeholder('https://audiomack.com//embed/...')
+                    ->url()
+                    ->maxLength(255),
                 RichEditor::make('content')
                     ->label('Post Content')
                     ->toolbarButtons([
