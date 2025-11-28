@@ -23,11 +23,11 @@ export default function DesktopMenu({ user }: Props) {
         const handleNavigate = () => updatePath();
 
         window.addEventListener('popstate', handleNavigate);
-        router.on('finish', handleNavigate);
+        const removeFinishListener = router.on('finish', handleNavigate);
 
         return () => {
             window.removeEventListener('popstate', handleNavigate);
-            router.off('finish', handleNavigate);
+            removeFinishListener();
         };
     }, []);
 
