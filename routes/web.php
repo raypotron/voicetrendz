@@ -17,7 +17,8 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', WelcomeController::class)->name('home');
+Route::get('/home', WelcomeController::class)->name('home');
+Route::get('/', fn () => Inertia::render('SplashScreen'))->name('loading.screen');
 
 // Route::get('posts/{post}', fn (Post $post) => Inertia::render('posts/page',
 //     ['post' => $post]
