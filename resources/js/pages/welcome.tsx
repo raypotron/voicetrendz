@@ -131,9 +131,7 @@ export default function Home({
     };
 
     return (
-        <div
-            className={`min-h-screen ${bgClass} ${textClass} transition-colors duration-300`}
-        >
+        <div className={`min-h-screen ${bgClass} ${textClass} transition-colors duration-300`}>
             {/* Hero Banner */}
             {heroPost ? (
                 <div className="relative h-96 overflow-hidden">
