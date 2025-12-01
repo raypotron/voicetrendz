@@ -21,7 +21,7 @@ class WelcomeController extends Controller
 
     public function __invoke()
     {
-        $heroPost = $this->postService->getPostsByTag('breaking news')->first();
+        $heroPosts = $this->postService->getPostsByTag('breaking news', 4);
         $hotStories = $this->postService->getPostsByTag('hottest', 4);
         $latestNews = $this->postService->getPostsByTag('latest news', 4);
         $songLyrics = $this->lyricService->getLyrics(5);
@@ -29,7 +29,7 @@ class WelcomeController extends Controller
         $poll = $this->pollService->getLatestPoll();
         $trendingTopics = $this->trendingTopicService->getLatestTrendingTopics(5);
 
-        return Inertia::render('welcome', compact('heroPost',
+        return Inertia::render('welcome', compact('heroPosts',
             'hotStories', 'latestNews', 'songLyrics', 'latestSongs', 'poll', 'trendingTopics'));
     }
 }

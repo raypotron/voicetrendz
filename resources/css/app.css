@@ -8,7 +8,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 @theme {
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
@@ -97,7 +96,7 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.87 0 0);
-    --card-body: #FFFFFF;
+    --card-body: #ffffff;
 }
 
 .dark {
@@ -133,7 +132,7 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(0.269 0 0);
     --sidebar-ring: oklch(0.439 0 0);
-    --card-body: #0D1226;
+    --card-body: #0d1226;
 }
 
 @layer base {
@@ -225,13 +224,18 @@
     }
 
     .post-card-font {
-        font-family: "Poppins", sans-serif;
+        font-family: 'Poppins', sans-serif;
         font-weight: 400;
     }
 
     .post-card-title {
-        font-family: "Montserrat", sans-serif;
+        font-family: 'Montserrat', sans-serif;
         font-weight: 500;
         font-style: italic;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: #f59e0b !important; /* your active color */
+        opacity: 1;
     }
 }

@@ -7,6 +7,11 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { ChevronRight, Music, TrendingUp } from 'lucide-react';
 import { useState } from 'react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { route } from 'ziggy-js';
 
 dayjs.extend(relativeTime);
@@ -64,7 +69,7 @@ interface InertiaPageProps extends PageProps {
 }
 
 interface Props extends PageProps {
-    heroPost?: Post | null;
+    heroPosts?: Post[];
     hotStories?: Post[];
     latestNews?: Post[];
     songLyrics?: Lyric[];
@@ -86,7 +91,7 @@ const EmptyState = ({ message }: { message: string }) => (
 );
 
 export default function Home({
-    heroPost = null,
+    heroPosts = [],
     hotStories = [],
     latestNews = [],
     songLyrics = [],
@@ -131,39 +136,64 @@ export default function Home({
     };
 
     return (
-        <div className={`min-h-screen ${bgClass} ${textClass} transition-colors duration-300`}>
+        <div
+            className={`min-h-screen ${bgClass} ${textClass} transition-colors duration-300`}
+        >
             {/* Hero Banner */}
-            {heroPost ? (
-                <div className="relative h-96 overflow-hidden">
-                    <img
-                        src={heroPost.thumbnail_url || '/placeholder.svg'}
-                        alt={heroPost.title || 'Featured Story'}
-                        className="h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black via-black/50 to-transparent">
-                        <div className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-                            <span className="mb-3 inline-block rounded-full bg-red-600 px-3 py-1 text-sm font-semibold text-white">
-                                BREAKING
-                            </span>
-                            <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl">
-                                {heroPost.title}
-                            </h1>
-                            <p className="mb-4 max-w-2xl text-lg text-gray-200">
-                                {heroPost.excerpt}
-                            </p>
-                            <Link
-                                href={route('posts.show', heroPost.slug)}
-                                className="flex w-fit items-center gap-2 rounded-lg bg-amber-600 px-6 py-3 font-semibold text-white transition hover:bg-amber-500"
-                            >
-                                Read Full Story{' '}
-                                <ChevronRight className="h-4 w-4" />
-                            </Link>
-                        </div>
-                    </div>
-                </div>
+            {heroPosts && heroPosts.length > 0 ? (
+                <Swiper
+                    modules={[Pagination, Navigation, Autoplay]}
+                    slidesPerView={1}
+                    // navigation
+                    pagination={{ clickable: true }}
+                    autoplay={{ delay: 4000 }}
+                    loop
+                    className="h-96 swiper-pagination-bullet-active"
+                >
+                    {heroPosts.map((item, index) => (
+                        <SwiperSlide key={index}>
+                            <div className="relative h-96 overflow-hidden">
+                                <img
+                                    src={
+                                        item.thumbnail_url || '/placeholder.svg'
+                                    }
+                                    alt={item.title}
+                                    className="h-full w-full object-cover"
+                                />
+
+                                <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black via-black/50 to-transparent">
+                                    <div className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+                                        <span className="mb-3 inline-block rounded-full bg-red-600 px-3 py-1 text-sm font-semibold text-white">
+                                            BREAKING
+                                        </span>
+
+                                        <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl">
+                                            {item.title}
+                                        </h1>
+
+                                        <p className="mb-4 max-w-2xl text-lg text-gray-200">
+                                            {item.excerpt}
+                                        </p>
+
+                                        <Link
+                                            href={route(
+                                                'posts.show',
+                                                item.slug,
+                                            )}
+                                            className="flex w-fit items-center gap-2 rounded-lg bg-amber-600 px-6 py-3 font-semibold text-white transition hover:bg-amber-500"
+                                        >
+                                            Read Full Story{' '}
+                                            <ChevronRight className="h-4 w-4" />
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
             ) : (
                 <div className="flex h-96 items-center justify-center bg-gray-200 text-gray-500">
-                    No featured story available
+                    No featured stories available
                 </div>
             )}
 
@@ -212,9 +242,13 @@ export default function Home({
                                                         <div className="flex items-center gap-3 text-sm text-white">
                                                             <span>
                                                                 👁
-                                                                { story.views }{' '}
-                                                                { story.views >
-                                                                999 ? 'k' : ''}
+                                                                {
+                                                                    story.views
+                                                                }{' '}
+                                                                {story.views >
+                                                                999
+                                                                    ? 'k'
+                                                                    : ''}
                                                             </span>
                                                             <span>
                                                                 ⏱{' '}
@@ -335,7 +369,7 @@ export default function Home({
                                                 />
                                                 <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 to-transparent">
                                                     <div className="w-full p-4">
-                                                        <div className="flex items-center gap-3 text-sm text-white ">
+                                                        <div className="flex items-center gap-3 text-sm text-white">
                                                             <span>
                                                                 👁
                                                                 {
