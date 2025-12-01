@@ -468,7 +468,7 @@ export default function LyricPage({
                             </span>
                         </div> */}
 
-                        <h1 className="blog-title mb-6">{lyric.title}</h1>
+                        <h1 className="blog-title mb-6 post-card-title">{lyric.title}</h1>
 
                         <div className="blog-meta space-y-1 border-b border-border pb-6">
                             <div className="flex items-center gap-2">
@@ -499,7 +499,7 @@ export default function LyricPage({
                     </div>
 
                     {/* Content */}
-                    <div className="blog-content py-8">
+                    <div className="blog-content py-8 post-card-font">
                         {formatContent(lyric.content)}
                     </div>
 

@@ -153,7 +153,7 @@ export default function Home({
                             </p>
                             <Link
                                 href={route('posts.show', heroPost.slug)}
-                                className="flex w-fit items-center gap-2 rounded-lg bg-purple-600 px-6 py-3 font-semibold text-white transition hover:bg-purple-700"
+                                className="flex w-fit items-center gap-2 rounded-lg bg-amber-600 px-6 py-3 font-semibold text-white transition hover:bg-amber-500"
                             >
                                 Read Full Story{' '}
                                 <ChevronRight className="h-4 w-4" />
@@ -180,7 +180,7 @@ export default function Home({
                                 </h2>
                                 <Link
                                     href="/hot-stories"
-                                    className="flex items-center gap-1 text-purple-600 hover:text-purple-700"
+                                    className="flex items-center gap-1 text-amber-600 hover:text-amber-500"
                                 >
                                     View All{' '}
                                     <ChevronRight className="h-4 w-4" />
@@ -227,7 +227,7 @@ export default function Home({
                                                 </div>
                                             </div>
                                             <div className="p-4">
-                                                <h3 className="text-lg font-bold transition group-hover:text-purple-600">
+                                                <h3 className="text-lg font-bold transition group-hover:text-amber-600">
                                                     {story.title}
                                                 </h3>
                                             </div>
@@ -266,7 +266,7 @@ export default function Home({
                                                     className="h-24 w-24 flex-shrink-0 rounded-lg object-cover"
                                                 />
                                                 <div className="flex-1">
-                                                    <h3 className="mb-1 text-lg font-bold transition hover:text-purple-600">
+                                                    <h3 className="mb-1 text-lg font-bold transition hover:text-amber-600">
                                                         {news.title}
                                                     </h3>
                                                     <p
@@ -288,7 +288,7 @@ export default function Home({
                                         ))}
                                     </div>
                                     <Link href="/news">
-                                        <button className="mt-6 w-full rounded-lg border-2 border-purple-600 py-3 font-semibold text-purple-600 transition hover:bg-purple-600 hover:text-white">
+                                        <button className="mt-6 w-full rounded-lg border-2 border-amber-600 py-3 font-semibold text-amber-600 transition hover:bg-amber-600 hover:text-white">
                                             Load More Stories
                                         </button>
                                     </Link>
@@ -306,7 +306,7 @@ export default function Home({
                                 </h2>
                                 <Link
                                     href="/songs"
-                                    className="flex items-center gap-1 text-purple-600 hover:text-purple-700"
+                                    className="flex items-center gap-1 text-amber-600 hover:text-amber-500"
                                 >
                                     View All{' '}
                                     <ChevronRight className="h-4 w-4" />
@@ -335,7 +335,7 @@ export default function Home({
                                                 />
                                                 <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 to-transparent">
                                                     <div className="w-full p-4">
-                                                        <div className="flex items-center gap-3 text-sm text-white">
+                                                        <div className="flex items-center gap-3 text-sm text-white ">
                                                             <span>
                                                                 👁
                                                                 {
@@ -357,7 +357,7 @@ export default function Home({
                                                 </div>
                                             </div>
                                             <div className="p-4">
-                                                <h3 className="text-lg font-bold transition group-hover:text-purple-600">
+                                                <h3 className="text-lg font-bold transition group-hover:text-amber-600">
                                                     {song.title}
                                                 </h3>
                                             </div>
@@ -375,7 +375,7 @@ export default function Home({
                         {/* Trending Topics */}
                         <div className={`${cardBg} rounded-xl p-6 shadow-lg`}>
                             <h3 className="mb-4 flex items-center gap-2 text-xl font-bold">
-                                <TrendingUp className="h-5 w-5 text-purple-600" />{' '}
+                                <TrendingUp className="h-5 w-5 text-indigo-600" />{' '}
                                 Trending Topics
                             </h3>
                             <div className="space-y-2">
@@ -392,7 +392,7 @@ export default function Home({
                                             key={idx}
                                             href={`/search?q=${encodeURIComponent(trending.key)}`}
                                         >
-                                            <span className="font-semibold text-purple-600">
+                                            <span className="font-semibold text-indigo-600">
                                                 #{trending.topic}
                                             </span>
                                         </Link>
@@ -456,7 +456,7 @@ export default function Home({
                         {/* Song Lyrics */}
                         <div className={`${cardBg} rounded-xl p-6 shadow-lg`}>
                             <h3 className="mb-4 flex items-center gap-2 text-xl font-bold">
-                                <Music className="h-5 w-5 text-purple-600" />{' '}
+                                <Music className="h-5 w-5 text-indigo-600" />{' '}
                                 Song Lyrics
                             </h3>
                             {songLyrics.length > 0 ? (

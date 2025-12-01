@@ -7,6 +7,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+US+Trad+Guides&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 @theme {
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
@@ -95,6 +98,7 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.87 0 0);
+    --card-body: #FFFFFF;
 }
 
 .dark {
@@ -130,6 +134,7 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(0.269 0 0);
     --sidebar-ring: oklch(0.439 0 0);
+    --card-body: #0D1226;
 }
 
 @layer base {
@@ -218,5 +223,16 @@
 
     .nav-link {
         @apply transition-all duration-200;
+    }
+
+    .post-card-font {
+        font-family: "Playwrite US Trad Guides", cursive;
+        font-weight: 400;
+    }
+
+    .post-card-title {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+        font-style: italic;
     }
 }

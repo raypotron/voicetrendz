@@ -47,7 +47,7 @@ export default function NewsPage({ news }: Props) {
               className="w-24 h-24 rounded-lg object-cover flex-shrink-0"
             />
             <div className="flex-1">
-              <h3 className="font-bold text-lg mb-1 hover:text-purple-600 transition">{item.title}</h3>
+              <h3 className="font-bold text-lg mb-1 hover:text-amber-600 transition">{item.title}</h3>
               <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-2`}>{item.excerpt}</p>
               <span className={`text-xs ${isDarkMode ? "text-gray-500" : "text-gray-500"}`}>{dayjs(item.created_at).fromNow()}</span>
             </div>

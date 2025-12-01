@@ -16,8 +16,8 @@ export default function NavLogo() {
                     height={40}
                     className="rounded-full object-contain"
                 />
-                <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-2xl font-bold text-transparent">
-                    VoiceTrendz
+                <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-900'} bg-clip-text text-2xl font-bold`}>
+                    VOICETRENDZ
                 </span>
             </div>
         </Link>

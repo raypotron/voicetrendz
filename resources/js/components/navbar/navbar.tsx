@@ -18,7 +18,7 @@ interface Props extends PageProps {
 }
 
 export default function Navbar({ user }: Props) {
-  const { cardBg, borderClass, isSearchOpen, toggleSearch } = useBlog();
+  const { isDarkMode, borderClass, isSearchOpen, toggleSearch } = useBlog();
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
@@ -35,7 +35,7 @@ export default function Navbar({ user }: Props) {
   return (
     <>
       <nav
-        className={`sticky top-0 z-50 ${cardBg} border-b ${borderClass} backdrop-blur-lg bg-opacity-90`}
+        className={`sticky top-0 z-50 ${isDarkMode ? 'bg-gradient-to-r from-[#060A1A] via-[#0A102A] to-[#050515]' : ''} border-b ${borderClass} backdrop-blur-lg bg-opacity-90`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -73,7 +73,7 @@ export default function Navbar({ user }: Props) {
         )}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <MobileMenu />
+          <MobileMenu user={user}/>
         </div>
       </nav>
 

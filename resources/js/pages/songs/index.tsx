@@ -74,7 +74,7 @@ export default function SongsPage({ songs }: Props) {
                             </div>
                         </div>
                         <div className="p-4">
-                            <h3 className="text-lg font-bold transition group-hover:text-purple-600">
+                            <h3 className="text-lg font-bold transition group-hover:text-amber-600">
                                 {song.title}
                             </h3>
                         </div>

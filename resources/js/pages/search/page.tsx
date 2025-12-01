@@ -87,7 +87,7 @@ export default function SearchPage() {
 
             <button
               type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition-colors"
             >
               Search
             </button>
@@ -104,8 +104,8 @@ export default function SearchPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 px-6 py-3 rounded-full whitespace-nowrap transition-all ${
                   activeTab === tab.id
-                    ? "bg-purple-600 text-white shadow-lg shadow-purple-500/25"
-                    : `${cardBg} ${textClass} border ${borderClass} hover:border-purple-500`
+                    ? "bg-amber-600 text-white shadow-lg shadow-amber-500/25"
+                    : `${cardBg} ${textClass} border ${borderClass} hover:border-amber-500`
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -128,13 +128,13 @@ export default function SearchPage() {
                     alt={result.title}
                     className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full border border-white/20">
+                  <div className="absolute top-4 left-4 bg-slate-900 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full border border-white/20">
                     {result.type}
                   </div>
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 line-clamp-2 group-hover:text-purple-500 transition-colors">
+                  <h3 className="text-xl font-bold mb-2 line-clamp-2 group-hover:text-amber-500 transition-colors">
                     {result.title}
                   </h3>
 
@@ -142,7 +142,7 @@ export default function SearchPage() {
                     {result.artist || result.date || result.readTime}
                   </p>
 
-                  <div className="flex items-center text-purple-500 text-sm font-medium mt-auto">
+                  <div className="flex items-center text-amber-500 text-sm font-medium mt-auto">
                     Read More{" "}
                     <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                   </div>

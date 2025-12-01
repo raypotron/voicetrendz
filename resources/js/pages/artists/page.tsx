@@ -414,7 +414,7 @@ export default function ArtistPage({ artist, relatedArtists }: Props) {
                             </span>
                         </div> */}
 
-                        <h1 className="blog-title mb-6">{artist.description}</h1>
+                        <h1 className="blog-title mb-6 post-card-title">{artist.description}</h1>
 
                         <div className="blog-meta space-y-1 border-b border-border pb-6">
                             <div className="flex items-center gap-2">
@@ -443,7 +443,7 @@ export default function ArtistPage({ artist, relatedArtists }: Props) {
                     </div>
 
                     {/* Content */}
-                    <div className="blog-content py-8">
+                    <div className="blog-content py-8 post-card-font">
                         {formatContent(artist.bio)}
                     </div>
 

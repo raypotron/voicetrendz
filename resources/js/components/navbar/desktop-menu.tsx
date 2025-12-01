@@ -33,12 +33,12 @@ export default function DesktopMenu({ user }: Props) {
     }, []);
 
     const isActive = (href: string) => {
-        if (href === '/') return pathname === '/';
+        if (href === '/home') return pathname === '/home';
         return pathname.startsWith(href);
     };
 
     const navItems = [
-        { href: '/', label: 'Home' },
+        { href: '/home', label: 'Home' },
         {
             label: 'Songs',
             icon: Music,
@@ -53,7 +53,7 @@ export default function DesktopMenu({ user }: Props) {
             children: [
                 { href: '/hot-stories', label: 'Hot Stories' },
                 { href: '/news', label: 'Latest News' },
-                { href: '/', label: 'Trending Topics', icon: TrendingUp },
+                { href: '/#', label: 'Trending Topics', icon: TrendingUp },
             ],
         },
         { href: '/artists', label: 'Artists' },
@@ -92,8 +92,8 @@ export default function DesktopMenu({ user }: Props) {
                                 onClick={() => handleDropdownToggle(item.label)}
                                 className={`flex items-center gap-1 rounded-md px-3 py-2 transition-all duration-200 ${
                                     openDropdown === item.label || active
-                                        ? 'font-semibold text-primary'
-                                        : 'text-gray-700 hover:text-purple-500'
+                                        ? 'text-gray-500 hover:text-amber-500'
+                                        : 'text-gray-700 hover:text-amber-500'
                                 }`}
                             >
                                 {Icon && <Icon className="h-4 w-4" />}
@@ -116,8 +116,8 @@ export default function DesktopMenu({ user }: Props) {
                                             href={child.href}
                                             className={`block px-4 py-2 text-sm transition-all ${
                                                 isActive(child.href)
-                                                    ? 'bg-purple-50 font-medium text-primary'
-                                                    : 'text-gray-700 hover:bg-purple-50 hover:text-purple-600'
+                                                    ? 'bg-amber-600 font-medium text-primary'
+                                                    : 'text-gray-700 hover:bg-amber-50 hover:text-amber-600'
                                             }`}
                                         >
                                             {child.label}
@@ -144,7 +144,7 @@ export default function DesktopMenu({ user }: Props) {
                             className={`flex cursor-pointer items-center gap-1 rounded-md px-3 py-2 transition-all duration-200 ${
                                 active
                                     ? 'font-semibold text-primary'
-                                    : 'text-gray-700 hover:text-purple-500'
+                                    : 'text-gray-500 hover:text-amber-500'
                             }`}
                         >
                             {item.label}
@@ -159,7 +159,7 @@ export default function DesktopMenu({ user }: Props) {
                         className={`flex items-center gap-1 rounded-md px-3 py-2 transition-all duration-200 ${
                             active
                                 ? 'font-semibold text-primary'
-                                : 'text-gray-700 hover:text-purple-500'
+                                : 'text-gray-500 hover:text-amber-500'
                         }`}
                     >
                         {Icon && <Icon className="h-4 w-4" />}

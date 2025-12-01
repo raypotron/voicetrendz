@@ -92,7 +92,7 @@ We will respond to your inquiry within 30 days.`,
   ]
 
   return (
-    <main className="min-h-screen py-12">
+    <main className="min-h-screen py-12 post-card-font">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <section className="text-center mb-12">

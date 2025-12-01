@@ -71,7 +71,7 @@ export default function HotStoriesPage({ hotStories }: Props) {
                             </div>
                         </div>
                         <div className="p-4">
-                            <h3 className="text-lg font-bold transition group-hover:text-purple-600">
+                            <h3 className="text-lg font-bold transition group-hover:text-amber-600">
                                 {story.title}
                             </h3>
                         </div>

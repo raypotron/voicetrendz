@@ -5,11 +5,11 @@ import { socialLinks } from '@/types/socialData';
 import { Link } from '@inertiajs/react';
 
 export default function Footer() {
-    const { isDarkMode, cardBg } = useBlog();
+    const { isDarkMode } = useBlog();
 
     return (
         <footer
-            className={`nav-gradient sm:px-10 ${cardBg} border-t border-gray-900/70 transition-all duration-300`}
+            className={`nav-gradient ${isDarkMode ? 'bg-gradient-to-r from-[#060A1A] via-[#0A102A] to-[#050515]' : ''} sm:px-10 border-t border-gray-900/70 transition-all duration-300`}
         >
             <div className="mx-auto px-4 py-8 sm:px-8 md:py-10">
                 <div className="mb-10">
@@ -21,8 +21,8 @@ export default function Footer() {
                             height={40}
                             className="rounded-full object-contain"
                         />
-                        <span className={`bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-2xl font-bold text-transparent`}>
-                            VoiceTrendz
+                        <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-900'} bg-clip-text text-2xl font-bold`}>
+                            VOICETRENDZ
                         </span>
                     </Link>
                 </div>
