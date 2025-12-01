@@ -12,7 +12,7 @@ export default function NavActions() {
         onClick={toggleSearch}
         className={`p-2 rounded-lg ${isDarkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"}`}
       >
-        <Search className="w-5 h-5" />
+        <Search className={`w-5 h-5`}/>
       </button>
       <button
         onClick={toggleTheme}

@@ -288,7 +288,7 @@ export default function Home({
                                         ))}
                                     </div>
                                     <Link href="/news">
-                                        <button className="mt-6 w-full rounded-lg border-2 border-amber-600 py-3 font-semibold text-amber-600 transition hover:bg-amber-600 hover:text-white">
+                                        <button className="mt-6 w-full rounded-lg border-2 border-amber-600/60 py-3 font-semibold text-amber-600 transition hover:bg-amber-600 hover:text-white">
                                             Load More Stories
                                         </button>
                                     </Link>

@@ -16,7 +16,7 @@ export default function NavLogo() {
                     height={40}
                     className="rounded-full object-contain"
                 />
-                <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-900'} bg-clip-text text-2xl font-bold`}>
+                <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-900'} bg-clip-text text-xl font-bold`}>
                     VOICETRENDZ
                 </span>
             </div>

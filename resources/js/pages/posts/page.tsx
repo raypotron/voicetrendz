@@ -528,7 +528,7 @@ export default function PostPage({ post, relatedArticles, isLiked, likesCount }:
                             {/* Dropdown Menu */}
                             {showShare && (
                                 <div
-                                    className="animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg bg-white shadow-lg ring-1 ring-black/5"
+                                    className={`animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg ${isDarkMode ? 'bg-gray-900' : 'bg-white'} shadow-lg ring-1 ring-black/5`}
                                     onMouseLeave={() => setShowShare(false)}
                                 >
                                     <div className="flex flex-col py-2">
@@ -536,7 +536,7 @@ export default function PostPage({ post, relatedArticles, isLiked, likesCount }:
                                             href={shareLinks.whatsapp}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                         >
                                             <MessageCircle className="h-4 w-4 text-green-500" />
                                             Share on WhatsApp
@@ -545,7 +545,7 @@ export default function PostPage({ post, relatedArticles, isLiked, likesCount }:
                                             href={shareLinks.facebook}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                         >
                                             <Facebook className="h-4 w-4 text-blue-600" />
                                             Share on Facebook
@@ -554,7 +554,7 @@ export default function PostPage({ post, relatedArticles, isLiked, likesCount }:
                                             href={shareLinks.twitter}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                         >
                                             <X className="h-4 w-4 text-sky-500" />
                                             Share on Twitter
@@ -563,7 +563,7 @@ export default function PostPage({ post, relatedArticles, isLiked, likesCount }:
                                             href={shareLinks.gmail}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                         >
                                             <Mail className="h-4 w-4 text-red-500" />
                                             Share via Gmail

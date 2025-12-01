@@ -69,7 +69,7 @@ export default function ArtistsPage({ artists = [] }: Props) {
                     {artist.genres.map((genre) => (
                       <span
                         key={genre.id}
-                        className="inline-block px-2 py-1 bg-purple-600 text-white text-xs rounded-full"
+                        className="inline-block px-2 py-1 bg-amber-600 text-white text-xs rounded-full"
                       >
                         {genre.name}
                       </span>
@@ -94,7 +94,7 @@ export default function ArtistsPage({ artists = [] }: Props) {
                   {artist.description || "No description available."}
                 </p>
 
-                <button className="w-full py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition">
+                <button className="w-full py-2 bg-amber-600 hover:bg-amber-700 cursor-pointer text-white rounded-lg font-semibold transition">
                   View Profile
                 </button>
               </div>

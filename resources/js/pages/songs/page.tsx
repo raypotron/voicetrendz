@@ -586,7 +586,7 @@ export default function SongPage({
                             {/* Dropdown Menu */}
                             {showShare && (
                                 <div
-                                    className="animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg bg-white shadow-lg ring-1 ring-black/5"
+                                    className={`animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg ${isDarkMode ? 'bg-gray-900' : 'bg-white'} shadow-lg ring-1 ring-black/5`}
                                     onMouseLeave={() => setShowShare(false)}
                                 >
                                     <div className="flex flex-col py-2">
@@ -594,7 +594,7 @@ export default function SongPage({
                                             href={shareLinks.whatsapp}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                         >
                                             <MessageCircle className="h-4 w-4 text-green-500" />
                                             Share on WhatsApp
@@ -603,7 +603,7 @@ export default function SongPage({
                                             href={shareLinks.facebook}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                         >
                                             <Facebook className="h-4 w-4 text-blue-600" />
                                             Share on Facebook
@@ -612,7 +612,7 @@ export default function SongPage({
                                             href={shareLinks.twitter}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                         >
                                             <X className="h-4 w-4 text-sky-500" />
                                             Share on Twitter
@@ -621,7 +621,7 @@ export default function SongPage({
                                             href={shareLinks.gmail}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                            className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                         >
                                             <Mail className="h-4 w-4 text-red-500" />
                                             Share via Gmail
@@ -644,7 +644,7 @@ export default function SongPage({
                             {/* Dropdown Menu */}
                             {showListen && (
                                 <div
-                                    className="animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg bg-white shadow-lg ring-1 ring-black/5"
+                                    className={`animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg ${isDarkMode ? 'bg-gray-900' : 'bg-white'} shadow-lg ring-1 ring-black/5`}
                                     onMouseLeave={() => setShowListen(false)}
                                 >
                                     <div className="flex flex-col py-2">
@@ -653,7 +653,7 @@ export default function SongPage({
                                                 href={song.apple_music}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                                className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                             >
                                                 <FaApple className="h-4 w-4 text-green-500" />
                                                 Apple Music
@@ -665,7 +665,7 @@ export default function SongPage({
                                                 href={song.voicenute}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                                className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                             >
                                                 <Facebook className="h-4 w-4 text-blue-600" />
                                                 Voicenute
@@ -677,7 +677,7 @@ export default function SongPage({
                                                 href={song.spotify}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                                className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                             >
                                                 <FaSpotify className="h-4 w-4 text-sky-500" />
                                                 Spotify
@@ -689,7 +689,7 @@ export default function SongPage({
                                                 href={song.audio_mack}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100"
+                                                className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                             >
                                                 <SiAudiomack className="h-4 w-4 text-red-500" />
                                                 Audio Mack

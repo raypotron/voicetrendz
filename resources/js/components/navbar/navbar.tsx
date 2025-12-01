@@ -47,7 +47,7 @@ export default function Navbar({ user }: Props) {
 
         {/* Search Overlay */}
         {isSearchOpen && (
-          <div className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-lg animate-in slide-in-from-top-2 duration-200">
+          <div className={`absolute top-16 left-0 w-full ${isDarkMode ? 'bg-gradient-to-r from-[#060A1A] via-[#0A102A] to-[#050515]' : ''} border-b border-gray-200 dark:border-gray-800 shadow-lg animate-in slide-in-from-top-2 duration-200`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
               <form onSubmit={handleSearch} className="relative">
                 <input
@@ -56,7 +56,7 @@ export default function Navbar({ user }: Props) {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search for songs, artists, news..."
                   autoFocus
-                  className="w-full pl-12 pr-12 py-3 rounded-xl bg-gray-100 dark:bg-gray-800 border-none focus:ring-2 focus:ring-purple-500 transition-all"
+                  className={`w-full pl-12 pr-12 py-3 rounded-xl ${isDarkMode ? 'bg-gradient-to-r from-[#060A1A] via-[#0A102A] to-[#050515]' : ''} border-none focus:ring-2 focus:ring-purple-500 transition-all`}
                 />
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
 
