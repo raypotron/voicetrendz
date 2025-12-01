@@ -16,6 +16,7 @@ class ContactMessageInfolist
                     ->label('Email address'),
                 TextEntry::make('subject'),
                 TextEntry::make('to'),
+                TextEntry::make('message'),
                 TextEntry::make('created_at')
                     ->dateTime(),
                 TextEntry::make('updated_at')
