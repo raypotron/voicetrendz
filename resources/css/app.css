@@ -234,8 +234,13 @@
         font-style: italic;
     }
 
+    .swiper-pagination-bullet {
+        background: #ffffff !important;
+        opacity: 0.4;
+    }
+
     .swiper-pagination-bullet-active {
-        background: #f59e0b !important; /* your active color */
+        background: #f59e0b !important;
         opacity: 1;
     }
 }
