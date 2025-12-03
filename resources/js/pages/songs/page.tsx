@@ -475,7 +475,9 @@ export default function SongPage({
                             </span>
                         </div> */}
 
-                        <h1 className="blog-title mb-6 post-card-title">{song.title}</h1>
+                        <h1 className="blog-title post-card-title mb-6">
+                            {song.title}
+                        </h1>
 
                         <div className="blog-meta space-y-1 border-b border-border pb-6">
                             <div className="flex items-center gap-2">
@@ -506,7 +508,7 @@ export default function SongPage({
                     </div>
 
                     {/* Content */}
-                    <div className="blog-content py-8 post-card-font">
+                    <div className="blog-content post-card-font py-8">
                         {formatContent(song.content)}
 
                         {/* Audio Preview */}
@@ -633,13 +635,18 @@ export default function SongPage({
 
                         {/* Listen Button */}
                         <div className="relative">
-                            <button
+                            {
+                                song.apple_music || song.voicenute || song.spotify || song.audio_mack ? (
+                                    <button
                                 onClick={() => setShowListen(!showListen)}
                                 className="flex cursor-pointer items-center gap-2 rounded-lg bg-secondary px-6 py-3 font-medium text-secondary-foreground transition-all hover:bg-secondary/80"
                             >
                                 <ListMusic className="h-5 w-5" />
                                 Continue to Listen
                             </button>
+                                ) : null
+                            }
+
 
                             {/* Dropdown Menu */}
                             {showListen && (
@@ -667,7 +674,11 @@ export default function SongPage({
                                                 rel="noopener noreferrer"
                                                 className={`flex items-center gap-2 px-4 py-2 text-sm ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                                             >
-                                                <Facebook className="h-4 w-4 text-blue-600" />
+                                                <img
+                                                    src={'/logo-16x16.png'}
+                                                    alt="voicenute logo"
+                                                    className=""
+                                                />
                                                 Voicenute
                                             </a>
                                         )}
