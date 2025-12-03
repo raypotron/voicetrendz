@@ -468,7 +468,9 @@ export default function LyricPage({
                             </span>
                         </div> */}
 
-                        <h1 className="blog-title mb-6 post-card-title">{lyric.title}</h1>
+                        <h1 className="blog-title post-card-title mb-6">
+                            {lyric.title}
+                        </h1>
 
                         <div className="blog-meta space-y-1 border-b border-border pb-6">
                             <div className="flex items-center gap-2">
@@ -499,7 +501,7 @@ export default function LyricPage({
                     </div>
 
                     {/* Content */}
-                    <div className="blog-content py-8 post-card-font">
+                    <div className="blog-content post-card-font py-8">
                         {formatContent(lyric.content)}
                     </div>
 
@@ -536,6 +538,13 @@ export default function LyricPage({
                                     className={`animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg ${isDarkMode ? 'bg-gray-900' : 'bg-white'} shadow-lg ring-1 ring-black/5`}
                                     onMouseLeave={() => setShowShare(false)}
                                 >
+                                    {/* Close Button */}
+                                    <button
+                                        onClick={() => setShowShare(false)}
+                                        className="absolute top-2 right-5 rounded-md p-1 hover:bg-gray-200 dark:hover:bg-gray-700"
+                                    >
+                                        <X className="h-4 w-4" />
+                                    </button>
                                     <div className="flex flex-col py-2">
                                         <a
                                             href={shareLinks.whatsapp}

@@ -591,6 +591,13 @@ export default function SongPage({
                                     className={`animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg ${isDarkMode ? 'bg-gray-900' : 'bg-white'} shadow-lg ring-1 ring-black/5`}
                                     onMouseLeave={() => setShowShare(false)}
                                 >
+                                    {/* Close Button */}
+                                    <button
+                                        onClick={() => setShowShare(false)}
+                                        className="absolute top-2 right-5 rounded-md p-1 hover:bg-gray-200 dark:hover:bg-gray-700"
+                                    >
+                                        <X className="h-4 w-4" />
+                                    </button>
                                     <div className="flex flex-col py-2">
                                         <a
                                             href={shareLinks.whatsapp}
@@ -635,18 +642,18 @@ export default function SongPage({
 
                         {/* Listen Button */}
                         <div className="relative">
-                            {
-                                song.apple_music || song.voicenute || song.spotify || song.audio_mack ? (
-                                    <button
-                                onClick={() => setShowListen(!showListen)}
-                                className="flex cursor-pointer items-center gap-2 rounded-lg bg-secondary px-6 py-3 font-medium text-secondary-foreground transition-all hover:bg-secondary/80"
-                            >
-                                <ListMusic className="h-5 w-5" />
-                                Continue to Listen
-                            </button>
-                                ) : null
-                            }
-
+                            {song.apple_music ||
+                            song.voicenute ||
+                            song.spotify ||
+                            song.audio_mack ? (
+                                <button
+                                    onClick={() => setShowListen(!showListen)}
+                                    className="flex cursor-pointer items-center gap-2 rounded-lg bg-secondary px-6 py-3 font-medium text-secondary-foreground transition-all hover:bg-secondary/80"
+                                >
+                                    <ListMusic className="h-5 w-5" />
+                                    Continue to Listen
+                                </button>
+                            ) : null}
 
                             {/* Dropdown Menu */}
                             {showListen && (
@@ -654,6 +661,13 @@ export default function SongPage({
                                     className={`animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg ${isDarkMode ? 'bg-gray-900' : 'bg-white'} shadow-lg ring-1 ring-black/5`}
                                     onMouseLeave={() => setShowListen(false)}
                                 >
+                                    {/* Close Button */}
+                                    <button
+                                        onClick={() => setShowListen(false)}
+                                        className="absolute top-2 right-5 rounded-md p-1 hover:bg-gray-200 dark:hover:bg-gray-700"
+                                    >
+                                        <X className="h-4 w-4" />
+                                    </button>
                                     <div className="flex flex-col py-2">
                                         {song.apple_music && (
                                             <a

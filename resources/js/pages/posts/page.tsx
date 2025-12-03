@@ -41,7 +41,6 @@ interface User {
     name: string;
 }
 
-
 interface InertiaPageProps extends PageProps {
     user: User | null;
 }
@@ -53,7 +52,12 @@ interface Props extends PageProps {
     likesCount: number;
 }
 
-export default function PostPage({ post, relatedArticles, isLiked, likesCount }: Props) {
+export default function PostPage({
+    post,
+    relatedArticles,
+    isLiked,
+    likesCount,
+}: Props) {
     const { isDarkMode } = useBlog();
     // const [liked, setLiked] = useState(false);
     const [showShare, setShowShare] = useState(false);
@@ -448,7 +452,9 @@ export default function PostPage({ post, relatedArticles, isLiked, likesCount }:
                 <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
                     {/* Back button */}
                     <button
-                        onClick={() => router.visit(document.referrer || '/')}
+                        onClick={() =>
+                            router.visit(document.referrer || '/home')
+                        }
                         className="mt-8 mb-8 flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
                     >
                         <ChevronLeft className="h-5 w-5" />
@@ -463,7 +469,9 @@ export default function PostPage({ post, relatedArticles, isLiked, likesCount }:
                             </span>
                         </div>
 
-                        <h1 className="blog-title mb-6 post-card-title">{post.title}</h1>
+                        <h1 className="blog-title post-card-title mb-6">
+                            {post.title}
+                        </h1>
 
                         <div className="blog-meta space-y-1 border-b border-border pb-6">
                             <div className="flex items-center gap-2">
@@ -494,7 +502,7 @@ export default function PostPage({ post, relatedArticles, isLiked, likesCount }:
                     </div>
 
                     {/* Content */}
-                    <div className="blog-content py-8 post-card-font">
+                    <div className="blog-content post-card-font py-8">
                         {formatContent(post.content)}
                     </div>
 
@@ -531,7 +539,15 @@ export default function PostPage({ post, relatedArticles, isLiked, likesCount }:
                                     className={`animate-fade-in absolute left-0 z-20 mt-2 w-56 rounded-lg ${isDarkMode ? 'bg-gray-900' : 'bg-white'} shadow-lg ring-1 ring-black/5`}
                                     onMouseLeave={() => setShowShare(false)}
                                 >
-                                    <div className="flex flex-col py-2">
+                                    {/* Close Button */}
+                                    <button
+                                        onClick={() => setShowShare(false)}
+                                        className="absolute top-2 right-5  rounded-md p-1 hover:bg-gray-200 dark:hover:bg-gray-700"
+                                    >
+                                        <X className="h-4 w-4" />
+                                    </button>
+
+                                    <div className="flex flex-col py-4">
                                         <a
                                             href={shareLinks.whatsapp}
                                             target="_blank"
