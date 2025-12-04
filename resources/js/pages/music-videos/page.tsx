@@ -88,7 +88,7 @@ export default function MusicVideosPage({ videos }: Props) {
                                                 }
                                                 className="absolute inset-0 flex items-center justify-center bg-black/0 transition group-hover:bg-black/50"
                                             >
-                                                <div className="opacity-0 transition group-hover:opacity-100">
+                                                <div className="opacity-100">
                                                     <Play className="h-16 w-16 fill-white text-white" />
                                                 </div>
                                             </div>
