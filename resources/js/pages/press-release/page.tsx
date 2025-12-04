@@ -453,7 +453,7 @@ export default function PressReleasePage({
                     {/* Back button */}
                     <button
                         onClick={() =>
-                            router.visit(document.referrer || '/home')
+                            router.visit('/press-release')
                         }
                         className="mt-8 mb-8 flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
                     >
