@@ -68,6 +68,19 @@ interface InertiaPageProps extends PageProps {
     user: User | null;
 }
 
+interface Artist {
+  id: number;
+  name: string;
+  stage_name: string;
+  slug: string;
+  description: string;
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  image_path: string;
+}
+
 interface Props extends PageProps {
     heroPosts?: Post[];
     hotStories?: Post[];
@@ -76,6 +89,7 @@ interface Props extends PageProps {
     latestSongs?: Song[];
     poll?: Poll | null;
     trendingTopics?: TrendingTopic[];
+    artists?: Artist[];
 }
 
 interface PollForm {
@@ -98,6 +112,7 @@ export default function Home({
     latestSongs = [],
     poll = null,
     trendingTopics = [],
+    artists = [],
 }: Props) {
     const { cardBg, isDarkMode, bgClass, textClass } = useBlog();
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -329,6 +344,77 @@ export default function Home({
                                 </>
                             ) : (
                                 <EmptyState message="No news available." />
+                            )}
+                        </section>
+
+                        {/* Artist Spotlight */}
+                        <section>
+                            <div className="mb-6 flex items-center justify-between">
+                                <h2 className="flex items-center gap-2 text-3xl font-bold">
+                                    🎧 Artist Spotlight
+                                </h2>
+                                <Link
+                                    href="/artists"
+                                    className="flex items-center gap-1 text-amber-600 hover:text-amber-500"
+                                >
+                                    View All{' '}
+                                    <ChevronRight className="h-4 w-4" />
+                                </Link>
+                            </div>
+
+                            {artists.length > 0 ? (
+                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                    {artists.map((artist) => (
+                                        <Link
+                                            key={artist.id}
+                                            href={route(
+                                                'artist.show',
+                                                artist.slug,
+                                            )}
+                                            className={`${cardBg} group overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl`}
+                                        >
+                                            <div className="relative h-48 overflow-hidden">
+                                                <img
+                                                    src={
+                                                        artist.image_path ||
+                                                        '/placeholder.svg'
+                                                    }
+                                                    alt={artist.name}
+                                                    className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
+                                                />
+                                                {/* <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 to-transparent">
+                                                    <div className="w-full p-4">
+                                                        <div className="flex items-center gap-3 text-sm text-white">
+                                                            <span>
+                                                                👁
+                                                                {
+                                                                    story.views
+                                                                }{' '}
+                                                                {story.views >
+                                                                999
+                                                                    ? 'k'
+                                                                    : ''}
+                                                            </span>
+                                                            <span>
+                                                                ⏱{' '}
+                                                                {dayjs(
+                                                                    artist.created_at,
+                                                                ).fromNow()}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div> */}
+                                            </div>
+                                            <div className="p-4">
+                                                <h3 className="text-lg font-bold transition group-hover:text-amber-600">
+                                                    {artist.stage_name}
+                                                </h3>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            ) : (
+                                <EmptyState message="No hot stories available." />
                             )}
                         </section>
 
