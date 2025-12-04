@@ -369,7 +369,7 @@ export default function Home({
                         <section>
                             <div className="mb-6 flex items-center justify-between">
                                 <h2 className="flex items-center gap-2 text-3xl font-bold">
-                                    🎧 Artist Spotlight
+                                    👤 Artist Spotlight
                                 </h2>
                                 <Link
                                     href="/artists"
