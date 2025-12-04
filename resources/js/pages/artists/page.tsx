@@ -8,6 +8,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import {
     Calendar,
     ChevronLeft,
+    ChevronRight,
     Clock,
     Facebook,
     Heart,
@@ -399,13 +400,22 @@ export default function ArtistPage({ artist, relatedArtists }: Props) {
                 {/* Main Content */}
                 <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
                     {/* Back button */}
-                    <button
-                        onClick={() => router.visit('/artists')}
-                        className="mt-8 mb-8 flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
-                    >
-                        <ChevronLeft className="h-5 w-5" />
-                        Back to artists
-                    </button>
+                    <div className="mt-8 mb-8 flex justify-between gap-4">
+                        <button
+                            onClick={() => router.visit('/artists')}
+                            className="flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
+                        >
+                            <ChevronLeft className="h-5 w-5" />
+                            Back to artists
+                        </button>
+                        <button
+                            onClick={() => router.visit('/home')}
+                            className="flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
+                        >
+                            Back to Home
+                            <ChevronRight className="h-5 w-5" />
+                        </button>
+                    </div>
 
                     {/* Header */}
                     <div className="mb-8">
@@ -415,7 +425,9 @@ export default function ArtistPage({ artist, relatedArtists }: Props) {
                             </span>
                         </div> */}
 
-                        <h1 className="blog-title mb-6 post-card-title">{artist.description}</h1>
+                        <h1 className="blog-title post-card-title mb-6">
+                            {artist.description}
+                        </h1>
 
                         <div className="blog-meta space-y-1 border-b border-border pb-6">
                             <div className="flex items-center gap-2">
@@ -438,13 +450,15 @@ export default function ArtistPage({ artist, relatedArtists }: Props) {
                             </div>
                             <div className="flex items-center gap-2">
                                 <Clock className="h-4 w-4 text-muted-foreground" />
-                                <span>{dayjs(artist.created_at).fromNow()}</span>
+                                <span>
+                                    {dayjs(artist.created_at).fromNow()}
+                                </span>
                             </div>
                         </div>
                     </div>
 
                     {/* Content */}
-                    <div className="blog-content py-8 post-card-font">
+                    <div className="blog-content post-card-font py-8">
                         {formatContent(artist.bio)}
                     </div>
 
