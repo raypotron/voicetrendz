@@ -54,7 +54,7 @@ export default function DesktopMenu({ user }: Props) {
                 { href: '/hot-stories', label: 'Hot Stories' },
                 { href: '/news', label: 'Latest News' },
                 { href: '/press-release', label: 'Press Release' },
-                { href: '/#', label: 'Trending Topics', icon: TrendingUp },
+                { href: '/home', label: 'Trending Topics', icon: TrendingUp },
             ],
         },
         { href: '/artists', label: 'Artists' },
