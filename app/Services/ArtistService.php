@@ -3,15 +3,17 @@
 namespace App\Services;
 
 use App\Models\Artist;
-use Inertia\Inertia;
 
 class ArtistService
 {
-    public function __construct(private Artist $artist){}
+    public function __construct(private Artist $artist) {}
 
-    public function index()
+    public function index(?int $limit = null)
     {
-        $artists = $this->artist->with('genres:id,name')->get();
+        $artists = $this->artist->with('genres:id,name')
+            ->latest()
+            ->when($limit, fn ($q) => $q->limit($limit))
+            ->get();
 
         return $artists;
     }
@@ -26,8 +28,5 @@ class ArtistService
             ->get();
     }
 
-    public function show()
-    {
-
-    }
+    public function show() {}
 }
