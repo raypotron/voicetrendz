@@ -10,6 +10,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import {
     Calendar,
     ChevronLeft,
+    ChevronRight,
     Clock,
     Eye,
     Facebook,
@@ -452,13 +453,22 @@ export default function LyricPage({
                 {/* Main Content */}
                 <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
                     {/* Back button */}
-                    <button
-                        onClick={() => router.visit('/lyrics')}
-                        className="mt-8 mb-8 flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
-                    >
-                        <ChevronLeft className="h-5 w-5" />
-                        Back to Lyrics
-                    </button>
+                    <div className="mt-8 mb-8 flex justify-between gap-4">
+                        <button
+                            onClick={() => router.visit('/lyrics')}
+                            className="flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
+                        >
+                            <ChevronLeft className="h-5 w-5" />
+                            Back to Lyrics
+                        </button>
+                        <button
+                            onClick={() => router.visit('/home')}
+                            className="flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
+                        >
+                            Back to Home
+                            <ChevronRight className="h-5 w-5" />
+                        </button>
+                    </div>
 
                     {/* Header */}
                     <div className="mb-8">
