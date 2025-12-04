@@ -37,6 +37,7 @@ class SearchController extends Controller
                 'stories' => $searchResults['stories'],
                 'artists' => $searchResults['artists'],
                 'musicVideos' => $searchResults['musicVideos'],
+                'pressReleases' => $searchResults['pressReleases'],
             ],
         ]);
     }
