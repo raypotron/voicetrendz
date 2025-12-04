@@ -9,6 +9,7 @@ use App\Http\Controllers\Blog\MusicVideoController;
 use App\Http\Controllers\Blog\NewsController;
 use App\Http\Controllers\Blog\PollsController;
 use App\Http\Controllers\Blog\PostController;
+use App\Http\Controllers\Blog\PressReleaseController;
 use App\Http\Controllers\Blog\SearchController;
 use App\Http\Controllers\Blog\SongsController;
 use App\Http\Controllers\Blog\VotesController;
@@ -50,6 +51,11 @@ Route::prefix('songs')->group(function () {
 Route::prefix('music-videos')->group(function () {
     Route::get('/', [MusicVideoController::class, 'index'])->name('music.videos.index');
     Route::get('/{musicVideo}', [MusicVideoController::class, 'show'])->name('music.videos.show');
+});
+
+Route::prefix('press-release')->group(function() {
+    Route::get('/', [PressReleaseController::class, 'index'])->name('press.release.index');
+    Route::get('/{pressRelease}', [PressReleaseController::class, 'show'])->name('press.release.show');
 });
 
 Route::get('news', NewsController::class)->name('news');
