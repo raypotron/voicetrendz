@@ -10,6 +10,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import {
     Calendar,
     ChevronLeft,
+    ChevronRight,
     Clock,
     Eye,
     Facebook,
@@ -451,15 +452,22 @@ export default function PressReleasePage({
                 {/* Main Content */}
                 <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
                     {/* Back button */}
-                    <button
-                        onClick={() =>
-                            router.visit('/press-release')
-                        }
-                        className="mt-8 mb-8 flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
-                    >
-                        <ChevronLeft className="h-5 w-5" />
-                        Back to articles
-                    </button>
+                    <div className="mt-8 mb-8 flex justify-between gap-4">
+                        <button
+                            onClick={() => router.visit('/press-release')}
+                            className="flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
+                        >
+                            <ChevronLeft className="h-5 w-5" />
+                            Back to articles
+                        </button>
+                        <button
+                            onClick={() => router.visit('/home')}
+                            className="flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
+                        >
+                            Back to Home
+                            <ChevronRight className="h-5 w-5" />
+                        </button>
+                    </div>
 
                     {/* Header */}
                     <div className="mb-8">
@@ -542,7 +550,7 @@ export default function PressReleasePage({
                                     {/* Close Button */}
                                     <button
                                         onClick={() => setShowShare(false)}
-                                        className="absolute top-2 right-5  rounded-md p-1 hover:bg-gray-200 dark:hover:bg-gray-700"
+                                        className="absolute top-2 right-5 rounded-md p-1 hover:bg-gray-200 dark:hover:bg-gray-700"
                                     >
                                         <X className="h-4 w-4" />
                                     </button>
