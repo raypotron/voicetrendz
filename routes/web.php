@@ -47,12 +47,16 @@ Route::prefix('songs')->group(function () {
     Route::post('/{song}/track-view', [SongsController::class, 'trackView'])->name('songs.track-view');
 });
 
+Route::prefix('music-videos')->group(function () {
+    Route::get('/', [MusicVideoController::class, 'index'])->name('music.videos.index');
+    Route::get('/{musicVideo}', [MusicVideoController::class, 'show'])->name('music.videos.show');
+});
+
 Route::get('news', NewsController::class)->name('news');
 Route::get('search', SearchController::class)->name('search');
 Route::get('polls', PollsController::class)->name('fan.polls');
 Route::get('hot-stories', HotStoriesController::class)->name('hot.stories');
 Route::post('upload/song', SongUploadController::class)->name('upload.song');
-Route::get('music-videos', MusicVideoController::class)->name('music.videos');
 Route::post('polls/vote', [VotesController::class, 'store'])->name('polls.vote');
 Route::post('editor/upload', ImageUploadController::class)->name('editor.upload');
 Route::post('contact', ContactMessageController::class)->name('contact.store');
