@@ -9,7 +9,6 @@ import {
     Calendar,
     ChevronLeft,
     Clock,
-    Eye,
     Facebook,
     Heart,
     Mail,
@@ -19,6 +18,7 @@ import {
     X,
 } from 'lucide-react';
 import { useState } from 'react';
+import { FaUserFriends } from 'react-icons/fa';
 
 dayjs.extend(relativeTime);
 
@@ -27,6 +27,7 @@ interface Artist {
     name: string;
     stage_name: string;
     description: string;
+    social_media_followers: number;
     bio: string;
     image_path: string;
     created_at: string;
@@ -432,8 +433,8 @@ export default function ArtistPage({ artist, relatedArtists }: Props) {
                                 </span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <Eye className="h-4 w-4 text-muted-foreground" />
-                                <span>100 views</span>
+                                <FaUserFriends className="h-4 w-4 text-muted-foreground" />
+                                <span>{artist.social_media_followers}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Clock className="h-4 w-4 text-muted-foreground" />
