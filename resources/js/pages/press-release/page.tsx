@@ -1,5 +1,3 @@
-'use client';
-
 import axios from '@/axios';
 import FormatContent from '@/components/form-content';
 import useBlog from '@/hooks/use-blog';

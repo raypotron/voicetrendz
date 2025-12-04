@@ -1,5 +1,3 @@
-'use client';
-
 import { PageProps } from '@inertiajs/core';
 import { Link, router } from '@inertiajs/react';
 import { ChevronDown, Music, TrendingUp } from 'lucide-react';

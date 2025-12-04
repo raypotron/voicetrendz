@@ -1,5 +1,3 @@
-'use client';
-
 import useBlog from '@/hooks/use-blog';
 import { Link, router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';

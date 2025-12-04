@@ -1,5 +1,3 @@
-'use client';
-
 import useBlog from '@/hooks/use-blog';
 import { socialLinks } from '@/types/socialData';
 import { Link } from '@inertiajs/react';

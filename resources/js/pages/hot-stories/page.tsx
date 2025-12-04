@@ -1,4 +1,4 @@
-'use client';
+
 
 import useBlog from '@/hooks/use-blog';
 import { PageProps } from '@inertiajs/core';
