@@ -50,6 +50,7 @@ interface Props extends PageProps {
     relatedArticles: Post[];
     isLiked: boolean;
     likesCount: number;
+    previousPage: string;
 }
 
 export default function PostPage({
@@ -57,6 +58,7 @@ export default function PostPage({
     relatedArticles,
     isLiked,
     likesCount,
+    previousPage,
 }: Props) {
     const { isDarkMode } = useBlog();
     // const [liked, setLiked] = useState(false);
@@ -67,6 +69,8 @@ export default function PostPage({
     const encodedTitle = encodeURIComponent(post.title);
 
     const { props } = usePage<InertiaPageProps>();
+
+    console.log(previousPage);
 
     const user = props.user;
 
@@ -453,7 +457,7 @@ export default function PostPage({
                     {/* Back button */}
                     <button
                         onClick={() =>
-                            router.visit(document.referrer || '/home')
+                            router.visit(`${previousPage}` || '/home')
                         }
                         className="mt-8 mb-8 flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
                     >
