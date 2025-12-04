@@ -11,7 +11,7 @@ interface Video {
 }
 
 interface Props extends PageProps {
-    videos: Video[];
+    video: Video;
 }
 
 const EmptyState = ({ message }: { message: string }) => (
@@ -20,7 +20,7 @@ const EmptyState = ({ message }: { message: string }) => (
     </div>
 );
 
-export default function MusicVideosPage({ videos }: Props) {
+export default function MusicVideosPage({ video }: Props) {
     const { cardBg, isDarkMode } = useBlog();
     const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
@@ -36,13 +36,12 @@ export default function MusicVideosPage({ videos }: Props) {
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-                {videos.length > 0 ? (
-                    videos.map((item, idx) => {
-                        const isActive = activeVideo === item.video_id;
+                {video ? (
+                    (() => {
+                        const isActive = activeVideo === video.video_id;
 
                         return (
                             <div
-                                key={idx}
                                 className={`${cardBg} overflow-hidden rounded-xl shadow-lg transition hover:shadow-2xl`}
                             >
                                 <div className="group relative aspect-square cursor-pointer overflow-hidden">
@@ -50,8 +49,8 @@ export default function MusicVideosPage({ videos }: Props) {
                                         <div className="relative h-full w-full">
                                             <iframe
                                                 className="h-full w-full"
-                                                src={`https://www.youtube.com/embed/${item.video_id}?autoplay=1`}
-                                                title={item.title}
+                                                src={`https://www.youtube.com/embed/${video.video_id}?autoplay=1`}
+                                                title={video.title}
                                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                 allowFullScreen
                                             />
@@ -68,22 +67,21 @@ export default function MusicVideosPage({ videos }: Props) {
                                         <>
                                             <img
                                                 src={
-                                                    item.thumbnail_url ||
+                                                    video.thumbnail_url ||
                                                     '/placeholder.svg'
                                                 }
-                                                alt={item.title}
+                                                alt={video.title}
                                                 className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
                                                 onClick={() =>
                                                     setActiveVideo(
-                                                        item.video_id,
+                                                        video.video_id,
                                                     )
                                                 }
                                             />
-
                                             <div
                                                 onClick={() =>
                                                     setActiveVideo(
-                                                        item.video_id,
+                                                        video.video_id,
                                                     )
                                                 }
                                                 className="absolute inset-0 flex items-center justify-center bg-black/0 transition group-hover:bg-black/50"
@@ -98,17 +96,19 @@ export default function MusicVideosPage({ videos }: Props) {
 
                                 <div className="p-3">
                                     <h3 className="truncate text-sm font-bold">
-                                        {item.title}
+                                        {video.title}
                                     </h3>
-
                                     <p
-                                        className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-600'} truncate`}
+                                        className={`text-xs ${
+                                            isDarkMode
+                                                ? 'text-gray-400'
+                                                : 'text-gray-600'
+                                        } truncate`}
                                     >
-                                        {item.artist.stage_name}
+                                        {video.artist.stage_name}
                                     </p>
-
                                     <a
-                                        href={`https://www.youtube.com/watch?v=${item.video_id}`}
+                                        href={`https://www.youtube.com/watch?v=${video.video_id}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="mt-1 block text-xs text-blue-500 hover:underline"
@@ -118,7 +118,7 @@ export default function MusicVideosPage({ videos }: Props) {
                                 </div>
                             </div>
                         );
-                    })
+                    })()
                 ) : (
                     <EmptyState message="No music videos available." />
                 )}
