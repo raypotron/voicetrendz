@@ -27,6 +27,7 @@ export default function SearchPage() {
       stories: ResultItem[];
       artists: ResultItem[];
       musicVideos: ResultItem[];
+      pressReleases: ResultItem[];
     };
   }>().props;
 
@@ -50,10 +51,11 @@ export default function SearchPage() {
     { id: "all", label: "All Results", icon: Search },
     { id: "songs", label: "Songs", icon: Music },
     { id: "lyrics", label: "Lyrics", icon: FileText },
-    { id: "news", label: "Latest News", icon: Newspaper },
+    { id: "news", label: "De Latest", icon: Newspaper },
     { id: "stories", label: "Hot Stories", icon: Flame },
     { id: "artists", label: "Artists", icon: PersonStanding },
     { id: "musicVideos", label: "Music Videos", icon: VideoIcon },
+    { id: "pressReleases", label: "Press Release", icon: Newspaper },
   ];
 
   const getFilteredResults = (): ResultItem[] => {
@@ -65,6 +67,7 @@ export default function SearchPage() {
         ...results.stories,
         ...results.artists,
         ...results.musicVideos,
+        ...results.pressReleases,
       ];
     }
 
