@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Services\ArtistService;
 use App\Services\LyricService;
 use App\Services\PollService;
 use App\Services\PostService;
@@ -17,7 +18,8 @@ class WelcomeController extends Controller
         private LyricService $lyricService,
         private SongService $songService,
         private PollService $pollService,
-        private TrendingTopicService $trendingTopicService) {}
+        private TrendingTopicService $trendingTopicService,
+        private ArtistService $artistService) {}
 
     public function __invoke()
     {
@@ -28,8 +30,18 @@ class WelcomeController extends Controller
         $latestSongs = $this->songService->getSongs(5);
         $poll = $this->pollService->getLatestPoll();
         $trendingTopics = $this->trendingTopicService->getLatestTrendingTopics(5);
+        $artists = $this->artistService->index(6);
 
-        return Inertia::render('welcome', compact('heroPosts',
-            'hotStories', 'latestNews', 'songLyrics', 'latestSongs', 'poll', 'trendingTopics'));
+
+        return Inertia::render('welcome', compact(
+            'heroPosts',
+            'hotStories',
+            'latestNews',
+            'songLyrics',
+            'latestSongs',
+            'poll',
+            'trendingTopics',
+            'artists'
+        ));
     }
 }
