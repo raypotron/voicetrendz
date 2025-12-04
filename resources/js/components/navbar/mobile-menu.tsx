@@ -48,6 +48,7 @@ export default function MobileMenu({ user }: Props) {
         { href: '/lyrics', label: 'Lyrics' },
         { href: '/songs', label: 'Songs' },
         { href: '/news', label: 'News' },
+        { href: '/press-release', label: 'Press Release' },
         { href: '/artists', label: 'Artists' },
         { href: '/community', label: 'Community' },
         { href: '/polls', label: 'Fan Polls' },
