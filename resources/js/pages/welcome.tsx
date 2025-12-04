@@ -81,6 +81,19 @@ interface Artist {
     image_path: string;
 }
 
+interface PressRelease {
+    id: number;
+    title: string;
+    content: string;
+    thumbnail_url: string;
+    created_at: string;
+    excerpt: string;
+    slug: string;
+    views: number;
+    user: { id: number; name: string };
+    category: { id: number; name: string };
+}
+
 interface Props extends PageProps {
     heroPosts?: Post[];
     hotStories?: Post[];
@@ -90,6 +103,7 @@ interface Props extends PageProps {
     poll?: Poll | null;
     trendingTopics?: TrendingTopic[];
     artists?: Artist[];
+    pressReleases?: PressRelease[];
 }
 
 interface PollForm {
@@ -113,6 +127,7 @@ export default function Home({
     poll = null,
     trendingTopics = [],
     artists = [],
+    pressReleases = [],
 }: Props) {
     const { cardBg, isDarkMode, bgClass, textClass } = useBlog();
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -617,6 +632,65 @@ export default function Home({
                                 <EmptyState message="No lyrics available." />
                             )}
                         </div>
+
+                        {/* Press Release */}
+                        <section>
+                            <h2 className="mb-6 text-3xl font-bold">
+                                Press Release
+                            </h2>
+
+                            {pressReleases.length > 0 ? (
+                                <>
+                                    <div className="space-y-4">
+                                        {pressReleases.map((release) => (
+                                            <Link
+                                                key={release.id}
+                                                href={route(
+                                                    'press.release.show',
+                                                    release.slug,
+                                                )}
+                                                className={`${cardBg} flex gap-4 rounded-xl p-4 shadow transition hover:shadow-lg`}
+                                            >
+                                                <img
+                                                    src={
+                                                        release.thumbnail_url ||
+                                                        '/placeholder.svg'
+                                                    }
+                                                    alt={release.title}
+                                                    className="h-24 w-24 flex-shrink-0 rounded-lg object-cover"
+                                                />
+                                                <div className="flex-1">
+                                                    <h3 className="mb-1 text-lg font-bold transition hover:text-amber-600">
+                                                        {release.title}
+                                                    </h3>
+                                                    <p
+                                                        className={`mb-2 text-sm ${
+                                                            isDarkMode
+                                                                ? 'text-gray-400'
+                                                                : 'text-gray-600'
+                                                        }`}
+                                                    >
+                                                        {release.excerpt}
+                                                    </p>
+                                                    <span className="text-xs text-gray-500">
+                                                        {dayjs(
+                                                            release.created_at,
+                                                        ).fromNow()}
+                                                    </span>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                    <Link href="/press-release">
+                                        <button className="mt-6 w-full rounded-lg border-2 border-amber-600/60 py-3 font-semibold text-amber-600 transition hover:bg-amber-600 hover:text-white">
+                                            Load More Press Release
+                                        </button>
+                                    </Link>
+                                </>
+                            ) : (
+                                <EmptyState message="No press releases available." />
+                            )}
+                        </section>
                     </div>
                 </div>
             </div>
