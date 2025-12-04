@@ -21,8 +21,8 @@ class MusicVideoController extends Controller
 
     public function show(MusicVideo $musicVideo)
     {
-        $videos = $musicVideo->with('artist:id,name,stage_name,image_url')->get();
+        $video = $musicVideo->load('artist:id,name,stage_name,image_url');
 
-        return Inertia::render('music-videos/page', compact('videos'));
+        return Inertia::render('music-videos/page', compact('video'));
     }
 }
