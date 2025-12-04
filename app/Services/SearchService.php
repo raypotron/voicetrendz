@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Artist;
 use App\Models\Lyric;
+use App\Models\MusicVideo;
 use App\Models\Post;
 use App\Models\Song;
 
@@ -90,12 +91,30 @@ class SearchService
                 'thumbnail_url' => $item->image_path,
             ]);
 
+        $musicVideos = MusicVideo::with('artist')
+            ->where('title', 'like', "%$query%")
+            ->orWhereHas('artist', function ($q) use ($query) {
+                $q->where('stage_name', 'like', "%$query%")
+                    ->orWhere('name', 'like', "%$query%");
+            })
+            ->get()
+            ->map(fn ($item) => [
+                'id' => $item->id,
+                'slug' => $item->slug,
+                'title' => $item->title,
+                'artist' => $item->artist?->stage_name ?? $item->artist?->name ?? 'Unknown',
+                'type' => 'Music Video',
+                'route' => 'music.videos.show',
+                'thumbnail_url' => $item->thumbnail_url,
+            ]);
+
         return [
             'songs' => $songs,
             'lyrics' => $lyrics,
             'stories' => $stories,
             'news' => $news,
             'artists' => $artists,
+            'musicVideos' => $musicVideos,
         ];
     }
 }
