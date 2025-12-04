@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import { router, Link, usePage } from "@inertiajs/react";
 
-import { Search, Music, FileText, Newspaper, Flame, ChevronRight } from "lucide-react";
+import { Search, Music, FileText, Newspaper, Flame, ChevronRight, PersonStanding } from "lucide-react";
 import useBlog from "@/hooks/use-blog";
 import { route } from "ziggy-js";
 
@@ -25,6 +25,7 @@ export default function SearchPage() {
       lyrics: ResultItem[];
       news: ResultItem[];
       stories: ResultItem[];
+      artists: ResultItem[];
     };
   }>().props;
 
@@ -50,6 +51,7 @@ export default function SearchPage() {
     { id: "lyrics", label: "Lyrics", icon: FileText },
     { id: "news", label: "Latest News", icon: Newspaper },
     { id: "stories", label: "Hot Stories", icon: Flame },
+    { id: "artists", label: "Artists", icon: PersonStanding },
   ];
 
   const getFilteredResults = (): ResultItem[] => {
@@ -59,6 +61,7 @@ export default function SearchPage() {
         ...results.lyrics,
         ...results.news,
         ...results.stories,
+        ...results.artists,
       ];
     }
 
