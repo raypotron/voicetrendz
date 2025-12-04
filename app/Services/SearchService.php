@@ -12,7 +12,7 @@ class SearchService
 {
     public function find(string $query)
     {
-        $songs = Song::with('artist')
+        $songs = Song::with('artist')->where('status', 'published')
             ->where('title', 'like', "%$query%")
             ->orWhereHas('artist', function ($q) use ($query) {
                 $q->where('stage_name', 'like', "%$query%")
@@ -29,7 +29,7 @@ class SearchService
                 'thumbnail_url' => $item->thumbnail_url,
             ]);
 
-        $lyrics = Lyric::with('artist')
+        $lyrics = Lyric::with('artist')->where('status', 'published')
             ->where('title', 'like', "%$query%")
             ->orWhereHas('artist', function ($q) use ($query) {
                 $q->where('stage_name', 'like', "%$query%")
@@ -46,7 +46,7 @@ class SearchService
                 'thumbnail_url' => $item->thumbnail_url,
             ]);
 
-        $news = Post::with('tags')
+        $news = Post::with('tags')->where('status', 'published')
             ->where('title', 'like', "%$query%")
             ->whereHas('tags', function ($q) {
                 $q->where('name', 'latest news')->orWhere('name', 'breaking news');
@@ -62,21 +62,21 @@ class SearchService
                 'thumbnail_url' => $item->thumbnail_url,
             ]);
 
-        $stories = Post::with('tags')->
-            where('title', 'like', "%$query%")
-                ->whereHas('tags', function ($q) {
-                    $q->where('name', 'hottest');
-                })
-                ->get()
-                ->map(fn ($item) => [
-                    'id' => $item->id,
-                    'slug' => $item->slug,
-                    'title' => $item->title,
-                    'readTime' => $item->read_time,
-                    'type' => 'Story',
-                    'route' => 'posts.show',
-                    'thumbnail_url' => $item->thumbnail_url,
-                ]);
+        $stories = Post::with('tags')->where('status', 'published')
+            ->where('title', 'like', "%$query%")
+            ->whereHas('tags', function ($q) {
+                $q->where('name', 'hottest');
+            })
+            ->get()
+            ->map(fn ($item) => [
+                'id' => $item->id,
+                'slug' => $item->slug,
+                'title' => $item->title,
+                'readTime' => $item->read_time,
+                'type' => 'Story',
+                'route' => 'posts.show',
+                'thumbnail_url' => $item->thumbnail_url,
+            ]);
 
         $artists = Artist::where('name', 'like', "%$query%")
             ->orWhere('stage_name', 'like', "%$query%")
