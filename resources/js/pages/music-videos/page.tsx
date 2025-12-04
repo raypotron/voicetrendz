@@ -26,47 +26,6 @@ export default function MusicVideosPage({ videos }: Props) {
     const { cardBg, isDarkMode } = useBlog();
     const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
-    //   console.log(videos);
-
-    //   const videos = [
-    //     {
-    //       title: "Love Damini",
-    //       artist: "Burna Boy",
-    //       image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop",
-    //       video_id: "J3rOq9lYjeQ",
-    //     },
-    //     {
-    //       title: "Made in Lagos",
-    //       artist: "Wizkid",
-    //       image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=300&fit=crop",
-    //       video_id: "qEEsc8j-FVI",
-    //     },
-    //     {
-    //       title: "Timeless",
-    //       artist: "Davido",
-    //       image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&h=300&fit=crop",
-    //       video_id: "5OyDO_02yj8",
-    //     },
-    //     {
-    //       title: "Born to Shine",
-    //       artist: "Tems",
-    //       image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=300&h=300&fit=crop",
-    //       video_id: "1JltlSJH5bY",
-    //     },
-    //     {
-    //       title: "Rave & Roses",
-    //       artist: "Rema",
-    //       image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=300&h=300&fit=crop",
-    //       video_id: "_X-DFExVGbQ",
-    //     },
-    //     {
-    //       title: "Work of Art",
-    //       artist: "Asake",
-    //       image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=300&h=300&fit=crop",
-    //       video_id: "pBsfFaMGtp0",
-    //     },
-    //   ]
-
     return (
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
             <div className="mb-8">
