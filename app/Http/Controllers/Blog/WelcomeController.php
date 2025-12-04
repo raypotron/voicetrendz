@@ -7,6 +7,7 @@ use App\Services\ArtistService;
 use App\Services\LyricService;
 use App\Services\PollService;
 use App\Services\PostService;
+use App\Services\PressReleaseService;
 use App\Services\SongService;
 use App\Services\TrendingTopicService;
 use Inertia\Inertia;
@@ -19,7 +20,8 @@ class WelcomeController extends Controller
         private SongService $songService,
         private PollService $pollService,
         private TrendingTopicService $trendingTopicService,
-        private ArtistService $artistService) {}
+        private ArtistService $artistService,
+        private PressReleaseService $pressReleaseService) {}
 
     public function __invoke()
     {
@@ -31,6 +33,7 @@ class WelcomeController extends Controller
         $poll = $this->pollService->getLatestPoll();
         $trendingTopics = $this->trendingTopicService->getLatestTrendingTopics(5);
         $artists = $this->artistService->index(6);
+        $pressReleases = $this->pressReleaseService->getPostsByCategory('press release', 3);
 
 
         return Inertia::render('welcome', compact(
@@ -41,7 +44,8 @@ class WelcomeController extends Controller
             'latestSongs',
             'poll',
             'trendingTopics',
-            'artists'
+            'artists',
+            'pressReleases',
         ));
     }
 }
