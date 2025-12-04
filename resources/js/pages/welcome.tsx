@@ -69,16 +69,16 @@ interface InertiaPageProps extends PageProps {
 }
 
 interface Artist {
-  id: number;
-  name: string;
-  stage_name: string;
-  slug: string;
-  description: string;
-  genres: {
     id: number;
     name: string;
-  }[];
-  image_path: string;
+    stage_name: string;
+    slug: string;
+    description: string;
+    genres: {
+        id: number;
+        name: string;
+    }[];
+    image_path: string;
 }
 
 interface Props extends PageProps {
@@ -163,7 +163,7 @@ export default function Home({
                     pagination={{ clickable: true }}
                     autoplay={{ delay: 4000 }}
                     loop
-                    className="h-96 swiper-pagination-bullet-active"
+                    className="swiper-pagination-bullet-active h-96"
                 >
                     {heroPosts.map((item, index) => (
                         <SwiperSlide key={index}>
@@ -252,6 +252,9 @@ export default function Home({
                                                     alt={story.title}
                                                     className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
                                                 />
+                                                <div className="absolute top-4 left-4 rounded-full border border-white/20 bg-slate-900 px-3 py-1 text-xs text-white backdrop-blur-md">
+                                                    News
+                                                </div>
                                                 <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 to-transparent">
                                                     <div className="w-full p-4">
                                                         <div className="flex items-center gap-3 text-sm text-white">
@@ -382,6 +385,9 @@ export default function Home({
                                                     alt={artist.name}
                                                     className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
                                                 />
+                                                <div className="absolute top-4 left-4 rounded-full border border-white/20 bg-slate-900 px-3 py-1 text-xs text-white backdrop-blur-md">
+                                                    Artist
+                                                </div>
                                                 {/* <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 to-transparent">
                                                     <div className="w-full p-4">
                                                         <div className="flex items-center gap-3 text-sm text-white">
@@ -453,6 +459,10 @@ export default function Home({
                                                     alt={song.title}
                                                     className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
                                                 />
+                                                <div className="absolute top-4 left-4 rounded-full border border-white/20 bg-slate-900 px-3 py-1 text-xs text-white backdrop-blur-md">
+                                                    Song
+                                                </div>
+
                                                 <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 to-transparent">
                                                     <div className="w-full p-4">
                                                         <div className="flex items-center gap-3 text-sm text-white">
