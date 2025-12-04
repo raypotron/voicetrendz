@@ -108,6 +108,22 @@ class SearchService
                 'thumbnail_url' => $item->thumbnail_url,
             ]);
 
+        $pressReleases = Post::with('category')->where('status', 'published')
+            ->where('title', 'like', "%$query%")
+            ->whereHas('category', function ($q) {
+                $q->where('name', 'press release');
+            })
+            ->get()
+            ->map(fn ($item) => [
+                'id' => $item->id,
+                'slug' => $item->slug,
+                'title' => $item->title,
+                'readTime' => $item->read_time,
+                'type' => 'Press Release',
+                'route' => 'press.release.show',
+                'thumbnail_url' => $item->thumbnail_url,
+            ]);
+
         return [
             'songs' => $songs,
             'lyrics' => $lyrics,
@@ -115,6 +131,7 @@ class SearchService
             'news' => $news,
             'artists' => $artists,
             'musicVideos' => $musicVideos,
+            'pressReleases' => $pressReleases,
         ];
     }
 }
