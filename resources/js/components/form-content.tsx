@@ -13,22 +13,22 @@ export const FormatContent: React.FC<Props> = ({ html }) => {
 
       switch (el.name) {
         case 'h1':
-          return <h1 className="text-3xl font-semibold mb-4">{domToReact(el.children)}</h1>;
+          return <h1 className="text-3xl font-semibold mb-4">{domToReact(el.children as Element[])}</h1>;
 
         case 'h2':
-          return <h2 className="text-2xl font-semibold mt-6 mb-3">{domToReact(el.children)}</h2>;
+          return <h2 className="text-2xl font-semibold mt-6 mb-3">{domToReact(el.children as Element[])}</h2>;
 
         case 'h3':
-          return <h3 className="text-xl font-semibold mt-5 mb-2">{domToReact(el.children)}</h3>;
+          return <h3 className="text-xl font-semibold mt-5 mb-2">{domToReact(el.children as Element[])}</h3>;
 
         case 'p':
-          return <p className="mb-4 leading-relaxed">{domToReact(el.children)}</p>;
+          return <p className="mb-4 leading-relaxed">{domToReact(el.children as Element[])}</p>;
 
         case 'strong':
-          return <strong className="font-semibold">{domToReact(el.children)}</strong>;
+          return <strong className="font-semibold">{domToReact(el.children as Element[])}</strong>;
 
         case 'em':
-          return <em className="italic">{domToReact(el.children)}</em>;
+          return <em className="italic">{domToReact(el.children as Element[])}</em>;
 
         case 'a': {
           const href = (el.attribs && el.attribs.href) || '#';
@@ -40,21 +40,20 @@ export const FormatContent: React.FC<Props> = ({ html }) => {
               target={isExternal ? '_blank' : undefined}
               rel={isExternal ? 'noopener noreferrer' : undefined}
             >
-              {domToReact(el.children)}
+              {domToReact(el.children as Element[])}
             </a>
           );
         }
 
         case 'ul':
-          return <ul className="list-disc pl-6 mb-4 space-y-1">{domToReact(el.children)}</ul>;
+          return <ul className="list-disc pl-6 mb-4 space-y-1">{domToReact(el.children as Element[])}</ul>;
 
         case 'ol':
-          return <ol className="list-decimal pl-6 mb-4 space-y-1">{domToReact(el.children)}</ol>;
+          return <ol className="list-decimal pl-6 mb-4 space-y-1">{domToReact(el.children as Element[])}</ol>;
 
         case 'li':
           // keep inner structure (links/strong/etc.) intact
-          return <li className="mb-1">{domToReact(el.children)}</li>;
-
+          return <li className="mb-1">{domToReact(el.children as Element[])}</li>;
         case 'img': {
           const src = el.attribs?.src ?? '/placeholder.svg';
           const alt = el.attribs?.alt ?? 'image';
@@ -68,7 +67,7 @@ export const FormatContent: React.FC<Props> = ({ html }) => {
         }
 
         case 'blockquote':
-          return <blockquote className="border-l-4 pl-4 italic text-gray-700 my-4">{domToReact(el.children)}</blockquote>;
+          return <blockquote className="border-l-4 pl-4 italic text-gray-700 my-4">{domToReact(el.children as Element[])}</blockquote>;
 
         case 'br':
           return <br />;
@@ -77,7 +76,7 @@ export const FormatContent: React.FC<Props> = ({ html }) => {
           return <hr className="my-6 border-gray-200" />;
 
         case 'span':
-          return <span>{domToReact(el.children)}</span>;
+          return <span>{domToReact(el.children as Element[])}</span>;
 
         default:
           // Let unhandled tags render normally
