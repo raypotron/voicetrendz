@@ -668,7 +668,15 @@ export default function Home({
                                                                 : 'text-gray-600'
                                                         }`}
                                                     >
-                                                        {release.excerpt}
+                                                        {release.excerpt.split(
+                                                            ' ',
+                                                        ).length > 15
+                                                            ? release.excerpt
+                                                                  .split(' ')
+                                                                  .slice(0, 15)
+                                                                  .join(' ') +
+                                                              '...'
+                                                            : release.excerpt}
                                                     </p>
                                                     <span className="text-xs text-gray-500">
                                                         {dayjs(
