@@ -41,3 +41,11 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Video {
+    title: string;
+    artist: { id: number; stage_name: string };
+    video_id: string;
+    slug?: string;
+    thumbnail_url: string;
+}
