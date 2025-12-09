@@ -42,7 +42,7 @@ export default function MobileMenu({ user }: Props) {
     const navItems = [
         { href: '/home', label: 'Home' },
         { href: '/hot-stories', label: 'Hot Stories' },
-        { href: '/music-videos', label: 'Music & Video' },
+        { href: '/music-videos', label: 'Music Videos' },
         { href: '/lyrics', label: 'Lyrics' },
         { href: '/songs', label: 'Songs' },
         { href: '/news', label: 'De Latest' },
