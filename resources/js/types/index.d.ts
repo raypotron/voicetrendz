@@ -64,6 +64,7 @@ export interface NewRelease {
     id: number;
     slug: string;
     title?: string;
+    type?: string;
     excerpt?: string;
     views?: number;
     thumbnail_url: string;

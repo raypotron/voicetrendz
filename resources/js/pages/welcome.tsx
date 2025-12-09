@@ -563,7 +563,7 @@ export default function Home({
                                         <Link
                                             key={newRelease.id}
                                             href={route(
-                                                'music.videos.show',
+                                                `${ newRelease.type == 'mp3' ? 'songs.show' : 'music.videos.show' }`,
                                                 newRelease.slug,
                                             )}
                                             className={`${cardBg} group min-w-[85%] overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl sm:min-w-[300px] md:min-w-0`}
@@ -579,7 +579,7 @@ export default function Home({
                                                 />
 
                                                 <div className="absolute top-4 left-4 rounded-full border border-white/20 bg-slate-900 px-3 py-1 text-xs text-white backdrop-blur-md">
-                                                    Video
+                                                    { newRelease.type == 'mp3' ? 'Song' : 'Video' }
                                                 </div>
 
 
