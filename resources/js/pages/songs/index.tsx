@@ -1,4 +1,5 @@
 import useBlog from '@/hooks/use-blog';
+import { Song } from '@/types';
 import { PageProps } from '@inertiajs/core';
 import { router } from '@inertiajs/react';
 import dayjs from 'dayjs';
@@ -6,16 +7,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { Clock, Eye } from 'lucide-react';
 
 dayjs.extend(relativeTime);
-
-interface Song {
-    id: number;
-    slug: string;
-    title: string;
-    excerpt: string;
-    views: number;
-    thumbnail_url: string;
-    created_at: string;
-}
 
 interface Props extends PageProps {
     songs: Song[];
