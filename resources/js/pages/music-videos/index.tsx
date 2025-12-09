@@ -1,14 +1,10 @@
 import useBlog from '@/hooks/use-blog';
+import { Video } from '@/types';
 import { PageProps } from '@inertiajs/core';
 import { Play, X } from 'lucide-react';
 import { useState } from 'react';
 
-interface Video {
-    title: string;
-    artist: { id: number; stage_name: string };
-    video_id: string;
-    thumbnail_url: string;
-}
+
 
 interface Props extends PageProps {
     videos: Video[];

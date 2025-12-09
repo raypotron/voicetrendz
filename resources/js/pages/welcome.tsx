@@ -1,4 +1,5 @@
 import useBlog from '@/hooks/use-blog';
+import { Video } from '@/types';
 import { PageProps } from '@inertiajs/core';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
@@ -102,6 +103,7 @@ interface Props extends PageProps {
     trendingTopics?: TrendingTopic[];
     artists?: Artist[];
     pressReleases?: PressRelease[];
+    videos?: Video[];
 }
 
 interface PollForm {
@@ -126,6 +128,7 @@ export default function Home({
     trendingTopics = [],
     artists = [],
     pressReleases = [],
+    videos = [],
 }: Props) {
     const { cardBg, isDarkMode, bgClass, textClass } = useBlog();
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -133,6 +136,8 @@ export default function Home({
     const { props } = usePage<InertiaPageProps>();
 
     const user = props.user;
+
+    console.log(videos);
 
     const { post, setData, processing, errors, reset } = useForm<PollForm>({
         poll_id: poll?.id || null,
@@ -488,6 +493,63 @@ export default function Home({
                                 <EmptyState message="No songs available." />
                             )}
                         </section>
+
+                        {/* Trending Songs */}
+                        <section>
+                            <div className="mb-6 flex items-center justify-between">
+                                <h2 className="flex items-center gap-2 text-3xl font-bold">
+                                    🎥 New Music Videos
+                                </h2>
+                                <Link
+                                    href="/music-videos"
+                                    className="flex items-center gap-1 text-amber-600 hover:text-amber-500"
+                                >
+                                    View All{' '}
+                                    <ChevronRight className="h-4 w-4" />
+                                </Link>
+                            </div>
+
+                            {videos.length > 0 ? (
+                                <div className="flex gap-6 overflow-x-auto scroll-smooth pb-2 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible">
+                                    {videos.map((video) => (
+                                        <Link
+                                            key={video.video_id}
+                                            href={route(
+                                                'music.videos.show',
+                                                video.slug,
+                                            )}
+                                            className={`${cardBg} group min-w-[85%] overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl sm:min-w-[300px] md:min-w-0`}
+                                        >
+                                            <div className="relative h-48 overflow-hidden">
+                                                <img
+                                                    src={
+                                                        video.thumbnail_url ||
+                                                        '/placeholder.svg'
+                                                    }
+                                                    alt={video.title}
+                                                    className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
+                                                />
+
+                                                <div className="absolute top-4 left-4 rounded-full border border-white/20 bg-slate-900 px-3 py-1 text-xs text-white backdrop-blur-md">
+                                                    Video
+                                                </div>
+
+
+                                            </div>
+
+                                            <div className="p-4">
+                                                <h3 className="text-lg font-bold transition group-hover:text-amber-600">
+                                                    {video.title}
+                                                </h3>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            ) : (
+                                <EmptyState message="No music videos available." />
+                            )}
+                        </section>
+
                     </div>
 
                     {/* Sidebar */}
