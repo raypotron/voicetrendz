@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Blog;
 use App\Http\Controllers\Controller;
 use App\Services\ArtistService;
 use App\Services\LyricService;
+use App\Services\MusicVideoService;
 use App\Services\PollService;
 use App\Services\PostService;
 use App\Services\PressReleaseService;
@@ -21,7 +22,8 @@ class WelcomeController extends Controller
         private PollService $pollService,
         private TrendingTopicService $trendingTopicService,
         private ArtistService $artistService,
-        private PressReleaseService $pressReleaseService) {}
+        private PressReleaseService $pressReleaseService,
+        private MusicVideoService $musicVideoService) {}
 
     public function __invoke()
     {
@@ -34,7 +36,7 @@ class WelcomeController extends Controller
         $trendingTopics = $this->trendingTopicService->getLatestTrendingTopics(5);
         $artists = $this->artistService->index(6);
         $pressReleases = $this->pressReleaseService->getPostsByCategory('press release', 3);
-
+        $videos = $this->musicVideoService->getMusicVideos(4);
 
         return Inertia::render('welcome', compact(
             'heroPosts',
@@ -46,6 +48,7 @@ class WelcomeController extends Controller
             'trendingTopics',
             'artists',
             'pressReleases',
+            'videos',
         ));
     }
 }
