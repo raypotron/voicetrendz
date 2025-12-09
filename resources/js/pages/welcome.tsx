@@ -1,5 +1,5 @@
 import useBlog from '@/hooks/use-blog';
-import { Video } from '@/types';
+import { NewRelease, Song, Video } from '@/types';
 import { PageProps } from '@inertiajs/core';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
@@ -31,16 +31,6 @@ interface Lyric {
     slug: string;
     title: string;
     thumbnail_url: string;
-}
-
-interface Song {
-    id: number;
-    slug: string;
-    title: string;
-    excerpt: string;
-    views: number;
-    thumbnail_url: string;
-    created_at: string;
 }
 
 interface Poll {
@@ -104,6 +94,7 @@ interface Props extends PageProps {
     artists?: Artist[];
     pressReleases?: PressRelease[];
     videos?: Video[];
+    newReleases?: NewRelease[];
 }
 
 interface PollForm {
@@ -129,6 +120,7 @@ export default function Home({
     artists = [],
     pressReleases = [],
     videos = [],
+    newReleases = [],
 }: Props) {
     const { cardBg, isDarkMode, bgClass, textClass } = useBlog();
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -540,6 +532,62 @@ export default function Home({
                                             <div className="p-4">
                                                 <h3 className="text-lg font-bold transition group-hover:text-amber-600">
                                                     {video.title}
+                                                </h3>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            ) : (
+                                <EmptyState message="No music videos available." />
+                            )}
+                        </section>
+
+                        {/* New Release */}
+                        <section>
+                            <div className="mb-6 flex items-center justify-between">
+                                <h2 className="flex items-center gap-2 text-3xl font-bold">
+                                    📈 New Release
+                                </h2>
+                                <Link
+                                    href="/music-videos"
+                                    className="flex items-center gap-1 text-amber-600 hover:text-amber-500"
+                                >
+                                    View All{' '}
+                                    <ChevronRight className="h-4 w-4" />
+                                </Link>
+                            </div>
+
+                            {newReleases.length > 0 ? (
+                                <div className="flex gap-6 overflow-x-auto scroll-smooth pb-2 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible">
+                                    {newReleases.map((newRelease) => (
+                                        <Link
+                                            key={newRelease.id}
+                                            href={route(
+                                                'music.videos.show',
+                                                newRelease.slug,
+                                            )}
+                                            className={`${cardBg} group min-w-[85%] overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl sm:min-w-[300px] md:min-w-0`}
+                                        >
+                                            <div className="relative h-48 overflow-hidden">
+                                                <img
+                                                    src={
+                                                        newRelease.thumbnail_url ||
+                                                        '/placeholder.svg'
+                                                    }
+                                                    alt={newRelease.title}
+                                                    className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
+                                                />
+
+                                                <div className="absolute top-4 left-4 rounded-full border border-white/20 bg-slate-900 px-3 py-1 text-xs text-white backdrop-blur-md">
+                                                    Video
+                                                </div>
+
+
+                                            </div>
+
+                                            <div className="p-4">
+                                                <h3 className="text-lg font-bold transition group-hover:text-amber-600">
+                                                    {newRelease.title}
                                                 </h3>
                                             </div>
                                         </Link>
