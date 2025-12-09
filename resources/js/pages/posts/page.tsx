@@ -72,7 +72,7 @@ export default function PostPage({
 
     const { props } = usePage<InertiaPageProps>();
 
-    console.log(previousPage);
+    // console.log(previousPage);
 
     const user = props.user;
 
@@ -84,13 +84,22 @@ export default function PostPage({
         routeName: 'like.toggle',
     });
 
+    // const handleLikeClick = () => {
+    //     if (!user) {
+    //         window.location.replace('/user/login');
+    //         return;
+    //     }
+    //     toggleLike();
+    // };
+
     const handleLikeClick = () => {
-        if (!user) {
-            window.location.replace('/user/login');
-            return;
-        }
-        toggleLike();
-    };
+    if (!user) {
+        const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
+        window.location.href = `/user/login?returnUrl=${returnUrl}&likePostId=${post.id}`;
+        return;
+    }
+    toggleLike();
+};
 
     const shareLinks = {
         whatsapp: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
