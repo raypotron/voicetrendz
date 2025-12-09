@@ -246,7 +246,7 @@ export default function Home({
                             </div>
 
                             {hotStories.length > 0 ? (
-                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                <div className="flex gap-6 overflow-x-auto scroll-smooth pb-2 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible">
                                     {hotStories.map((story) => (
                                         <Link
                                             key={story.id}
@@ -254,7 +254,7 @@ export default function Home({
                                                 'posts.show',
                                                 story.slug,
                                             )}
-                                            className={`${cardBg} group overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl`}
+                                            className={`${cardBg} group min-w-[85%] overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl sm:min-w-[300px] md:min-w-0`}
                                         >
                                             <div className="relative h-48 overflow-hidden">
                                                 <img
@@ -272,10 +272,7 @@ export default function Home({
                                                     <div className="w-full p-4">
                                                         <div className="flex items-center gap-3 text-sm text-white">
                                                             <span>
-                                                                👁
-                                                                {
-                                                                    story.views
-                                                                }{' '}
+                                                                👁 {story.views}
                                                                 {story.views >
                                                                 999
                                                                     ? 'k'
@@ -312,7 +309,7 @@ export default function Home({
 
                             {latestNews.length > 0 ? (
                                 <>
-                                    <div className="space-y-4">
+                                    <div className="flex gap-6 overflow-x-auto scroll-smooth pb-2 md:flex md:flex-col md:gap-4 md:overflow-visible">
                                         {latestNews.map((news) => (
                                             <Link
                                                 key={news.id}
@@ -320,7 +317,7 @@ export default function Home({
                                                     'posts.show',
                                                     news.slug,
                                                 )}
-                                                className={`${cardBg} flex gap-4 rounded-xl p-4 shadow transition hover:shadow-lg`}
+                                                className={` ${cardBg} flex min-w-[85%] gap-4 rounded-xl p-4 shadow transition hover:shadow-lg sm:min-w-[350px] md:min-w-0`}
                                             >
                                                 <img
                                                     src={
@@ -352,6 +349,7 @@ export default function Home({
                                             </Link>
                                         ))}
                                     </div>
+
                                     <Link href="/news">
                                         <button className="mt-6 w-full rounded-lg border-2 border-amber-600/60 py-3 font-semibold text-amber-600 transition hover:bg-amber-600 hover:text-white">
                                             Load More Stories
@@ -379,7 +377,7 @@ export default function Home({
                             </div>
 
                             {artists.length > 0 ? (
-                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                <div className="flex gap-6 overflow-x-auto scroll-smooth pb-2 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible">
                                     {artists.map((artist) => (
                                         <Link
                                             key={artist.id}
@@ -387,7 +385,7 @@ export default function Home({
                                                 'artist.show',
                                                 artist.slug,
                                             )}
-                                            className={`${cardBg} group overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl`}
+                                            className={`${cardBg} group min-w-[85%] overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl sm:min-w-[300px] md:min-w-0`}
                                         >
                                             <div className="relative h-48 overflow-hidden">
                                                 <img
@@ -398,32 +396,12 @@ export default function Home({
                                                     alt={artist.name}
                                                     className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
                                                 />
+
                                                 <div className="absolute top-4 left-4 rounded-full border border-white/20 bg-slate-900 px-3 py-1 text-xs text-white backdrop-blur-md">
                                                     Artist
                                                 </div>
-                                                {/* <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 to-transparent">
-                                                    <div className="w-full p-4">
-                                                        <div className="flex items-center gap-3 text-sm text-white">
-                                                            <span>
-                                                                👁
-                                                                {
-                                                                    story.views
-                                                                }{' '}
-                                                                {story.views >
-                                                                999
-                                                                    ? 'k'
-                                                                    : ''}
-                                                            </span>
-                                                            <span>
-                                                                ⏱{' '}
-                                                                {dayjs(
-                                                                    artist.created_at,
-                                                                ).fromNow()}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div> */}
                                             </div>
+
                                             <div className="p-4">
                                                 <h3 className="text-lg font-bold transition group-hover:text-amber-600">
                                                     {artist.stage_name}
@@ -453,7 +431,7 @@ export default function Home({
                             </div>
 
                             {latestSongs.length > 0 ? (
-                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                <div className="flex gap-6 overflow-x-auto scroll-smooth pb-2 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible">
                                     {latestSongs.map((song) => (
                                         <Link
                                             key={song.id}
@@ -461,7 +439,7 @@ export default function Home({
                                                 'songs.show',
                                                 song.slug,
                                             )}
-                                            className={`${cardBg} group overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl`}
+                                            className={`${cardBg} group min-w-[85%] overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl sm:min-w-[300px] md:min-w-0`}
                                         >
                                             <div className="relative h-48 overflow-hidden">
                                                 <img
@@ -472,6 +450,7 @@ export default function Home({
                                                     alt={song.title}
                                                     className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
                                                 />
+
                                                 <div className="absolute top-4 left-4 rounded-full border border-white/20 bg-slate-900 px-3 py-1 text-xs text-white backdrop-blur-md">
                                                     Song
                                                 </div>
@@ -480,10 +459,7 @@ export default function Home({
                                                     <div className="w-full p-4">
                                                         <div className="flex items-center gap-3 text-sm text-white">
                                                             <span>
-                                                                👁
-                                                                {
-                                                                    song.views
-                                                                }{' '}
+                                                                👁 {song.views}
                                                                 {song.views >
                                                                 999
                                                                     ? 'k'
@@ -499,6 +475,7 @@ export default function Home({
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="p-4">
                                                 <h3 className="text-lg font-bold transition group-hover:text-amber-600">
                                                     {song.title}
@@ -639,7 +616,7 @@ export default function Home({
 
                             {pressReleases.length > 0 ? (
                                 <>
-                                    <div className="space-y-4">
+                                    <div className="flex gap-6 overflow-x-auto scroll-smooth pb-2 md:flex md:flex-col md:gap-4 md:overflow-visible">
                                         {pressReleases.map((release) => (
                                             <Link
                                                 key={release.id}
@@ -647,7 +624,7 @@ export default function Home({
                                                     'press.release.show',
                                                     release.slug,
                                                 )}
-                                                className={`${cardBg} flex gap-4 rounded-xl p-4 shadow transition hover:shadow-lg`}
+                                                className={` ${cardBg} flex min-w-[85%] gap-4 rounded-xl p-4 shadow transition hover:shadow-lg sm:min-w-[350px] md:min-w-0`}
                                             >
                                                 <img
                                                     src={
@@ -657,10 +634,12 @@ export default function Home({
                                                     alt={release.title}
                                                     className="h-24 w-24 flex-shrink-0 rounded-lg object-cover"
                                                 />
+
                                                 <div className="flex-1">
                                                     <h3 className="mb-1 text-lg font-bold transition hover:text-amber-600">
                                                         {release.title}
                                                     </h3>
+
                                                     <p
                                                         className={`mb-2 text-sm ${
                                                             isDarkMode
@@ -675,9 +654,10 @@ export default function Home({
                                                                   .split(' ')
                                                                   .slice(0, 15)
                                                                   .join(' ') +
-                                                              '...'
+                                                              '…'
                                                             : release.excerpt}
                                                     </p>
+
                                                     <span className="text-xs text-gray-500">
                                                         {dayjs(
                                                             release.created_at,
@@ -687,6 +667,7 @@ export default function Home({
                                             </Link>
                                         ))}
                                     </div>
+
                                     <Link href="/press-release">
                                         <button className="mt-6 w-full rounded-lg border-2 border-amber-600/60 py-3 font-semibold text-amber-600 transition hover:bg-amber-600 hover:text-white">
                                             Load More Press Release
