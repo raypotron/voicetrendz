@@ -49,3 +49,23 @@ export interface Video {
     slug?: string;
     thumbnail_url: string;
 }
+
+export interface Song {
+    id: number;
+    slug: string;
+    title: string;
+    excerpt: string;
+    views: number;
+    thumbnail_url: string;
+    created_at: string;
+}
+
+export interface NewRelease {
+    id: number;
+    slug: string;
+    title?: string;
+    excerpt?: string;
+    views?: number;
+    thumbnail_url: string;
+    created_at: string;
+}
