@@ -437,11 +437,11 @@ export default function Home({
                             )}
                         </section>
 
-                        {/* Latest Songs */}
+                        {/* Trending Songs */}
                         <section>
                             <div className="mb-6 flex items-center justify-between">
                                 <h2 className="flex items-center gap-2 text-3xl font-bold">
-                                    🎵 Latest Songs
+                                    🎵 Trending Songs
                                 </h2>
                                 <Link
                                     href="/songs"
