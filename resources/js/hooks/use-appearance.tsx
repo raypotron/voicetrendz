@@ -60,6 +60,7 @@ export function useAppearance() {
         localStorage.setItem('appearance', mode);
 
         // Store in cookie for SSR...
+        console.log(mode);
         setCookie('appearance', mode);
 
         applyTheme(mode);

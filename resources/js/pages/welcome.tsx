@@ -129,8 +129,6 @@ export default function Home({
 
     const user = props.user;
 
-    console.log(videos);
-
     const { post, setData, processing, errors, reset } = useForm<PollForm>({
         poll_id: poll?.id || null,
         poll_option_id: null,
