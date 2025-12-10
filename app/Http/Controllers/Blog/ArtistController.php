@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Blog;
 use App\Http\Controllers\Controller;
 use App\Models\Artist;
 use App\Services\ArtistService;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ArtistController extends Controller
 {
-    public function __construct(private ArtistService $artistService){}
+    public function __construct(private ArtistService $artistService) {}
 
     public function index()
     {
@@ -27,7 +27,10 @@ class ArtistController extends Controller
 
         $relatedArtists = $this->artistService->getRelatedArtistsByGenres($genres, $singleArtist->id, 5) ?? [];
 
+        $userId = Auth::id();
+
         return Inertia::render('artists/page', ['artist' => $singleArtist,
-            'relatedArtists' => $relatedArtists]);
+            'relatedArtists' => $relatedArtists, 'isLiked' => $artist->likes()->where('user_id', $userId)->exists(),
+            'likesCount' => $artist->likes()->count(), ]);
     }
 }
