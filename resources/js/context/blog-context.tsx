@@ -1,4 +1,5 @@
-import { createContext, useEffect, useState, type ReactNode } from 'react';
+import { useAppearance } from '@/hooks/use-appearance';
+import { createContext, useState, type ReactNode } from 'react';
 
 interface BlogContextType {
     isDarkMode: boolean;
@@ -29,11 +30,7 @@ interface BlogProviderProps {
 }
 
 export const BlogProvider = ({ children }: BlogProviderProps) => {
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-        // Load the saved theme when the app starts
-        const saved = localStorage.getItem('theme');
-        return saved === 'dark';
-    });
+    const { appearance, updateAppearance } = useAppearance();
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [musicOpen, setMusicOpen] = useState(false);
@@ -42,17 +39,15 @@ export const BlogProvider = ({ children }: BlogProviderProps) => {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     // Sync HTML tag and localStorage on theme change
-    useEffect(() => {
-        if (isDarkMode) {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        }
-    }, [isDarkMode]);
+    const isDarkMode =
+        appearance === 'dark' ||
+        (appearance === 'system' &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-    const toggleTheme = () => setIsDarkMode((prev) => !prev);
+    const toggleTheme = () => {
+        updateAppearance(isDarkMode ? 'light' : 'dark');
+    };
+
     const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
     const toggleMusic = () => setMusicOpen((prev) => !prev);
     const toggleNews = () => setNewsOpen((prev) => !prev);
