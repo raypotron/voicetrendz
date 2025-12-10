@@ -35,4 +35,9 @@ class Artist extends Model
     {
         return $this->belongsToMany(Genre::class, 'artist_genre');
     }
+
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
 }
