@@ -72,8 +72,6 @@ export default function PostPage({
 
     const { props } = usePage<InertiaPageProps>();
 
-    // console.log(previousPage);
-
     const user = props.user;
 
     const { liked, count, toggleLike } = useLikeable({
@@ -82,24 +80,17 @@ export default function PostPage({
         initialLiked: isLiked,
         initialCount: likesCount,
         routeName: 'like.toggle',
+        user: user || undefined,
     });
 
-    // const handleLikeClick = () => {
-    //     if (!user) {
-    //         window.location.replace('/user/login');
-    //         return;
-    //     }
-    //     toggleLike();
-    // };
-
     const handleLikeClick = () => {
-    if (!user) {
-        const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
-        window.location.href = `/user/login?returnUrl=${returnUrl}&likePostId=${post.id}`;
-        return;
-    }
-    toggleLike();
-};
+        if (!user) {
+            const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
+            window.location.href = `/user/login?returnUrl=${returnUrl}&likePostId=${post.id}`;
+            return;
+        }
+        toggleLike();
+    };
 
     const shareLinks = {
         whatsapp: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
