@@ -1,9 +1,8 @@
-
-
 import FormatContent from '@/components/form-content';
 import useBlog from '@/hooks/use-blog';
+import useLikeable from '@/hooks/use-likeable';
 import { PageProps } from '@inertiajs/core';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {
@@ -36,15 +35,54 @@ interface Artist {
     slug: string;
 }
 
+interface User {
+    id: number;
+    name: string;
+}
+
+interface InertiaPageProps extends PageProps {
+    user: User | null;
+}
+
 interface Props extends PageProps {
     artist: Artist;
     relatedArtists?: Artist[];
+    isLiked: boolean;
+    likesCount: number;
 }
 
-export default function ArtistPage({ artist, relatedArtists }: Props) {
+export default function ArtistPage({
+    artist,
+    relatedArtists,
+    isLiked,
+    likesCount,
+}: Props) {
     const { isDarkMode } = useBlog();
-    const [liked, setLiked] = useState(false);
     const [showShare, setShowShare] = useState(false);
+
+    const { props } = usePage<InertiaPageProps>();
+
+    const user = props.user;
+
+    const { liked, count, toggleLike } = useLikeable({
+        likeableId: artist.id,
+        likeableType: 'artist',
+        initialLiked: isLiked,
+        initialCount: likesCount,
+        routeName: 'like.toggle',
+        user: user || undefined,
+    });
+
+    const handleLikeClick = () => {
+        if (!user) {
+            const returnUrl = encodeURIComponent(
+                window.location.pathname + window.location.search,
+            );
+            window.location.href = `/user/login?returnUrl=${returnUrl}&likePostId=${artist.id}`;
+            return;
+        }
+        toggleLike();
+    };
 
     const encodedUrl = encodeURIComponent(artist.slug);
     const encodedTitle = encodeURIComponent(artist.description);
@@ -55,8 +93,6 @@ export default function ArtistPage({ artist, relatedArtists }: Props) {
         twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
         gmail: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`,
     };
-
-    // console.log(artist.content);
 
     if (!artist) {
         return (
@@ -169,7 +205,7 @@ export default function ArtistPage({ artist, relatedArtists }: Props) {
                     <div className="relative flex flex-wrap items-center gap-4 border-t border-b border-border py-8">
                         {/* Like Button */}
                         <button
-                            onClick={() => setLiked(!liked)}
+                            onClick={handleLikeClick}
                             className={`flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-all ${
                                 liked
                                     ? 'bg-primary text-primary-foreground'
@@ -179,7 +215,7 @@ export default function ArtistPage({ artist, relatedArtists }: Props) {
                             <Heart
                                 className={`h-5 w-5 ${liked ? 'fill-current' : ''}`}
                             />
-                            {liked ? 'Liked' : 'Like this article'}
+                            {liked ? 'Liked' : 'Like this'} ({count})
                         </button>
 
                         {/* Share Button */}
