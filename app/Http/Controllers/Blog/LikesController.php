@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Models\Artist;
 use App\Models\Like;
 use App\Models\Lyric;
 use App\Models\Post;
@@ -20,6 +21,7 @@ class LikesController extends Controller
             'post' => Post::class,
             'song' => Song::class,
             'lyric' => Lyric::class,
+            'artist' => Artist::class,
             default => abort(404),
         };
 
