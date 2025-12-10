@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\Login;
 use App\Http\Middleware\EnsureUserIsRegularUser;
 use App\Http\Middleware\RedirectIfNotFilamentAuthenticated;
 use Filament\Http\Middleware\Authenticate;
@@ -28,7 +29,7 @@ class UserPanelProvider extends PanelProvider
         return $panel
             ->id('user')
             ->path('user')
-            ->login()
+            ->login(Login::class)
             ->registration()
             ->passwordReset()
             ->colors([
