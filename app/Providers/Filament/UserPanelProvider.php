@@ -31,6 +31,7 @@ class UserPanelProvider extends PanelProvider
             ->path('user')
             ->login(Login::class)
             ->registration()
+            ->brandLogo(fn () => view('filament.components.brand'))
             ->passwordReset()
             ->colors([
                 'primary' => Color::Amber,
