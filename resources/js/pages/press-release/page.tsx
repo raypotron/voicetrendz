@@ -76,11 +76,13 @@ export default function PressReleasePage({
         initialLiked: isLiked,
         initialCount: likesCount,
         routeName: 'like.toggle',
+        user: user || undefined,
     });
 
     const handleLikeClick = () => {
         if (!user) {
-            window.location.replace('/user/login');
+            const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
+            window.location.href = `/user/login?returnUrl=${returnUrl}&likePostId=${post.id}`;
             return;
         }
         toggleLike();
