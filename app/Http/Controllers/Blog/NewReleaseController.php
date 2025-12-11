@@ -13,7 +13,7 @@ class NewReleaseController extends Controller
 
     public function index()
     {
-        $newReleases = $this->newReleaseService->get();
+        $newReleases = $this->newReleaseService->index();
 
         return Inertia::render('new-release/index',compact('newReleases'));
     }
