@@ -13,8 +13,7 @@ class LyricService
         return $this->lyric->where('status', 'published')
             ->with(['tags:id,name', 'genres:id,name'])
             ->latest()
-            ->when($limit, fn ($q) => $q->limit($limit))
-            ->get();
+            ->when($limit, fn ($q) => $q->limit($limit));
     }
 
     public function getLyricsByTag(string $tag, ?int $limit = null)
