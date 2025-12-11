@@ -86,7 +86,9 @@ export interface Lyric {
     id: number;
     slug: string;
     title: string;
+    excerpt: string;
     thumbnail_url: string;
+    created_at: string;
 }
 
 export interface Poll {
@@ -139,4 +141,15 @@ export interface PollForm {
     poll_id: number | null;
     poll_option_id: number | null;
     user_id: number | null;
+}
+
+export interface Pagination<T> {
+    data: T[];
+    current_page: number;
+    last_page: number;
+    links: {
+        url: string | null;
+        label: string;
+        active: boolean;
+    }[];
 }
