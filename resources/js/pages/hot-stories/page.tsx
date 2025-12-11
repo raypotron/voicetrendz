@@ -14,6 +14,7 @@ interface Post {
     slug: string;
     title: string;
     excerpt: string;
+    views: number;
     thumbnail_url: string;
     created_at: string;
 }
@@ -56,7 +57,7 @@ export default function HotStoriesPage({ hotStories }: Props) {
                                         <span className="flex items-center gap-1">
                                             <Eye className="h-4 w-4" />{' '}
                                             {/* {story.views} */}
-                                            45K
+                                            {story.views}
                                         </span>
                                         <span className="flex items-center gap-1">
                                             <Clock className="h-4 w-4" />{' '}
