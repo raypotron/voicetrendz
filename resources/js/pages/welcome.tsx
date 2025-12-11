@@ -547,7 +547,7 @@ export default function Home({
                                     📈 New Release
                                 </h2>
                                 <Link
-                                    href="/music-videos"
+                                    href="/new-release"
                                     className="flex items-center gap-1 text-amber-600 hover:text-amber-500"
                                 >
                                     View All{' '}
