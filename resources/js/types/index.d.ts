@@ -30,17 +30,17 @@ export interface SharedData {
     [key: string]: unknown;
 }
 
-export interface User {
-    id: number;
-    name: string;
-    email: string;
-    avatar?: string;
-    email_verified_at: string | null;
-    two_factor_enabled?: boolean;
-    created_at: string;
-    updated_at: string;
-    [key: string]: unknown; // This allows for additional properties...
-}
+// export interface User {
+//     id: number;
+//     name: string;
+//     email: string;
+//     avatar?: string;
+//     email_verified_at: string | null;
+//     two_factor_enabled?: boolean;
+//     created_at: string;
+//     updated_at: string;
+//     [key: string]: unknown;
+// }
 
 export interface Video {
     title: string;
@@ -69,4 +69,74 @@ export interface NewRelease {
     views?: number;
     thumbnail_url: string;
     created_at: string;
+}
+
+export interface Post {
+    id: number;
+    slug: string;
+    title: string;
+    excerpt: string;
+    thumbnail_url: string;
+    views: number;
+    created_at: string;
+    category?: { id: number; name: string };
+}
+
+export interface Lyric {
+    id: number;
+    slug: string;
+    title: string;
+    thumbnail_url: string;
+}
+
+export interface Poll {
+    id: number;
+    slug: string;
+    question: string;
+    options: [{ id: number; option_text: string }];
+    expires_at: string;
+    created_at: string;
+}
+
+export interface User {
+    id: number;
+    name: string;
+}
+
+export interface TrendingTopic {
+    id: number;
+    topic: string;
+    key: string;
+}
+
+export interface Artist {
+    id: number;
+    name: string;
+    stage_name: string;
+    slug: string;
+    description: string;
+    genres: {
+        id: number;
+        name: string;
+    }[];
+    image_path: string;
+}
+
+export interface PressRelease {
+    id: number;
+    title: string;
+    content: string;
+    thumbnail_url: string;
+    created_at: string;
+    excerpt: string;
+    slug: string;
+    views: number;
+    user: { id: number; name: string };
+    category: { id: number; name: string };
+}
+
+export interface PollForm {
+    poll_id: number | null;
+    poll_option_id: number | null;
+    user_id: number | null;
 }

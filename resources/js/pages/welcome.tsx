@@ -1,5 +1,5 @@
 import useBlog from '@/hooks/use-blog';
-import { NewRelease, Song, Video } from '@/types';
+import { Artist, Lyric, NewRelease, Poll, PollForm, Post, PressRelease, Song, TrendingTopic, User, Video } from '@/types';
 import { PageProps } from '@inertiajs/core';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
@@ -15,72 +15,8 @@ import { route } from 'ziggy-js';
 
 dayjs.extend(relativeTime);
 
-interface Post {
-    id: number;
-    slug: string;
-    title: string;
-    excerpt: string;
-    thumbnail_url: string;
-    views: number;
-    created_at: string;
-    category?: { id: number; name: string };
-}
-
-interface Lyric {
-    id: number;
-    slug: string;
-    title: string;
-    thumbnail_url: string;
-}
-
-interface Poll {
-    id: number;
-    slug: string;
-    question: string;
-    options: [{ id: number; option_text: string }];
-    expires_at: string;
-    created_at: string;
-}
-
-interface User {
-    id: number;
-    name: string;
-}
-
-interface TrendingTopic {
-    id: number;
-    topic: string;
-    key: string;
-}
-
 interface InertiaPageProps extends PageProps {
     user: User | null;
-}
-
-interface Artist {
-    id: number;
-    name: string;
-    stage_name: string;
-    slug: string;
-    description: string;
-    genres: {
-        id: number;
-        name: string;
-    }[];
-    image_path: string;
-}
-
-interface PressRelease {
-    id: number;
-    title: string;
-    content: string;
-    thumbnail_url: string;
-    created_at: string;
-    excerpt: string;
-    slug: string;
-    views: number;
-    user: { id: number; name: string };
-    category: { id: number; name: string };
 }
 
 interface Props extends PageProps {
@@ -95,12 +31,6 @@ interface Props extends PageProps {
     pressReleases?: PressRelease[];
     videos?: Video[];
     newReleases?: NewRelease[];
-}
-
-interface PollForm {
-    poll_id: number | null;
-    poll_option_id: number | null;
-    user_id: number | null;
 }
 
 const EmptyState = ({ message }: { message: string }) => (
