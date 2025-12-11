@@ -29,16 +29,16 @@ class WelcomeController extends Controller
 
     public function __invoke()
     {
-        $heroPosts = $this->postService->getPostsByTag('breaking news', 4);
-        $hotStories = $this->postService->getPostsByTag('hottest', 4);
-        $latestNews = $this->postService->getPostsByTag('latest news', 4);
-        $songLyrics = $this->lyricService->getLyrics(5);
-        $latestSongs = $this->songService->getSongs(5);
+        $heroPosts = $this->postService->getPostsByTag('breaking news', 4)->get();
+        $hotStories = $this->postService->getPostsByTag('hottest', 4)->get();
+        $latestNews = $this->postService->getPostsByTag('latest news', 4)->get();
+        $songLyrics = $this->lyricService->getLyrics(5)->get();
+        $latestSongs = $this->songService->getSongs(5)->get();
         $poll = $this->pollService->getLatestPoll();
         $trendingTopics = $this->trendingTopicService->getLatestTrendingTopics(5);
-        $artists = $this->artistService->index(6);
-        $pressReleases = $this->pressReleaseService->getPostsByCategory('press release', 3);
-        $videos = $this->musicVideoService->getMusicVideos(4);
+        $artists = $this->artistService->index(6)->get();
+        $pressReleases = $this->pressReleaseService->getPostsByCategory('press release', 3)->get();
+        $videos = $this->musicVideoService->getMusicVideos(4)->get();
         $newReleases = $this->newReleaseService->get(4);
 
         return Inertia::render('welcome', compact(
