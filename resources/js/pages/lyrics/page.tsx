@@ -164,7 +164,7 @@ export default function LyricPage({
                             className="flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
                         >
                             <ChevronLeft className="h-5 w-5" />
-                            Back to Lyrics
+                            Return
                         </button>
                         <button
                             onClick={() => router.visit('/home')}
