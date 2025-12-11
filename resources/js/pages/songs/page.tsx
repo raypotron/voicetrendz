@@ -58,6 +58,7 @@ interface Props extends PageProps {
     relatedSongs: Song[];
     isLiked: boolean;
     likesCount: number;
+    previousRoute: string;
 }
 
 export default function SongPage({
@@ -65,6 +66,7 @@ export default function SongPage({
     relatedSongs,
     isLiked,
     likesCount,
+    previousRoute,
 }: Props) {
     const { isDarkMode } = useBlog();
     const [showShare, setShowShare] = useState(false);
@@ -165,11 +167,11 @@ export default function SongPage({
                     {/* Back button */}
                     <div className="mt-8 mb-8 flex justify-between gap-4">
                         <button
-                            onClick={() => router.visit('/songs')}
+                            onClick={() => router.visit(`${previousRoute}` || '/songs')}
                             className="flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
                         >
                             <ChevronLeft className="h-5 w-5" />
-                            Back to Songs
+                            Return
                         </button>
 
                         <button
