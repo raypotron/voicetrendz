@@ -13,7 +13,7 @@ class NewsController extends Controller
 
     public function __invoke()
     {
-        $news = $this->postService->getPostsByTag('latest news');
+        $news = $this->postService->getPostsByTag('latest news')->paginate(9);
 
         return Inertia::render('news/page', compact('news'));
     }
