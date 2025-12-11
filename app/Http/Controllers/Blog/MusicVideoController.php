@@ -14,7 +14,7 @@ class MusicVideoController extends Controller
 
     public function index()
     {
-        $videos = $this->musicVideoService->getMusicVideos();
+        $videos = $this->musicVideoService->getMusicVideos()->paginate(9);
 
         return Inertia::render('music-videos/index', compact('videos'));
     }
