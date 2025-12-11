@@ -14,7 +14,7 @@ class ArtistController extends Controller
 
     public function index()
     {
-        $artists = $this->artistService->index();
+        $artists = $this->artistService->index()->paginate(9);
 
         return Inertia::render('artists/index', compact('artists'));
     }
