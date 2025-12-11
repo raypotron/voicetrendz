@@ -13,7 +13,7 @@ class HotStoriesController extends Controller
 
     public function __invoke()
     {
-        $hotStories = $this->postService->getPostsByTag('hottest');
+        $hotStories = $this->postService->getPostsByTag('hottest')->paginate(9);
 
         return Inertia::render('hot-stories/page', compact('hotStories'));
     }
