@@ -1,6 +1,5 @@
-
-
 import useBlog from '@/hooks/use-blog';
+import { Pagination, Post } from '@/types';
 import { PageProps } from '@inertiajs/core';
 import { router } from '@inertiajs/react';
 import dayjs from 'dayjs';
@@ -9,18 +8,8 @@ import { Clock, Eye } from 'lucide-react';
 
 dayjs.extend(relativeTime);
 
-interface Post {
-    id: number;
-    slug: string;
-    title: string;
-    excerpt: string;
-    views: number;
-    thumbnail_url: string;
-    created_at: string;
-}
-
 interface Props extends PageProps {
-    hotStories: Post[];
+    hotStories: Pagination<Post>;
 }
 
 export default function HotStoriesPage({ hotStories }: Props) {
@@ -39,7 +28,7 @@ export default function HotStoriesPage({ hotStories }: Props) {
             </div>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {hotStories.map((story) => (
+                {hotStories.data.map((story) => (
                     <div
                         key={story.id}
                         onClick={() => router.visit(`/posts/${story.slug}`)}
@@ -78,6 +67,24 @@ export default function HotStoriesPage({ hotStories }: Props) {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            <div className="mt-10 flex justify-center">
+                <div className="flex items-center gap-2">
+                    {hotStories.links.map((link, index) => (
+                        <button
+                            key={index}
+                            disabled={!link.url}
+                            onClick={() => link.url && router.visit(link.url)}
+                            className={`rounded-md border px-4 py-2 ${
+                                link.active
+                                    ? 'bg-amber-600 text-white'
+                                    : 'bg-white text-gray-700 dark:bg-gray-800 dark:text-gray-300'
+                            } ${!link.url ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-100 dark:hover:bg-gray-700'} `}
+                            dangerouslySetInnerHTML={{ __html: link.label }}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
