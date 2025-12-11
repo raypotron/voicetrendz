@@ -11,7 +11,6 @@ class MusicVideoService
     public function getMusicVideos(?int $limit = null)
     {
         return $this->musicVideo->with('artist')->latest()
-            ->when($limit, fn ($q) => $q->limit($limit))
-            ->get();
+            ->when($limit, fn ($q) => $q->limit($limit));
     }
 }
