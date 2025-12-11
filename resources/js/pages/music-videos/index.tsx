@@ -1,13 +1,11 @@
 import useBlog from '@/hooks/use-blog';
-import { Video } from '@/types';
-import { PageProps } from '@inertiajs/core';
+import { Pagination, Video } from '@/types';
+import { PageProps, router } from '@inertiajs/core';
 import { Play, X } from 'lucide-react';
 import { useState } from 'react';
 
-
-
 interface Props extends PageProps {
-    videos: Video[];
+    videos: Pagination<Video>;
 }
 
 const EmptyState = ({ message }: { message: string }) => (
@@ -73,8 +71,8 @@ export default function MusicVideosPage({ videos }: Props) {
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-                {videos.length > 0 ? (
-                    videos.map((item, idx) => {
+                {videos.data.length > 0 ? (
+                    videos.data.map((item, idx) => {
                         const isActive = activeVideo === item.video_id;
 
                         return (
@@ -159,6 +157,23 @@ export default function MusicVideosPage({ videos }: Props) {
                 ) : (
                     <EmptyState message="No music videos available." />
                 )}
+            </div>
+            <div className="mt-10 flex justify-center">
+                <div className="flex items-center gap-2">
+                    {videos.links.map((link, index) => (
+                        <button
+                            key={index}
+                            disabled={!link.url}
+                            onClick={() => link.url && router.visit(link.url)}
+                            className={`rounded-md border px-4 py-2 ${
+                                link.active
+                                    ? 'bg-amber-600 text-white'
+                                    : 'bg-white text-gray-700 dark:bg-gray-800 dark:text-gray-300'
+                            } ${!link.url ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-100 dark:hover:bg-gray-700'} `}
+                            dangerouslySetInnerHTML={{ __html: link.label }}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
