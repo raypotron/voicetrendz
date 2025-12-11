@@ -23,7 +23,7 @@ class PostService
             $query->limit($limit);
         }
 
-        return $query->get();
+        return $query;
         // });
     }
 
