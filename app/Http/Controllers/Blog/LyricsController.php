@@ -15,7 +15,7 @@ class LyricsController extends Controller
 
     public function index()
     {
-        $lyrics = $this->lyricService->getLyrics();
+        $lyrics = $this->lyricService->getLyrics()->paginate(9);
 
         return Inertia::render('lyrics/index', compact('lyrics'));
     }
