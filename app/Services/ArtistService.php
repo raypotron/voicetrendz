@@ -12,8 +12,7 @@ class ArtistService
     {
         $artists = $this->artist->with('genres:id,name')
             ->latest()
-            ->when($limit, fn ($q) => $q->limit($limit))
-            ->get();
+            ->when($limit, fn ($q) => $q->limit($limit));
 
         return $artists;
     }
