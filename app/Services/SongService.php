@@ -39,8 +39,7 @@ class SongService
         return $this->song->where('status', 'published')
             // ->with(['tags:id,name', 'genres:id,name'])
             ->latest()
-            ->when($limit, fn ($q) => $q->limit($limit))
-            ->get();
+            ->when($limit, fn ($q) => $q->limit($limit));
     }
 
     public function getRelatedSongsByGenres(array|string $genres, int $songId, ?int $limit = null)
