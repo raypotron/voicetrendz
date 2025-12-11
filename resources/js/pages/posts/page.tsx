@@ -167,7 +167,7 @@ export default function PostPage({
                             className="flex items-center gap-2 font-medium text-primary transition-colors hover:text-accent"
                         >
                             <ChevronLeft className="h-5 w-5" />
-                            Back to articles
+                            Return
                         </button>
 
                         <button
