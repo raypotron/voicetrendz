@@ -16,7 +16,7 @@ class SongsController extends Controller
 
     public function index()
     {
-        $songs = $this->songService->getSongs();
+        $songs = $this->songService->getSongs()->paginate(9);
 
         return Inertia::render('songs/index', compact('songs'));
     }
