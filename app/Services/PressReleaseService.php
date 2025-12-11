@@ -19,7 +19,7 @@ class PressReleaseService
             $query->limit($limit);
         }
 
-        return $query->get();
+        return $query;
     }
 
     public function getRelatedPostsByCategoryAndTag(array|string $tags, string $category, int $postId, ?int $limit = null)
