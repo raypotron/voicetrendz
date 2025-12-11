@@ -15,7 +15,7 @@ class PressReleaseController extends Controller
 
 
     public function index(){
-        $pressReleases = $this->pressReleaseService->getPostsByCategory('press release');
+        $pressReleases = $this->pressReleaseService->getPostsByCategory('press release')->paginate(9);
 
         return Inertia::render('press-release/index', compact('pressReleases'));
     }
