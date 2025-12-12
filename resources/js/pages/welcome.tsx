@@ -628,7 +628,7 @@ export default function Home({
                                             )}
                                         >
                                             <div
-                                                className={`rounded-lg p-3 ${
+                                                className={`rounded-lg p-3 mt-2 ${
                                                     isDarkMode
                                                         ? 'bg-gray-700 hover:bg-gray-600'
                                                         : 'bg-gray-100 hover:bg-gray-200'
