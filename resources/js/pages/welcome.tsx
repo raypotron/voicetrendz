@@ -158,7 +158,7 @@ export default function Home({
                         {/* Hot Stories */}
                         <section>
                             <div className="mb-6 flex items-center justify-between">
-                                <h2 className="flex items-center gap-2 text-3xl font-bold">
+                                <h2 className="flex items-center gap-2 text-xl sm:text-2xl md:text-3xl font-bold">
                                     🔥 Hot Stories
                                 </h2>
                                 <Link
@@ -228,7 +228,7 @@ export default function Home({
 
                         {/* Latest News */}
                         <section>
-                            <h2 className="mb-6 text-3xl font-bold">
+                            <h2 className="mb-6 text-xl sm:text-2xl md:text-3xl font-bold">
                                 Latest News
                             </h2>
 
@@ -289,7 +289,7 @@ export default function Home({
                         {/* Artist Spotlight */}
                         <section>
                             <div className="mb-6 flex items-center justify-between">
-                                <h2 className="flex items-center gap-2 text-3xl font-bold">
+                                <h2 className="flex items-center gap-2 text-xl sm:text-2xl md:text-3xl font-bold">
                                     👤 Artist Spotlight
                                 </h2>
                                 <Link
@@ -343,7 +343,7 @@ export default function Home({
                         {/* Trending Songs */}
                         <section>
                             <div className="mb-6 flex items-center justify-between">
-                                <h2 className="flex items-center gap-2 text-3xl font-bold">
+                                <h2 className="flex items-center gap-2 text-xl sm:text-2xl md:text-3xl font-bold">
                                     🎵 Trending Songs
                                 </h2>
                                 <Link
@@ -417,7 +417,7 @@ export default function Home({
                         {/* Trending Songs */}
                         <section>
                             <div className="mb-6 flex items-center justify-between">
-                                <h2 className="flex items-center gap-2 text-3xl font-bold">
+                                <h2 className="flex items-center gap-2 text-xl sm:text-2xl md:text-3xl font-bold">
                                     🎥 New Music Videos
                                 </h2>
                                 <Link
@@ -473,7 +473,7 @@ export default function Home({
                         {/* New Release */}
                         <section>
                             <div className="mb-6 flex items-center justify-between">
-                                <h2 className="flex items-center gap-2 text-3xl font-bold">
+                                <h2 className="flex items-center gap-2 text-xl sm:text-2xl md:text-3xl font-bold">
                                     📈 New Release
                                 </h2>
                                 <Link
@@ -648,7 +648,7 @@ export default function Home({
 
                         {/* Press Release */}
                         <section>
-                            <h2 className="mb-6 text-3xl font-bold">
+                            <h2 className="mb-6 text-xl sm:text-2xl md:text-3xl font-bold">
                                 Press Release
                             </h2>
 
