@@ -1,0 +1,1 @@
+import{k as t}from"./app-BrVniS-4.js";const e=document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),n=t.create({headers:{"X-Requested-With":"XMLHttpRequest","X-CSRF-TOKEN":e??"",Accept:"application/json"}});export{n as i};
