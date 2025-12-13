@@ -11,12 +11,12 @@ class ContactMessageInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('name'),
-                TextEntry::make('email')
+                TextEntry::make('data.name'),
+                TextEntry::make('data.email')
                     ->label('Email address'),
-                TextEntry::make('subject'),
-                TextEntry::make('to'),
-                TextEntry::make('message'),
+                TextEntry::make('data.subject'),
+                TextEntry::make('data.to'),
+                TextEntry::make('data.message'),
                 TextEntry::make('created_at')
                     ->dateTime(),
                 TextEntry::make('updated_at')
