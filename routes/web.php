@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Blog\ArtistController;
 use App\Http\Controllers\Blog\ContactMessageController;
 use App\Http\Controllers\Blog\HotStoriesController;
@@ -20,6 +21,11 @@ use App\Http\Controllers\Editor\SongUploadController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])
+    ->name('socialite.redirect');
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])
+    ->name('socialite.callback');
 
 Route::get('/home', WelcomeController::class)->name('home');
 Route::get('/', fn () => Inertia::render('SplashScreen'))->name('loading.screen');
