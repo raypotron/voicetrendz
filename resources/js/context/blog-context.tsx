@@ -1,4 +1,4 @@
-import { useAppearance } from '@/hooks/use-appearance';
+import { useTheme } from '@/hooks/use-appearance';
 import { createContext, useState, type ReactNode } from 'react';
 
 interface BlogContextType {
@@ -30,7 +30,7 @@ interface BlogProviderProps {
 }
 
 export const BlogProvider = ({ children }: BlogProviderProps) => {
-    const { appearance, updateAppearance } = useAppearance();
+    const { theme, updateTheme } = useTheme();
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [musicOpen, setMusicOpen] = useState(false);
@@ -40,12 +40,12 @@ export const BlogProvider = ({ children }: BlogProviderProps) => {
 
     // Sync HTML tag and localStorage on theme change
     const isDarkMode =
-        appearance === 'dark' ||
-        (appearance === 'system' &&
+        theme === 'dark' ||
+        (theme === 'system' &&
             window.matchMedia('(prefers-color-scheme: dark)').matches);
 
     const toggleTheme = () => {
-        updateAppearance(isDarkMode ? 'light' : 'dark');
+        updateTheme(theme === 'dark' ? 'light' : 'dark');
     };
 
     const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);

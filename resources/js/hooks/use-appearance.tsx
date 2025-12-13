@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export type Appearance = 'light' | 'dark' | 'system';
+export type Theme = 'light' | 'dark' | 'system';
 
 const prefersDark = () => {
     if (typeof window === 'undefined') {
@@ -19,9 +19,9 @@ const setCookie = (name: string, value: string, days = 365) => {
     document.cookie = `${name}=${value};path=/;max-age=${maxAge};SameSite=Lax`;
 };
 
-const applyTheme = (appearance: Appearance) => {
+const applyTheme = (theme: Theme) => {
     const isDark =
-        appearance === 'dark' || (appearance === 'system' && prefersDark());
+        theme === 'dark' || (theme === 'system' && prefersDark());
 
     document.documentElement.classList.toggle('dark', isDark);
     document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
@@ -36,47 +36,47 @@ const mediaQuery = () => {
 };
 
 const handleSystemThemeChange = () => {
-    const currentAppearance = localStorage.getItem('appearance') as Appearance;
-    applyTheme(currentAppearance || 'system');
+    const currentTheme = localStorage.getItem('theme') as Theme;
+    applyTheme(currentTheme || 'system');
 };
 
 export function initializeTheme() {
-    const savedAppearance =
-        (localStorage.getItem('appearance') as Appearance) || 'system';
+    const savedTheme =
+        (localStorage.getItem('theme') as Theme) || 'system';
 
-    applyTheme(savedAppearance);
+    applyTheme(savedTheme);
 
     // Add the event listener for system theme changes...
     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
 }
 
-export function useAppearance() {
-    const [appearance, setAppearance] = useState<Appearance>('system');
+export function useTheme() {
+    const [theme, setTheme] = useState<Theme>('system');
 
-    const updateAppearance = useCallback((mode: Appearance) => {
-        setAppearance(mode);
+    const updateTheme = useCallback((mode: Theme) => {
+        setTheme(mode);
 
         // Store in localStorage for client-side persistence...
-        localStorage.setItem('appearance', mode);
+        localStorage.setItem('theme', mode);
 
         // Store in cookie for SSR...
-        setCookie('appearance', mode);
+        setCookie('theme', mode);
 
         applyTheme(mode);
     }, []);
 
     useEffect(() => {
-        const savedAppearance = localStorage.getItem(
-            'appearance',
-        ) as Appearance | null;
-        updateAppearance(savedAppearance || 'system');
+        const savedTheme = localStorage.getItem(
+            'theme',
+        ) as Theme | null;
+        updateTheme(savedTheme || 'system');
 
         return () =>
             mediaQuery()?.removeEventListener(
                 'change',
                 handleSystemThemeChange,
             );
-    }, [updateAppearance]);
+    }, [updateTheme]);
 
-    return { appearance, updateAppearance } as const;
+    return { theme, updateTheme } as const;
 }
