@@ -39,7 +39,6 @@ class SocialiteController extends Controller
             ]);
         }
 
-        // Capture the return URL from query
         $returnUrl = session()->get('returnUrl');
         $likePostId = session()->get('likePostId');
 
