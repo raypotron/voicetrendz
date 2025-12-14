@@ -31,7 +31,9 @@ class UserPanelProvider extends PanelProvider
             ->path('user')
             ->login(Login::class)
             ->registration()
+            ->emailVerification()
             ->renderHook('panels::auth.login.form.after', fn() => view('auth.socialite.google'))
+            ->renderHook('panels::auth.register.form.after', fn() => view('auth.socialite.google'))
             ->brandLogo(fn () => view('filament.components.brand'))
             ->passwordReset()
             ->colors([
