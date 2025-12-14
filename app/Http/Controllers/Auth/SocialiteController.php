@@ -39,7 +39,16 @@ class SocialiteController extends Controller
             ]);
         }
 
+        // Capture the return URL from query
+        $returnUrl = session()->get('returnUrl');
+        $likePostId = session()->get('likePostId');
+
         Auth::login($user);
+
+        if ($returnUrl) {
+            $returnUrl = $returnUrl.'?likePostId='.(int) $likePostId;
+            return redirect()->intended($returnUrl);
+        }
 
         return redirect()->intended('user');
 
