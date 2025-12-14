@@ -12,6 +12,5 @@
             <path fill="#34A853" d="M24 48c6.48 0 11.92-2.13 15.9-5.81l-7.54-5.86c-2.1 1.41-4.78 2.24-8.36 2.24-6.23 0-11.54-3.86-13.46-9.09l-7.98 6.68C6.51 42.62 14.62 48 24 48z"/>
         </svg>
     </x-slot>
-
-    Sign in with Google
+    {{ Route::is('filament.user.auth.register') ? 'Sign up with Google' : 'Sign in with Google' }}
 </x-filament::button>
