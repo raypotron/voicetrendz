@@ -36,6 +36,7 @@ class SocialiteController extends Controller
                 'name' => $response->getName() ?? $response->getNickname(),
                 'email' => $response->getEmail(),
                 'password' => bcrypt(str()->random(32)),
+                'email_verified_at' => now(),
             ]);
         }
 
